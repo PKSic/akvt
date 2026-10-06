@@ -79,6 +79,29 @@
   color: #09090b;
 }
 
+[data-theme="dark"] .hub-action-link.primary-action {
+  background: var(--text-main);
+  color: var(--bg);
+  border-color: var(--text-main);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .hub-action-link.primary-action:hover {
+  background: #e4e4e7;
+  color: #09090b;
+}
+
+[data-theme="dark"] .hub-action-link:not(.primary-action) {
+  background: #18181b;
+  color: var(--text-main);
+  border-color: #27272a;
+}
+
+[data-theme="dark"] .hub-action-link:not(.primary-action):hover {
+  background: #27272a;
+  color: #ffffff;
+}
+
 [data-theme="dark"] .form-input,
 [data-theme="dark"] .form-select,
 [data-theme="dark"] .form-textarea,
