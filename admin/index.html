@@ -14,7 +14,7 @@
   <header id="wpadminbar">
     <div class="wpbar-left">
       <a href="../" title="АКВТ — Официальный сайт" class="wpbar-brand">
-        🏛️ АКВТ <span style="font-weight:400; color:var(--text-muted); font-size:12px; margin-left:4px;">/ Admin Hub</span>
+        <span class="skeu-tile-sm"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2l10 8H2l10-8z"/></svg></span> АКВТ <span style="font-weight:400; color:var(--text-muted); font-size:12px; margin-left:4px;">/ Admin Hub</span>
       </a>
       <span class="wpbar-badge">● Онлайн</span>
       <a href="../" target="_blank">
@@ -22,11 +22,28 @@
       </a>
     </div>
     <div class="wpbar-right">
+      <!-- Тема оформления (Светлая / Тёмная / Как в браузере) -->
+      <div class="theme-switch-wrap" id="themeSwitchWrap" title="Тема оформления админ-панели">
+        <button class="theme-btn" data-theme-val="light" onclick="setAdminTheme('light')" title="Светлая тема">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <span>Светлая</span>
+        </button>
+        <button class="theme-btn" data-theme-val="dark" onclick="setAdminTheme('dark')" title="Тёмная тема">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <span>Тёмная</span>
+        </button>
+        <button class="theme-btn active" data-theme-val="auto" onclick="setAdminTheme('auto')" title="Авто: как в браузере">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          <span>Как в браузере</span>
+        </button>
+      </div>
+
       <button class="btn btn-secondary" onclick="openDevicePreview('375px')">
-        📱 Мобильный вид
+        <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        Мобильный вид
       </button>
       <button class="btn btn-primary" onclick="saveAllSettings()">
-        💾 Сохранить изменения
+        <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить изменения
       </button>
       <div class="wpbar-user">
         <div class="wpbar-avatar">A</div>
@@ -42,7 +59,7 @@
       <ul class="sidebar-nav">
         <li>
           <a class="sidebar-nav-item active" data-view="view-hub">
-            <span class="icon">⚡</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></span>
             <span>Панель АКВТ</span>
           </a>
         </li>
@@ -52,64 +69,64 @@
       <ul class="sidebar-nav">
         <li>
           <a class="sidebar-nav-item" data-view="view-home-builder">
-            <span class="icon">🏛️</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2l10 8H2l10-8z"/></svg></span>
             <span>Конструктор Главной</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-specialties">
-            <span class="icon">🎓</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
             <span>Специальности СПО</span>
             <span class="sidebar-count">15</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-staff">
-            <span class="icon">👥</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
             <span>Сотрудники и кадры</span>
             <span class="sidebar-count">42</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-documents">
-            <span class="icon">📑</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
             <span>Документы и ГОСТ ЭЦП</span>
             <span class="sidebar-count">14 разд.</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-schedule">
-            <span class="icon">📅</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
             <span>Расписание и звонки</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-admissions">
-            <span class="icon">🎯</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
             <span>Приёмная кампания 2026</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-students">
-            <span class="icon">🎒</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10z"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><line x1="9" y1="14" x2="15" y2="14"/></svg></span>
             <span>Студентам и родителям</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-itcube">
-            <span class="icon">🤖</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="2"/><circle cx="9" cy="13" r="1.5" fill="currentColor"/><circle cx="15" cy="13" r="1.5" fill="currentColor"/><line x1="12" y1="4" x2="12" y2="8"/></svg></span>
             <span>Центр «IT-куб»</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-locations">
-            <span class="icon">📍</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
             <span>Корпуса и адреса</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-menus">
-            <span class="icon">🧭</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></span>
             <span>Меню и навигация</span>
           </a>
         </li>
@@ -119,25 +136,25 @@
       <ul class="sidebar-nav">
         <li>
           <a class="sidebar-nav-item" data-view="view-settings">
-            <span class="icon">⚙️</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
             <span>Настройки сайта</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-seo">
-            <span class="icon">🔍</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
             <span>SEO и аналитика</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-security">
-            <span class="icon">🛡️</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
             <span>Безопасность и аудит</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-backup">
-            <span class="icon">💾</span>
+            <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span>
             <span>Резервные копии</span>
           </a>
         </li>
@@ -157,7 +174,7 @@
           </div>
           <div class="hub-hero-actions">
             <button class="btn btn-secondary" onclick="openDevicePreview('375px')">
-              📱 Проверить вёрстку
+              <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Проверить вёрстку
             </button>
             <a href="../" target="_blank" class="btn btn-primary">
               Открыть сайт ↗
@@ -193,7 +210,7 @@
         <div class="cards-grid">
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">🏛️</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2l10 8H2l10-8z"/></svg></span>
               <h2 class="hub-card-title">Главная страница</h2>
             </div>
             <p class="hub-card-desc">Конструктор первого экрана (Hero), баннер года, счётчики достижений, 6 карточек Bento-сетки и партнёры.</p>
@@ -204,7 +221,7 @@
 
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">🎓</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
               <h2 class="hub-card-title">Специальности СПО</h2>
             </div>
             <p class="hub-card-desc">Все 10 программ, квалификации, базы 9/11 классов, бюджетные места, стоимость, планы РУП PDF и карьера.</p>
@@ -216,7 +233,7 @@
 
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">👥</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
               <h2 class="hub-card-title">Сотрудники и преподаватели</h2>
             </div>
             <p class="hub-card-desc">Руководство, зав. отделениями, педагогический состав, стаж, образование, приёмные часы и контакты.</p>
@@ -228,7 +245,7 @@
 
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">📑</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
               <h2 class="hub-card-title">Документы и ГОСТ ЭЦП</h2>
             </div>
             <p class="hub-card-desc">Все 14 подразделов по ст. 29 Закона об образовании: Устав, Лицензия, ПФХД, локальные акты и файлы .sig.</p>
@@ -240,7 +257,7 @@
 
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">📅</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
               <h2 class="hub-card-title">Расписание и звонки</h2>
             </div>
             <p class="hub-card-desc">Загрузка Excel/JSON файлов, расписание сессий, звонки 1 и 2 смен, кружки и оперативные замены.</p>
@@ -252,7 +269,7 @@
 
           <div class="hub-card">
             <div class="hub-card-header">
-              <span class="hub-card-icon">🎯</span>
+              <span class="skeu-tile-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
               <h2 class="hub-card-title">Приёмная кампания 2026</h2>
             </div>
             <p class="hub-card-desc">Контрольные цифры приёма, сроки подачи заявлений, рейтинговые списки, общежитие и договоры.</p>
@@ -271,7 +288,7 @@
             <p class="view-desc">Полная настройка всех блоков главной страницы без редактирования HTML/CSS кода</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить изменения</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить изменения</button>
           </div>
         </div>
 
@@ -577,7 +594,7 @@
           </div>
           <div class="view-actions">
             <button class="btn btn-primary" onclick="openAddSpecialtyModal()">+ Добавить специальность</button>
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -781,7 +798,7 @@
           </div>
           <div class="view-actions">
             <button class="btn btn-primary" onclick="openAddStaffModal()">+ Добавить сотрудника</button>
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -939,7 +956,7 @@
           </div>
           <div class="view-actions">
             <button class="btn btn-primary" onclick="openAddDocModal()">+ Добавить документ с ЭЦП</button>
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1176,20 +1193,20 @@
             <p class="view-desc">Управление учебным процессом, загрузка файлов учебной части и оперативные замены</p>
           </div>
           <div class="view-actions">
-            <a href="../students/raspisanie-zanyatij/" target="_blank" class="btn btn-secondary">👁️ Виджет на сайте ↗</a>
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <a href="../students/raspisanie-zanyatij/" target="_blank" class="btn btn-secondary"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Виджет на сайте ↗</a>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
         <div class="panel-card" style="text-align:center; padding:36px;">
-          <div style="font-size:44px; margin-bottom:12px;">📊</div>
+          <div class="skeu-tile-lg" style="margin: 0 auto 14px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
           <h2 style="font-size:18px; margin-bottom:8px;">Загрузка файла расписания на неделю</h2>
           <p style="color:var(--text-muted); font-size:14px; max-width:540px; margin:0 auto 20px;">
             Загрузите файл Excel (.xlsx, .xls) или JSON, полученный из учебной части. Система автоматически обновит сетку пар для всех групп через REST API <code>/wp-json/akvt/v1/schedule</code>.
           </p>
           <input type="file" id="scheduleUploader" accept=".xlsx,.xls,.json" style="display:none;" onchange="handleFileSchedule(this)">
           <button class="btn btn-primary" onclick="document.getElementById('scheduleUploader').click()">
-            📁 Выбрать файл расписания
+            <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Выбрать файл расписания
           </button>
           <div id="scheduleUploadStatus" style="margin-top:12px; font-size:13.5px; color:var(--success); font-weight:600; display:none;">
             ✓ Файл успешно загружен и применён к сайту!
@@ -1257,7 +1274,7 @@
             <p class="view-desc">Управление контрольными цифрами, сроками приёма, списками поступающих и приказами</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1313,7 +1330,7 @@
             <p class="view-desc">Учебные графики, стипендии, психологическая служба, общежитие и воинский учёт</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1362,7 +1379,7 @@
             <p class="view-desc">Направления обучения детей от 7 до 17 лет, расписание и приём заявок</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1423,9 +1440,9 @@
             <p class="view-desc">Управление гео-метками на Яндекс.Карте, адресами, маршрутами транспорта и телефонами</p>
           </div>
           <div class="view-actions">
-            <a href="../shema-proezda/" target="_blank" class="btn btn-secondary">🗺️ Карта на сайте ↗</a>
+            <a href="../shema-proezda/" target="_blank" class="btn btn-secondary"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg> Карта на сайте ↗</a>
             <button class="btn btn-primary" onclick="openAddLocationModal()">+ Добавить корпус</button>
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1483,7 +1500,7 @@
             <p class="view-desc">Управление пунктами главного меню, выпадающими Mega-меню и ссылками подвала</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить меню</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить меню</button>
           </div>
         </div>
 
@@ -1539,7 +1556,7 @@
             <p class="view-desc">Управление контактными реквизитами, шапкой, бегущей строкой, подвалом и соцсетями</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить изменения</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить изменения</button>
           </div>
         </div>
 
@@ -1771,7 +1788,7 @@
             <p class="view-desc">Метатеги, шеринг в соцсетях (Open Graph), счётчики посещаемости и robots.txt</p>
           </div>
           <div class="view-actions">
-            <button class="btn btn-success" onclick="saveAllSettings()">💾 Сохранить</button>
+            <button class="btn btn-success" onclick="saveAllSettings()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg> Сохранить</button>
           </div>
         </div>
 
@@ -1889,20 +1906,20 @@
         </div>
 
         <div class="panel-card" style="padding:32px; text-align:center;">
-          <div style="font-size:44px; margin-bottom:12px;">📦</div>
+          <div class="skeu-tile-lg" style="margin: 0 auto 14px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
           <h2 style="font-size:18px; margin-bottom:8px;">Скачать готовые дистрибутивы WordPress</h2>
           <p style="color:var(--text-muted); font-size:14px; max-width:540px; margin:0 auto 24px;">
             Все компоненты упакованы в ZIP-архивы, протестированы и готовы к загрузке в админку боевого сервера колледжа:
           </p>
           <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
             <a href="../../akvt-theme.zip" download class="btn btn-primary">
-              📥 Скачать тему (akvt-theme.zip)
+              <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Скачать тему (akvt-theme.zip)
             </a>
             <a href="../../akvt-core.zip" download class="btn btn-secondary">
-              📥 Скачать плагин (akvt-core.zip)
+              <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Скачать плагин (akvt-core.zip)
             </a>
             <a href="../../akvt-wordpress-full-release.zip" download class="btn btn-success">
-              📦 Скачать полный релиз (0.81 MB)
+              <svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Скачать полный релиз (0.81 MB)
             </a>
           </div>
         </div>
@@ -1910,9 +1927,9 @@
         <div class="panel-card">
           <div class="panel-card-title"><span>Экспорт и импорт настроек (JSON)</span></div>
           <div style="display:flex; gap:12px; align-items:center;">
-            <button class="btn btn-secondary" onclick="exportSettingsJson()">📤 Экспорт всех настроек в JSON</button>
+            <button class="btn btn-secondary" onclick="exportSettingsJson()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg> Экспорт всех настроек в JSON</button>
             <input type="file" id="importJsonInput" accept=".json" style="display:none;" onchange="importSettingsJson(this)">
-            <button class="btn btn-secondary" onclick="document.getElementById('importJsonInput').click()">📥 Импорт настроек из JSON</button>
+            <button class="btn btn-secondary" onclick="document.getElementById('importJsonInput').click()"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Импорт настроек из JSON</button>
           </div>
         </div>
       </section>
@@ -1925,15 +1942,15 @@
     <div class="preview-window">
       <div class="preview-header">
         <div class="device-switcher">
-          <button class="dev-btn active" onclick="setDevice('320px', this)">📱 320px (iPhone SE)</button>
-          <button class="dev-btn" onclick="setDevice('375px', this)">📱 375px (iPhone 13)</button>
-          <button class="dev-btn" onclick="setDevice('768px', this)">📱 768px (iPad)</button>
-          <button class="dev-btn" onclick="setDevice('100%', this)">💻 100% (Десктоп)</button>
+          <button class="dev-btn active" onclick="setDevice('320px', this)"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> 320px (iPhone SE)</button>
+          <button class="dev-btn" onclick="setDevice('375px', this)"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> 375px (iPhone 13)</button>
+          <button class="dev-btn" onclick="setDevice('768px', this)"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> 768px (iPad)</button>
+          <button class="dev-btn" onclick="setDevice('100%', this)"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg> 100% (Десктоп)</button>
         </div>
         <div style="display:flex; align-items:center; gap:16px; color:#94a3b8; font-size:13px;">
           <span>Сайт: <strong>АКВТ (292 стр.)</strong></span>
           <span style="color:#10b981;">✓ 0px overflow</span>
-          <button class="dev-btn" onclick="reloadPreview()" title="Перезагрузить фрейм">🔄</button>
+          <button class="dev-btn" onclick="reloadPreview()" title="Перезагрузить фрейм"><svg class="skeu-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg></button>
           <button class="preview-close" onclick="closePreview()">✕</button>
         </div>
       </div>
@@ -1947,7 +1964,7 @@
   <div class="generic-modal" id="modalSpecialty">
     <div class="generic-modal-card">
       <div class="generic-modal-header">
-        <h3 style="font-size:18px;">🎓 Добавить новую специальность СПО</h3>
+        <h3 style="font-size:18px;"><span class="skeu-tile-sm" style="margin-right:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span> Добавить новую специальность СПО</h3>
         <button class="preview-close" onclick="closeModals()" style="color:#000;">✕</button>
       </div>
       <div class="form-grid-2">
@@ -2003,7 +2020,7 @@
   <div class="generic-modal" id="modalStaff">
     <div class="generic-modal-card">
       <div class="generic-modal-header">
-        <h3 style="font-size:18px;">👥 Добавить сотрудника / преподавателя</h3>
+        <h3 style="font-size:18px;"><span class="skeu-tile-sm" style="margin-right:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Добавить сотрудника / преподавателя</h3>
         <button class="preview-close" onclick="closeModals()" style="color:#000;">✕</button>
       </div>
       <div class="form-group">
@@ -2050,7 +2067,7 @@
   <div class="generic-modal" id="modalDoc">
     <div class="generic-modal-card">
       <div class="generic-modal-header">
-        <h3 style="font-size:18px;">📑 Загрузить нормативный акт с ГОСТ ЭЦП</h3>
+        <h3 style="font-size:18px;"><span class="skeu-tile-sm" style="margin-right:6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span> Загрузить нормативный акт с ГОСТ ЭЦП</h3>
         <button class="preview-close" onclick="closeModals()" style="color:#000;">✕</button>
       </div>
       <div class="form-group">
@@ -2100,7 +2117,7 @@
 
   <!-- Toast Notification -->
   <div class="toast" id="adminToast">
-    <span style="font-size:20px;">✅</span>
+    <span class="skeu-tile-sm" style="background:#10b981; border-color:#059669; color:#fff;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
     <span id="toastMsg">Все настройки успешно сохранены в реестр!</span>
   </div>
 
@@ -2149,6 +2166,58 @@
       toast.classList.add('show');
       setTimeout(function() { toast.classList.remove('show'); }, 3200);
     }
+
+    
+    // Theme Switcher Engine (Light / Dark / Auto - Browser-synced)
+    function initThemeEngine() {
+      var savedTheme = localStorage.getItem('akvt_admin_theme') || 'auto';
+      applyAdminTheme(savedTheme);
+      
+      // Listen to OS / Browser color-scheme changes if 'auto'
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        var current = localStorage.getItem('akvt_admin_theme') || 'auto';
+        if (current === 'auto') {
+          applySystemTheme(e.matches);
+        }
+      });
+    }
+
+    function setAdminTheme(mode) {
+      localStorage.setItem('akvt_admin_theme', mode);
+      applyAdminTheme(mode);
+      var msg = mode === 'dark' ? 'Включена тёмная тема' : (mode === 'light' ? 'Включена светлая тема' : 'Тема синхронизирована с настройками браузера');
+      showToast(msg);
+    }
+
+    function applyAdminTheme(mode) {
+      document.querySelectorAll('.theme-btn').forEach(function(btn) {
+        if (btn.getAttribute('data-theme-val') === mode) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      if (mode === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else if (mode === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        // Auto: follow browser / OS prefers-color-scheme
+        var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applySystemTheme(isDark);
+      }
+    }
+
+    function applySystemTheme(isDark) {
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    }
+
+    initThemeEngine();
 
     // Global Save
     function saveAllSettings() {
