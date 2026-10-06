@@ -1,5 +1,6 @@
 # Archives and backups
 *.zip
+!admin/*.zip
 *.tar.gz
 *.rar
 *.7z

@@ -458,4 +458,93 @@
     }
   });
 
+  /* ------------------------------------------------- Live Admin Settings Synchronization */
+  function syncWithAdminHub() {
+    try {
+      var saved = localStorage.getItem('akvt_all_settings');
+      if (!saved) return;
+      var d = JSON.parse(saved);
+
+      // Hero banner
+      if (d.hb_eyebrow) {
+        var el = document.querySelector('.hero .eyebrow');
+        if (el) el.textContent = d.hb_eyebrow;
+      }
+      if (d.hb_title) {
+        var el = document.querySelector('.hero .hero-title');
+        if (el) el.innerHTML = d.hb_title;
+      }
+      if (d.hb_sub) {
+        var el = document.querySelector('.hero .hero-sub');
+        if (el) el.textContent = d.hb_sub;
+      }
+      if (d.hb_btn1_text) {
+        var el = document.querySelector('.hero .hero-actions .btn-primary');
+        if (el) {
+          el.innerHTML = d.hb_btn1_text + ' <span class="arr">→</span>';
+          if (d.hb_btn1_link) el.href = d.hb_btn1_link;
+        }
+      }
+      if (d.hb_btn2_text) {
+        var el = document.querySelector('.hero .hero-actions .btn-ghost');
+        if (el) {
+          el.textContent = d.hb_btn2_text;
+          if (d.hb_btn2_link) el.href = d.hb_btn2_link;
+        }
+      }
+
+      // Stats counters
+      if (d.hb_stat1_num) {
+        var statEls = document.querySelectorAll('.stats-band .stat-num [data-count]');
+        if (statEls[0]) { statEls[0].textContent = d.hb_stat1_num; statEls[0].setAttribute('data-count', d.hb_stat1_num); }
+      }
+      if (d.hb_stat2_num) {
+        var statEls = document.querySelectorAll('.stats-band .stat-num [data-count]');
+        if (statEls[1]) { statEls[1].textContent = d.hb_stat2_num; statEls[1].setAttribute('data-count', d.hb_stat2_num); }
+      }
+      if (d.hb_stat3_num) {
+        var statEls = document.querySelectorAll('.stats-band .stat-num [data-count]');
+        if (statEls[2]) { statEls[2].textContent = d.hb_stat3_num; statEls[2].setAttribute('data-count', d.hb_stat3_num); }
+      }
+      if (d.hb_stat4_num) {
+        var statEls = document.querySelectorAll('.stats-band .stat-num [data-count]');
+        if (statEls[3]) { statEls[3].textContent = d.hb_stat4_num; statEls[3].setAttribute('data-count', d.hb_stat4_num); }
+      }
+
+      // Year banner
+      if (d.hb_banner_year) {
+        var bannerImg = document.querySelector('.year-banner img');
+        if (bannerImg) bannerImg.alt = d.hb_banner_year;
+      }
+
+      // Footer
+      if (d.set_footer_phone || d.set_footer_email || d.set_footer_address) {
+        var addrEl = document.querySelector('.footer-addr');
+        if (addrEl) {
+          var addr = d.set_footer_address || 'г. Астрахань, пер. Смоляной, д. 2';
+          var phone = d.set_footer_phone || '66-75-03, 99-99-54';
+          var email = d.set_footer_email || 'office@akvt.astrobl.ru';
+          addrEl.innerHTML = addr + ' · Приёмная: <a href="tel:' + phone.replace(/[^\d+]/g,'') + '">' + phone + '</a> · <a href="mailto:' + email + '">' + email + '</a>';
+        }
+      }
+      if (d.set_footer_copy) {
+        var copyEl = document.querySelector('.footer-copy');
+        if (copyEl) copyEl.innerHTML = d.set_footer_copy;
+      }
+
+    } catch (e) {
+      console.warn('Sync with admin hub skipped:', e);
+    }
+  }
+
+  // Trigger sync on DOM ready and storage changes
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncWithAdminHub);
+  } else {
+    syncWithAdminHub();
+  }
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'akvt_all_settings') syncWithAdminHub();
+  });
+
 })();
