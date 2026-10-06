@@ -418,6 +418,154 @@
             </div>
           </div>
         </div>
+        <!-- Slider & Promo Banners Manager -->
+        <div class="panel-card">
+          <div class="panel-card-title">
+            <span>5. Главный промо-слайдер (Hero Slider & Banners)</span>
+            <button class="btn btn-secondary" onclick="alert('Новый слайд добавлен!')" style="font-size:12px; padding:4px 10px;">+ Добавить слайд</button>
+          </div>
+          <p class="form-help" style="margin-bottom:16px;">Управление слайдами, баннерами акций, текстами кнопок и фоновыми изображениями на первом экране сайта.</p>
+          
+          <div class="form-grid-2" style="margin-bottom:16px;">
+            <div class="form-group">
+              <label class="form-label">Автопрокрутка слайдов (интервал)</label>
+              <select id="hb_slider_speed" class="form-select">
+                <option value="5000">5 секунд (рекомендуется)</option>
+                <option value="7000" selected>7 секунд</option>
+                <option value="10000">10 секунд</option>
+                <option value="0">Отключить автопрокрутку</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Индикаторы и стрелки слайдера</label>
+              <div style="display:flex; gap:16px; margin-top:8px;">
+                <label><input type="checkbox" id="hb_slider_dots" checked> Точки-индикаторы</label>
+                <label><input type="checkbox" id="hb_slider_arrows" checked> Боковые стрелки</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 1 -->
+          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="badge badge-primary">Слайд 1 (Главный)</span>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide1_on" checked> Активен</label>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Заголовок слайда</label>
+                <input type="text" id="hb_slide1_title" class="form-input" value="Приёмная кампания 2026: Территория твоего успеха">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Подзаголовок / Описание</label>
+                <input type="text" id="hb_slide1_sub" class="form-input" value="15 передовых IT-специальностей, бюджетные места, современные лаборатории">
+              </div>
+            </div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Изображение (URL)</label>
+                <input type="text" id="hb_slide1_img" class="form-input" value="wp-content/uploads/2026/03/genr_2026_v4.webp">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Текст кнопки действия</label>
+                <input type="text" id="hb_slide1_btn" class="form-input" value="Подать заявление онлайн →">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ссылка кнопки</label>
+                <input type="text" id="hb_slide1_link" class="form-input" value="/zayavlenie/">
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="badge badge-success">Слайд 2 (Достижения)</span>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide2_on" checked> Активен</label>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Заголовок слайда</label>
+                <input type="text" id="hb_slide2_title" class="form-input" value="Чемпионат «Профессионалы»">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Подзаголовок / Описание</label>
+                <input type="text" id="hb_slide2_sub" class="form-input" value="Студенты АКВТ — победители и призёры регионального и федерального этапов">
+              </div>
+            </div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Изображение (URL)</label>
+                <input type="text" id="hb_slide2_img" class="form-input" value="wp-content/uploads/2023/09/u_nas_est_zavtra-800x600-1.webp">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Текст кнопки действия</label>
+                <input type="text" id="hb_slide2_btn" class="form-input" value="Узнать о победах →">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ссылка кнопки</label>
+                <input type="text" id="hb_slide2_link" class="form-input" value="/category/novosti/">
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="badge badge-warning">Слайд 3 (IT-куб)</span>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide3_on" checked> Активен</label>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label">Заголовок слайда</label>
+                <input type="text" id="hb_slide3_title" class="form-input" value="Центр цифрового образования «IT-куб»">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Подзаголовок / Описание</label>
+                <input type="text" id="hb_slide3_sub" class="form-input" value="Бесплатное обучение программированию, робототехнике и кибергигиене для школьников 7-17 лет">
+              </div>
+            </div>
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label">Изображение (URL)</label>
+                <input type="text" id="hb_slide3_img" class="form-input" value="wp-content/uploads/2023/06/kub.webp">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Текст кнопки действия</label>
+                <input type="text" id="hb_slide3_btn" class="form-input" value="Записаться в IT-куб →">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ссылка кнопки</label>
+                <input type="text" id="hb_slide3_link" class="form-input" value="/osnovnye-svedeniya-2-2/czentr-czifrovogo-obrazovaniya-detej-it-kub/">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partners and Employers -->
+        <div class="panel-card">
+          <div class="panel-card-title">
+            <span>6. Партнёры и стратегические работодатели</span>
+          </div>
+          <p class="form-help" style="margin-bottom:14px;">Компании, предоставляющие места производственной практики и трудоустройство выпускникам АКВТ.</p>
+          <div class="form-grid-3">
+            <div class="bento-card-editor">
+              <label class="form-label">Партнёр 1</label>
+              <input type="text" id="hb_partner1_name" class="form-input" value="ПАО «Ростелеком»" style="margin-bottom:6px;">
+              <input type="text" id="hb_partner1_url" class="form-input" value="https://rt.ru" placeholder="Ссылка на сайт">
+            </div>
+            <div class="bento-card-editor">
+              <label class="form-label">Партнёр 2</label>
+              <input type="text" id="hb_partner2_name" class="form-input" value="ПАО «Сбербанк»" style="margin-bottom:6px;">
+              <input type="text" id="hb_partner2_url" class="form-input" value="https://sberbank.ru" placeholder="Ссылка на сайт">
+            </div>
+            <div class="bento-card-editor">
+              <label class="form-label">Партнёр 3</label>
+              <input type="text" id="hb_partner3_name" class="form-input" value="ООО «ЛУКОЙЛ-Нижневолжскнефть»" style="margin-bottom:6px;">
+              <input type="text" id="hb_partner3_url" class="form-input" value="https://nvn.lukoil.ru" placeholder="Ссылка на сайт">
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ======================================================== 3. VIEW: SPECIALTIES -->
@@ -1483,9 +1631,132 @@
 
             <!-- Tab: Footer -->
             <div id="tab-set-footer" class="inner-tab-content" style="display:none;">
-              <div class="form-group">
-                <label class="form-label">Текст копирайта в подвале</label>
-                <input type="text" id="set_footer_copyright" class="form-input" value="© 2014–2026 ГБПОУ АО «Астраханский колледж вычислительной техники». При использовании материалов ссылка обязательна.">
+              <div class="panel-card" style="margin-bottom:16px;">
+                <div class="panel-card-title"><span>1. Контакты и реквизиты в подвале сайта</span></div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Название организации в футере</label>
+                    <input type="text" id="set_footer_org_name" class="form-input" value="ГБПОУ АО «АКВТ»">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Адрес колледжа</label>
+                    <input type="text" id="set_footer_address" class="form-input" value="г. Астрахань, пер. Смоляной, д. 2">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Телефон 1 (Приёмная комиссия)</label>
+                    <input type="text" id="set_footer_phone1" class="form-input" value="66-75-03">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Телефон 2 (Канцелярия / Справочная)</label>
+                    <input type="text" id="set_footer_phone2" class="form-input" value="99-99-54">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Официальный E-mail</label>
+                    <input type="email" id="set_footer_email" class="form-input" value="office@akvt.astrobl.ru">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Режим работы колледжа</label>
+                    <input type="text" id="set_footer_hours" class="form-input" value="Пн–Пт: 8:30 – 17:00, Сб: 8:30 – 14:00">
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-card" style="margin-bottom:16px;">
+                <div class="panel-card-title"><span>2. Быстрые навигационные ссылки подвала</span></div>
+                <div class="form-grid-2">
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 1: Схема проезда</strong>
+                      <label><input type="checkbox" id="set_footer_link1_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link1_text" class="form-input" value="Схема проезда" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link1_url" class="form-input" value="shema-proezda/index.html">
+                  </div>
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 2: Карта сайта</strong>
+                      <label><input type="checkbox" id="set_footer_link2_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link2_text" class="form-input" value="Карта сайта" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link2_url" class="form-input" value="karta-sajta/index.html">
+                  </div>
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 3: Обращения граждан</strong>
+                      <label><input type="checkbox" id="set_footer_link3_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link3_text" class="form-input" value="Обращения граждан" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link3_url" class="form-input" value="obrashheniya-grazhdan/index.html">
+                  </div>
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 4: Сведения об образовательной организации</strong>
+                      <label><input type="checkbox" id="set_footer_link4_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link4_text" class="form-input" value="Сведения об ОО" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link4_url" class="form-input" value="osnovnye-svedeniya-2-2/index.html">
+                  </div>
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 5: Противодействие коррупции</strong>
+                      <label><input type="checkbox" id="set_footer_link5_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link5_text" class="form-input" value="Антикоррупция" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link5_url" class="form-input" value="osnovnye-svedeniya-2-2/dokumenty/index.html">
+                  </div>
+                  <div class="bento-card-editor">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                      <strong>Ссылка 6: Политика конфиденциальности</strong>
+                      <label><input type="checkbox" id="set_footer_link6_on" checked> Вкл</label>
+                    </div>
+                    <input type="text" id="set_footer_link6_text" class="form-input" value="Политика обработки ПД" style="margin-bottom:6px;">
+                    <input type="text" id="set_footer_link6_url" class="form-input" value="osnovnye-svedeniya-2-2/dokumenty/index.html">
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-card" style="margin-bottom:16px;">
+                <div class="panel-card-title"><span>3. Иконки и соцсети в подвале</span></div>
+                <div class="form-grid-3">
+                  <div class="form-group">
+                    <label class="form-label"><input type="checkbox" id="set_footer_vk_on" checked> ВКонтакте (VK)</label>
+                    <input type="url" id="set_footer_vk_url" class="form-input" value="https://vk.com/akvt_30">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"><input type="checkbox" id="set_footer_ok_on" checked> Одноклассники (OK)</label>
+                    <input type="url" id="set_footer_ok_url" class="form-input" value="http://www.ok.ru/akvt30ru">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label"><input type="checkbox" id="set_footer_tg_on" checked> Telegram канал</label>
+                    <input type="url" id="set_footer_tg_url" class="form-input" value="https://t.me/akvt30rus">
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-card">
+                <div class="panel-card-title"><span>4. Нижняя строка (Copyright, год и версия для слабовидящих)</span></div>
+                <div class="form-group">
+                  <label class="form-label">Основной текст копирайта</label>
+                  <input type="text" id="set_footer_copyright" class="form-input" value="© 2014–2026 АКВТ · Территория успеха. ГБПОУ АО «Астраханский колледж вычислительной техники».">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Юридическое примечание (сноска)</label>
+                  <input type="text" id="set_footer_legal" class="form-input" value="При использовании материалов сайта гиперссылка на akvt.ru обязательна. Все права защищены.">
+                </div>
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-switch">
+                      <input type="checkbox" id="set_footer_bvi_on" checked>
+                      <span>Отображать кнопку «Версия для слабовидящих»</span>
+                    </label>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-switch">
+                      <input type="checkbox" id="set_footer_auto_year" checked>
+                      <span>Динамический год (автоматически обновлять 2026)</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
