@@ -1,9 +1,11 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "rewrites": [
     { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/", "destination": "/admin/index.html" },
     { "source": "/admin/:path*", "destination": "/admin/:path*" },
     { "source": "/", "destination": "/site/index.html" },
+    { "source": "/:path*/", "destination": "/site/:path*/index.html" },
     { "source": "/:path*", "destination": "/site/:path*" }
   ]
 }
