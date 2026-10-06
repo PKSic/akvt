@@ -1,0 +1,7 @@
+file ok: bolshoe-raspisanie-s-0710.xls rows=160 cols=36 groups=34 records=577
+file ok: bolshoe-raspisanie-p-2609.xls rows=158 cols=39 groups=37 records=617
+generated=129430 embedded=134930 byte_equal=False
+groups=71 records=1194
+FIRST DIFF at 99
+gen: '", "Пятница", "Суббота"], "groups": ["AС-21", "АС-22", "АС-31", "АС-32", "АС-41"'
+emb: '", "Пятница", "Суббота"], "groups": ["AСУ-21", "AСУ-22", "AСУ-24", "АС-31", "АС-'

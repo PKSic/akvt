@@ -1,0 +1,9 @@
+{
+  "package": "web-uplift",
+  "version": "0.2.3",
+  "installedAt": "2026-09-28T19:54:52.059Z",
+  "agents": [
+    "antigravity"
+  ],
+  "updateCommand": "npx -y web-uplift@latest update --agent all"
+}

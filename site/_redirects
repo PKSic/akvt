@@ -1,0 +1,7 @@
+# Прокси для расписания через Netlify (только пока сайт хостится тут).
+# Netlify сам сходит на akvt.ru на своей стороне (сервер-сервер), поэтому
+# браузер посетителя не видит межсайтовый запрос и CORS не срабатывает.
+# Код 200 (не 301/302!) — обязателен, иначе это будет обычный редирект,
+# и браузер всё равно упрётся в CORS уже на akvt.ru напрямую.
+/_xls-proxy/s-2-5.xls        https://www.akvt.ru/wp-content/uploads/2026/09/bolshoe-raspisanie-s-2-5.xls        200
+/_xls-proxy/p-2609-1-5.xls   https://www.akvt.ru/wp-content/uploads/2026/09/bolshoe-raspisanie-p-2609-1-5.xls   200

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    image: mariadb:10.11
+    container_name: akvt_mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: akvt_root_secure_pass_2026
+      MYSQL_DATABASE: akvt_wp
+      MYSQL_USER: akvt_user
+      MYSQL_PASSWORD: akvt_db_pass_2026
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - akvt_net
+
+  wordpress:
+    image: wordpress:6.6-php8.2-apache
+    container_name: akvt_wordpress
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: akvt_wp
+      WORDPRESS_DB_USER: akvt_user
+      WORDPRESS_DB_PASSWORD: akvt_db_pass_2026
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('FS_METHOD', 'direct');
+        define('WP_MEMORY_LIMIT', '256M');
+        define('WP_MAX_MEMORY_LIMIT', '512M');
+    volumes:
+      - ./wp-content/themes/akvt-theme:/var/www/html/wp-content/themes/akvt-theme
+      - ./wp-content/plugins/akvt-core:/var/www/html/wp-content/plugins/akvt-core
+      - ./wp-content/uploads:/var/www/html/wp-content/uploads
+    networks:
+      - akvt_net
+
+volumes:
+  db_data:
+
+networks:
+  akvt_net:
+    driver: bridge

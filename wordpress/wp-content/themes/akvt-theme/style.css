@@ -1,0 +1,12 @@
+/*
+Theme Name: AKVT Editorial Tech
+Theme URI: https://akvt.ru
+Author: IT-служба АКВТ
+Author URI: https://akvt.ru
+Description: Премиальная высокопроизводительная тема в концепции «Тёплый редакционный техножурнал» для Астраханского колледжа вычислительной техники. Полная адаптивность от 320px до 2560px, нулевой горизонтальный скролл, интеграция с ядром АКВТ.
+Version: 2.0.0
+Text Domain: akvt
+*/
+
+@import url('assets/css/style.css');
+@import url('assets/css/adaptive.css');

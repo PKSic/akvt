@@ -1,0 +1,14 @@
+both pages extracted DATA OK
+bytes equality: True (teacher=134930, student=134930)
+semantic equality: True
+days_order=['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+groups count=74
+groups head=['AСУ-21', 'AСУ-22', 'AСУ-24', 'АС-31', 'АС-32', 'АС-41', 'АС-42', 'АСУ-11', 'БАС-11', 'БАС-12']
+groups tail=['ЭБ-22', 'ЭБ-31', 'ЭБ-32', 'ЭБ-41', 'ЭБ-42']
+schedule group count=74
+first group key='AСУ-21'
+sample day keys=['Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+sample records (AСУ-21/Вторник) count=4
+sample record={'pair': '3-4', 'subject': 'Осущ. Сборки', 'teacher': 'Тимофеева П.А', 'room': 'ауд.421', 'note': ''}
+raw head: {"days_order": ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"], "groups": ["AСУ-21", "AСУ-22", "AСУ
+raw tail: eacher": "Тимофеева П.А", "room": "ауд.421", "note": ""}]}}}

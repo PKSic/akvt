@@ -1,0 +1,15 @@
+/* mify-o-vakcinacii cards */
+.mify-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.mify-grid > a {
+  width: 45%;
+}
+.mify-grid img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}

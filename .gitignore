@@ -1,0 +1,27 @@
+# Archives and backups
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# Python cache & venv
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node modules (if used)
+node_modules/

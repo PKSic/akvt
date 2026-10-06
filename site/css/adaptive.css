@@ -1,0 +1,1030 @@
+/* ============================================================================
+   АКВТ — АДАПТИВНАЯ ВЁРСТКА (responsive/mobile CSS)
+   ============================================================================
+   Все @media-запросы сайта вынесены сюда из style.css в отдельный файл,
+   чтобы у мобильной адаптации было одно понятное место, а не куски,
+   разбросанные по всему style.css. Это единственный файл, который
+   меняет вёрстку в зависимости от ширины экрана / типа устройства.
+
+   Как это подключено:
+   style.css задаёт "обычный" (desktop) вид. adaptive.css грузится ПОСЛЕ
+   style.css и переопределяет часть правил только при срабатывании нужного
+   @media-условия. Если что-то не так выглядит на телефоне/планшете —
+   почти наверняка правку нужно вносить именно здесь, а не в style.css.
+
+   Исключение — position: sticky у шапки (и на главной, и на остальных
+   страницах) и overflow-y: visible на html/body: это не зависит от
+   размера экрана, работает одинаково везде, поэтому осталось в базовом
+   style.css, а не переехало сюда. Если шапка перестанет прилипать —
+   смотрите сначала там (ищите "position: sticky" рядом с .hp-header
+   и header#branding), а уже потом сюда.
+
+   ----------------------------------------------------------------------
+   ИСПРАВЛЕНО В ЭТОЙ ВЕРСИИ:
+
+   1. Пункты бокового меню (#side-navi, раздел max-width: 1023px) были
+      со свойством white-space: nowrap — длинный текст не переносился
+      и вылезал за край карточки. Теперь white-space: normal +
+      overflow-wrap: break-word, плюс min-width: 0 на пункте списка.
+
+   2. Мобильное меню на главной (.hp-burger/.hp-mobile-nav) открывалось
+      не под шапкой, а куда-то в конец страницы — приходилось листать
+      вверх, чтобы им воспользоваться. Причины было ДВЕ одновременно:
+        a) на html/body стоял overflow-x: clip без явного overflow-y —
+           из-за этого в части браузеров ломается position: sticky
+           у самой шапки (см. правку overflow-y: visible в самом верху
+           style.css, ДО этого файла — то есть не здесь, а в базовом
+           style.css, потому что это не адаптив под конкретный экран,
+           а общий фикс для всех размеров);
+        b) у .hp-header был backdrop-filter — это создаёт отдельный
+           контекст позиционирования для потомков с position: fixed,
+           поэтому .hp-mobile-nav (лежавший ВНУТРИ шапки) считал свою
+           позицию не от экрана, а от самой шапки. Меню вынесено в HTML
+           из <header> наружу (соседним элементом), и в style.css
+           .hp-mobile-nav теперь position: fixed вместо absolute.
+      Также в main.js при открытии меню стоит document.body.style.
+      overflow = "hidden" (блокировка скролла фона) — это тоже само
+      по себе ломает sticky, но раз меню теперь не зависит от позиции
+      шапки, это стало не критично.
+
+   2b. Позже поступила жалоба, что шапка на главной при открытии
+      мобильного меню иногда пропадает целиком (не находит подтверждения
+      в тестовом браузере, но известная проблема реальных мобильных
+      браузеров, особенно Safari на iPhone). Причина — сочетание
+      position: sticky и backdrop-filter: известный источник багов
+      с перерисовкой/пропаданием sticky-элементов на мобильных.
+      backdrop-filter (эффект размытия фона шапки) убран из style.css
+      целиком, фон шапки теперь просто сплошной var(--paper) — минус
+      немного визуального изящества, зато шапка больше не зависит от
+      капризов конкретного браузера при перерисовке.
+
+   3. Шапка на ВСЕХ остальных страницах (header#branding, старый
+      шаблон) вообще не была прилипающей — position: relative вместо
+      sticky. Это тоже правка в базовом style.css (не здесь), плюс
+      здесь, в разделе max-width: 767px, ограничена максимальная
+      высота раскрытого мобильного меню (nav#access.open) — иначе
+      прилипающая шапка с раскрытым на всю длину меню растягивалась
+      бы на весь документ.
+
+   4. Текст на множестве страниц (103 из 282) вставлен редакторами
+      с инлайн-стилем text-align: justify. На широком десктопе это
+      нормально, но на узкой мобильной колонке в строке остаётся
+      мало слов, и выравнивание "по ширине" растягивает пробелы
+      между ними неравномерно — выглядит как "текст не на своём
+      месте". Раздел max-width: 767px теперь принудительно (через
+      !important — иначе инлайн-стиль не перебить) делает текст
+      внутри .entry-content выровненным по левому краю на телефонах.
+   ----------------------------------------------------------------------
+
+   ОГЛАВЛЕНИЕ (в порядке следования в файле, сверху вниз):
+
+   1. @media (max-width: 1120px)   — первое сжатие широкого десктопа:
+      уменьшаются отступы в меню, сетки "2 специальности/новости в ряд"
+      вместо 3-4, карусель тоже на 2 колонки.
+
+   2. @media (max-width: 1023px)   — планшетный режим, самый важный блок
+      про боковую навигацию:
+      - шапка старого шаблона (#branding/#cap_navi/#access) переходит
+        в колонку, меню переносится;
+      - #site-title уменьшается;
+      - .hero-grid, .about-grid схлопываются в одну колонку;
+      - .bento-grid — в 2 колонки;
+      - #side-navi (боковой список страниц раздела) превращается из
+        вертикального списка в "теги"-пилюли, которые переносятся —
+        ИМЕННО ТУТ было исправление, описанное выше;
+      - #secondary_page / #primary_page растягиваются на всю ширину;
+      - подвал (#footer-top) — 2 колонки вместо 4.
+
+   3. @media (max-width: 900px)    — прячется горизонтальное меню
+      главной страницы (.hp-menu, .hp-cta), появляется бургер
+      (.hp-burger, .hp-mobile-nav). Это переключатель "десктопное меню
+      главной ↔ мобильное меню главной" — если бургер не появляется
+      или, наоборот, не пропадает старое меню, чинить тут.
+
+   4. @media (max-width: 767px)    — телефонный режим, самый большой блок:
+      - базовый размер шрифта чуть меньше (15.5px);
+      - гамбургер-кнопка старого шаблона (#hamburger-btn) показывается,
+        #slogan прячется;
+      - #cap_navi становится колонкой, поиск (#searchform) — на всю
+        ширину;
+      - раскрывающееся мобильное меню #access.open и его подпункты
+        (.sub-menu, .sub-toggle) — вся логика "гамбургер открыл/закрыл
+        меню и подменю" живёт здесь;
+      - сетки статистики/специальностей/новостей/карусели/bento — все
+        схлопываются в 1 колонку;
+      - .entry-content table — таблицы в текстовых страницах становятся
+        адаптивными (ломаются по словам, .rtb-таблицы — вертикальным
+        списком карточек вместо строк);
+      - поля формы Contact Form 7 (.wpcf7-form-control-wrap) — на всю
+        ширину;
+      - хлебные крошки, кнопка "наверх" (.start) — компактнее;
+      - подвал — в 1 колонку.
+
+   5. @media (max-width: 520px)    — самые узкие экраны: чуть мельче
+      статистика, тикер новостей, поиск в верхнем меню сужается,
+      кнопки на всю ширину, шапка ниже (66px), фирменный знак мельче.
+
+   6. @media (hover: none) and (pointer: coarse) — устройства без
+      наведения мышью (телефоны/планшеты с тачем): убирает hover-эффекты
+      подъёма карточек (они всё равно не нужны без курсора).
+
+   7. @media (prefers-reduced-motion: reduce) — для пользователей,
+      попросивших операционную систему отключить анимации: все
+      transition/animation становятся мгновенными.
+
+   8. @media print — версия для печати: прячет меню/шапку/карусели,
+      делает фон белым, текст чёрным.
+
+   9-10. Два маленьких дополнительных блока (max-width: 767px и
+      max-width: 1120px в самом конце) — точечные правки высоты баннера
+      года и заголовка featured-новости. Оставлены отдельно от основных
+      блоков намеренно, т.к. были добавлены позже остальных.
+
+   ----------------------------------------------------------------------
+   ЕСЛИ ЧТО-ТО СЛОМАЛОСЬ НА МОБИЛЬНОМ:
+   1. Определите ширину экрана, на которой видна проблема (через
+      DevTools → Toggle device toolbar в браузере).
+   2. Найдите в оглавлении выше подходящий диапазон @media.
+   3. Внутри него ищите класс/id проблемного элемента (Ctrl+F по имени
+      класса из HTML/DevTools).
+   4. Если элемента в этом файле вообще нет — значит на мобильном он
+      выглядит так же, как на десктопе, и правило нужно ДОБАВИТЬ сюда
+      (не в style.css), обернув в соответствующий @media.
+   ============================================================================ */
+
+@media (max-width: 1120px) {
+  .hp-menu > a,
+  .hp-menu > .has-drop > a {
+    padding: 10px 10px;
+    font-size: 0.8rem;
+  }
+
+  .mega-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .spec-grid,
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .carousel .view-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  #cap_navi {
+    flex-wrap: wrap;
+  }
+
+  #cap_navi .menu-internal-container {
+    order: 2;
+  }
+
+  #searchform {
+    margin-left: auto;
+  }
+
+  header#branding .wrap {
+    gap: 10px;
+  }
+
+  #site-title {
+    font-size: 1.2rem;
+  }
+
+  nav#access {
+    flex: 1 1 100%;
+    order: 3;
+  }
+
+  #access .menu {
+    flex-wrap: wrap;
+  }
+
+  #access .sub-menu {
+    position: absolute;
+  }
+
+  #slogan {
+    order: 4;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .hero-visual {
+    max-width: 560px;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .wrap.above {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #primary_page,
+  #primary_single {
+    order: 1;
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+
+  #side-navi {
+    order: 2;
+    position: static;
+    flex: 1 1 auto;
+    width: 100%;
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line-soft);
+  }
+
+  #secondary_page {
+    order: 3;
+    flex: 1 1 auto;
+    width: 100%;
+    margin-top: 28px;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  #secondary_page .widget,
+  #secondary_page .widget_nav_menu,
+  #secondary_page .menu-internal-container a,
+  #secondary_page a {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  #side-navi::before {
+    content: "Разделы страницы";
+    display: block;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  #side-navi ul,
+  #side-navi > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #side-navi li {
+    display: inline-block;
+    border: none;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    list-style: none;
+  }
+
+  #side-navi a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-pill, 999px);
+    background: var(--surface);
+    padding: 8px 16px;
+    font-size: 0.84rem;
+    line-height: 1.35;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease;
+  }
+
+  #side-navi a:hover {
+    border-color: var(--accent);
+    background: var(--accent-wash);
+    color: var(--accent-deep);
+  }
+
+  #side-navi .current_page_item > a,
+  #side-navi .current-menu-item > a {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(43, 89, 209, 0.25);
+  }
+
+  #footer-top .footer-compact,
+  #footer-top .wrap {
+    gap: 6px 12px;
+  }
+
+  .footer-links {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hp-menu {
+    display: none;
+  }
+
+  .hp-cta {
+    display: none;
+  }
+
+  .hp-burger {
+    display: block;
+    margin-left: 0;
+  }
+
+  .hp-mobile-nav {
+    display: block;
+  }
+
+  .hp-nav {
+    gap: 14px;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .map-layout-simple {
+    grid-template-columns: 1fr;
+  }
+
+  .map-tile {
+    min-height: 300px;
+  }
+
+  .fact-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 15.5px;
+  }
+
+  #hamburger-btn {
+    display: block;
+  }
+
+  #slogan {
+    display: none;
+  }
+
+  #cap_navi {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  #cap_navi .menu-internal-container {
+    order: 2;
+  }
+
+  #cap_navi .menu {
+    gap: 6px;
+  }
+
+  #searchform {
+    order: 1;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  #searchform .field {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+
+  #access .sub-toggle {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  #access .sub-toggle span {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--muted);
+    border-bottom: 2px solid var(--muted);
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform var(--transition), margin-top var(--transition);
+  }
+
+  #access .sub-toggle.is-open span {
+    transform: rotate(225deg);
+    margin-top: 3px;
+  }
+
+  .section {
+    padding: 28px 0;
+  }
+
+  .section-head {
+    margin-bottom: 14px;
+    gap: 8px;
+  }
+
+  #site-description {
+    letter-spacing: 0.08em;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat {
+    padding: 26px 22px;
+  }
+
+  .spec-grid,
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel .view-content {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bento-span-2 {
+    grid-column: span 1;
+  }
+
+  .cta-band {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #access .sub-menu {
+    position: static;
+    width: 100%;
+    column-count: 1;
+    transform: none;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    transition: max-height 0.35s var(--transition), opacity var(--transition);
+  }
+
+  #access .menu > li:hover > ul.sub-menu,
+  #access .menu > li:focus-within > ul.sub-menu {
+    opacity: 1;
+    visibility: visible;
+    max-height: 1400px;
+    padding: 14px 16px;
+  }
+
+  #access .sub-menu a {
+    font-size: 0.86rem;
+  }
+
+  nav#access {
+    flex: 1 1 100%;
+    order: 3;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s var(--transition);
+  }
+
+  nav#access.open {
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+  }
+
+  nav#access.open .sub-menu,
+  nav#access.open .menu > li:hover > ul.sub-menu,
+  nav#access.open .menu > li:focus-within > ul.sub-menu,
+  nav#access.open li.sub-open > ul.sub-menu {
+    max-height: 1400px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #access li.sub-open > ul.sub-menu {
+    padding: 10px 16px 14px 24px;
+    border-top: 1px dashed var(--line-soft);
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-window {
+    display: none;
+  }
+
+  .blob-stage {
+    aspect-ratio: 1 / 0.9;
+  }
+
+  .section-head {
+    align-items: flex-start;
+  }
+
+  #content_page,
+  #content_single,
+  #content {
+    padding: 24px 18px;
+    border-radius: var(--radius-sm);
+  }
+
+  .entry-title {
+    font-size: 1.5rem;
+  }
+
+  /* Many content pages have text-align: justify set as an INLINE style
+     (added by editors in the WordPress editor). On wide desktop columns
+     that looks fine; on a narrow phone column with few words per line it
+     stretches gaps between words unevenly, which reads as "text jumping
+     around" / badly positioned. Inline styles beat normal CSS specificity,
+     so this needs !important to win. Left-aligned ragged-right text is
+     always safe and readable at this width. */
+  .entry-content,
+  .entry-content p,
+  .entry-content li,
+  .entry-content div {
+    text-align: left !important;
+  }
+
+  /* Old content pages set column widths with legacy HTML width="" attributes
+     (sometimes via a hidden single-cell "spacer" first row). table-layout:
+     fixed reads its column grid from exactly that row, so overriding
+     td/th width in CSS doesn't reliably win — the browser still tries to
+     honour the original desktop proportions, which on a ~350px screen
+     squeezes some columns down to a few pixels. At that width, words have
+     nowhere to go but to break after almost every letter.
+     The robust fix is to stop doing table layout at all on phones: turn
+     every entry-content table into a stack of full-width blocks (one
+     "cell" per line), the same treatment already used for .rtb tables.
+     This applies to ALL tables now, not just ones marked .rtb, since the
+     underlying legacy-width problem isn't limited to that one class. */
+  .entry-content table {
+    display: block;
+    width: 100% !important;
+    table-layout: auto;
+  }
+
+  .entry-content thead,
+  .entry-content tbody,
+  .entry-content tr {
+    display: block;
+    width: 100% !important;
+  }
+
+  .entry-content td,
+  .entry-content th {
+    display: block;
+    width: 100% !important;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: normal;
+    text-align: left !important;
+  }
+
+  .entry-content table.rtb td,
+  .entry-content table.rtb th {
+    text-align: center;
+  }
+
+  .entry-content table.rtb td a {
+    display: inline-block;
+  }
+
+  .wpcf7-form-control-wrap input[type="text"],
+  .wpcf7-form-control-wrap input[type="email"],
+  .wpcf7-form-control-wrap input[type="tel"],
+  .wpcf7-form-control-wrap input[type="url"],
+  .wpcf7-form-control-wrap input[type="search"],
+  .wpcf7-form-control-wrap textarea,
+  .wpcf7-form-control-wrap select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Legacy floats and custom galleries inside content */
+  .u-float-img {
+    float: none !important;
+    margin: 14px auto !important;
+    max-width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+    clear: both !important;
+  }
+
+  .u-float-img a {
+    display: inline-block !important;
+    max-width: 100% !important;
+  }
+
+  .u-float-img img {
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .su-custom-gallery {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .su-custom-gallery-slide {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    margin: 0 0 14px 0 !important;
+  }
+
+  .su-custom-gallery-slide img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .su-custom-gallery-title {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Inline styled containers from WP editor */
+  .entry-content div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .entry-content div[style*="padding: 30px"],
+  .entry-content div[style*="padding:30px"],
+  .entry-content div[style*="padding: 20px"],
+  .entry-content div[style*="padding:20px"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .entry-content div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .entry-content iframe,
+  .entry-content embed,
+  .entry-content object {
+    max-width: 100% !important;
+  }
+
+  .rpwe-title,
+  .rpwe-title a {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .breadcrumb {
+    border-radius: var(--radius-sm);
+    font-size: 0.74rem;
+    padding: 12px 16px;
+  }
+
+  #colophon {
+    margin-top: 12px;
+  }
+
+  #footer-top {
+    padding: 8px 0 6px;
+  }
+
+  #footer-top .footer-compact,
+  #footer-top .wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 4px 10px;
+  }
+
+  #footer-top .logo.foot {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 0.95rem;
+  }
+
+  #footer-top .footer-social {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  #footer-top .footer-addr {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 0.62rem;
+    line-height: 1.25;
+    flex: none;
+  }
+
+  #footer-top .footer-links {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin-left: 0;
+    gap: 2px 10px;
+  }
+
+  #footer-top .footer-links a {
+    font-size: 0.62rem;
+  }
+
+  #footer-bottom {
+    padding: 4px 0 6px;
+  }
+
+  .footer-copy {
+    font-size: 0.58rem;
+    line-height: 1.25;
+  }
+
+  .footer-social .rollover2,
+  .footer-social .rollover3,
+  .footer-social .rollover6 {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background-size: 14px 14px;
+  }
+
+  .start {
+    width: 40px;
+    height: 40px;
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .start svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .stat {
+    padding: 22px 18px;
+  }
+
+  .stat .stat-num {
+    font-size: 2.2rem;
+  }
+
+  .hp-top .ticker {
+    font-size: 0.7rem;
+  }
+
+  #cap_navi .menu a {
+    font-size: 0.72rem;
+    padding: 5px 8px;
+  }
+
+  #searchform .field {
+    width: 140px;
+  }
+
+  .fact-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hp-nav {
+    height: 52px;
+    --header-h: 52px;
+  }
+
+  .brand-mark {
+    font-size: 1.2rem;
+  }
+
+  #site-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .card:hover,
+  .news-card:hover,
+  .carousel .carousel-item:hover,
+  .bento-item:hover,
+  .spec-card:hover {
+    transform: none;
+  }
+
+  .mega-panel,
+  #access .sub-menu {
+    transition: opacity var(--transition), visibility var(--transition);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  header#branding,
+  .hp-header,
+  nav#access,
+  #side-navi,
+  #secondary_page,
+  .carousel,
+  .stats-band,
+  #colophon,
+  #hamburger-btn,
+  .hp-burger,
+  .hp-mobile-nav,
+  .start,
+  .modalDialog,
+  .cta-band {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+  }
+
+  #content_page,
+  #content_single,
+  #content {
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  a {
+    color: #000 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .year-banner img {
+    height: 72px;
+  }
+}
+
+@media (max-width: 1120px) {
+  .news-card.featured {
+    grid-column: span 1;
+  }
+
+  .news-card.featured h3 {
+    font-size: 1.28rem;
+  }
+}
+
+/* ============================================================================
+   Компактные мобильные экраны (iPhone SE, Android 320-374px) и адаптивная типографика
+   ============================================================================ */
+.news-card p,
+.article-content p,
+.entry-content p,
+.entry-content a {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .news-card {
+    padding: 20px 18px;
+  }
+
+  .spec-card {
+    padding: 22px 18px;
+  }
+}
+
+@media (max-width: 374px) {
+  .hero .eyebrow,
+  .hp-top .ticker,
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hero h1.display-title,
+  .hero h1 {
+    font-size: clamp(1.65rem, 7.5vw, 2.15rem);
+    line-height: 1.15;
+  }
+
+  .wrap {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .picker-card {
+    padding: 16px 14px;
+  }
+
+  .akvt-rasp .picker input {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+
+  .akvt-doc-link {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+.akvt-doc-link {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+  [class*="doc-grid"],
+  .akvt-doc-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+

@@ -1,0 +1,6 @@
+akvt-rasp-script 188153
+const DATA 49275
+var DATA 189099
+html length 198041
+block length 197880
+data sample start 49275 data end guess 184219 actual data length approx 134944

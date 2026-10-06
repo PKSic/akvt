@@ -1,0 +1,243 @@
+<script id="akvt-rasp-script">
+(function(){
+var FILES = [
+  "https://www.akvt.ru/wp-content/uploads/2025/10/bolshoe-raspisanie-s-0710.xls",
+  "https://www.akvt.ru/wp-content/uploads/2025/09/bolshoe-raspisanie-p-2609.xls"
+];
+var DAY_ORDER = ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+var TIME_RE = /^\d{1,2}-\d{1,2}$/;
+
+var searchInput = document.getElementById('akvtSearchInput');
+var pickerList = document.getElementById('akvtPickerList');
+var loadingState = document.getElementById('akvtLoadingState');
+var errorState = document.getElementById('akvtErrorState');
+var errorDetail = document.getElementById('akvtErrorDetail');
+var fallbackLinks = document.getElementById('akvtFallbackLinks');
+var emptyState = document.getElementById('akvtEmptyState');
+var scheduleView = document.getElementById('akvtScheduleView');
+var updatedNote = document.getElementById('akvtUpdatedNote');
+var retryBtn = document.getElementById('akvtRetryBtn');
+
+var DATA = null;
+
+function cellStr(v){ if(v===undefined||v===null) return ""; return String(v).trim(); }
+
+function parseAOA(aoa){
+  var headerRow=-1;
+  for(var r=0;r<aoa.length;r++){
+    var v = cellStr((aoa[r]||[])[0]);
+    if(v.indexOf('Дни')===0){ headerRow=r; break; }
+  }
+  if(headerRow===-1) throw new Error('Не нашли строку заголовка «Дни» в файле');
+  var headerCells = aoa[headerRow] || [];
+  var groups = [];
+  for(var c=2;c<headerCells.length;c++) groups.push(cellStr(headerCells[c]));
+
+  var pairPositions=[];
+  for(var r2=headerRow+1;r2<aoa.length;r2++){
+    var v2 = cellStr((aoa[r2]||[])[1]);
+    if(TIME_RE.test(v2)) pairPositions.push([r2, v2]);
+  }
+  if(pairPositions.length===0) return {groups:groups, records:[]};
+
+  var firstTime = pairPositions[0][1];
+  var dayBlocks=[]; var current=[];
+  for(var i=0;i<pairPositions.length;i++){
+    var pos = pairPositions[i];
+    if(pos[1]===firstTime && current.length){ dayBlocks.push(current); current=[]; }
+    current.push(pos);
+  }
+  if(current.length) dayBlocks.push(current);
+
+  var records=[];
+  for(var di=0; di<dayBlocks.length; di++){
+    var block = dayBlocks[di];
+    var dayName = DAY_ORDER[di] || ('День'+(di+1));
+    for(var pi=0; pi<block.length; pi++){
+      var pr = block[pi][0];
+      var timeRange = block[pi][1];
+      var nextPr = (pi+1<block.length) ? block[pi+1][0] : (di+1<dayBlocks.length ? dayBlocks[di+1][0][0] : aoa.length);
+      for(var ci=0; ci<groups.length; ci++){
+        var group = groups[ci];
+        if(!group) continue;
+        var col = 2+ci;
+        var vals=[];
+        for(var rr=pr; rr<nextPr; rr++){
+          var v3 = cellStr((aoa[rr]||[])[col]);
+          if(v3) vals.push(v3);
+        }
+        if(vals.length===0) continue;
+        var subject=vals[0], teacher="", room="", note="";
+        if(vals.length>=2){
+          var m = vals[1].split(/\s{2,}/);
+          if(m.length===2){ teacher=m[0].trim(); room=m[1].trim(); } else { teacher=vals[1]; }
+        }
+        if(vals.length>=3){
+          var line3 = vals[2];
+          if(!room){
+            var m2 = line3.split(/\s{2,}/);
+            if(m2.length===2){
+              var t2=m2[0].trim(), r2v=m2[1].trim();
+              room=r2v;
+              if(t2 && t2!==teacher) note=(note+" | "+line3).replace(/^ \| /,'');
+            } else if(/^ауд/i.test(line3)){ room=line3; }
+            else { note=(note+" | "+line3).replace(/^ \| /,''); }
+          } else { note=(note+" | "+line3).replace(/^ \| /,''); }
+        }
+        if(vals.length>=4){ note=(note+" | "+vals.slice(3).join(" | ")).replace(/^ \| /,''); }
+        records.push({day:dayName, pair:timeRange, group:group, subject:subject, teacher:teacher, room:room, note:note});
+      }
+    }
+  }
+  return {groups:groups, records:records};
+}
+
+function buildSchedule(allGroups, allRecords){
+  var uniq = {}; allGroups.forEach(function(g){ if(g) uniq[g]=true; });
+  var groupsSorted = Object.keys(uniq).sort();
+  var schedule = {};
+  groupsSorted.forEach(function(g){ schedule[g]={}; });
+  allRecords.forEach(function(rec){
+    if(!schedule[rec.group]) schedule[rec.group]={};
+    if(!schedule[rec.group][rec.day]) schedule[rec.group][rec.day]=[];
+    schedule[rec.group][rec.day].push({pair:rec.pair, subject:rec.subject, teacher:rec.teacher, room:rec.room, note:rec.note});
+  });
+  return {days_order: DAY_ORDER, groups: groupsSorted, schedule: schedule};
+}
+
+function loadData(){
+  loadingState.style.display='block';
+  errorState.style.display='none';
+  emptyState.style.display='none';
+  scheduleView.style.display='none';
+  updatedNote.style.display='none';
+  searchInput.disabled = true;
+
+  var allGroups=[]; var allRecords=[];
+  var chain = Promise.resolve();
+  FILES.forEach(function(url){
+    chain = chain.then(function(){
+      return fetch(url, {cache:"no-store"}).then(function(resp){
+        if(!resp.ok) throw new Error('Сервер вернул ошибку '+resp.status+' для файла '+url.split('/').pop());
+        return resp.arrayBuffer();
+      }).then(function(buf){
+        var wb = XLSX.read(buf, {type:'array'});
+        var ws = wb.Sheets[wb.SheetNames[0]];
+        var aoa = XLSX.utils.sheet_to_json(ws, {header:1, defval:"", raw:false});
+        var parsed = parseAOA(aoa);
+        allGroups = allGroups.concat(parsed.groups);
+        allRecords = allRecords.concat(parsed.records);
+      });
+    });
+  });
+  chain.then(function(){
+    DATA = buildSchedule(allGroups, allRecords);
+    loadingState.style.display='none';
+    searchInput.disabled=false;
+    emptyState.style.display='block';
+    updatedNote.textContent = 'Обновлено: ' + new Date().toLocaleString('ru-RU');
+    updatedNote.style.display='block';
+  }).catch(function(err){
+    loadingState.style.display='none';
+    errorState.style.display='block';
+    errorDetail.textContent = (err && err.message) ? err.message : String(err);
+    fallbackLinks.innerHTML = 'Открыть исходные файлы напрямую:<br>' +
+      FILES.map(function(u){ return '<a href="'+u+'" target="_blank" rel="noopener">'+u.split('/').pop()+'</a>'; }).join('');
+  });
+}
+
+retryBtn.addEventListener('click', loadData);
+
+function renderList(filter){
+  if(!DATA) return;
+  var q = filter.trim().toUpperCase();
+  var matches = DATA.groups.filter(function(g){ return g.toUpperCase().indexOf(q)!==-1; });
+  pickerList.innerHTML='';
+  if(matches.length===0){ pickerList.classList.remove('open'); return; }
+  matches.slice(0,30).forEach(function(g){
+    var b = document.createElement('button');
+    b.textContent = g;
+    b.addEventListener('click', function(){ selectGroup(g); });
+    pickerList.appendChild(b);
+  });
+  pickerList.classList.add('open');
+}
+
+function selectGroup(group){
+  searchInput.value = group;
+  pickerList.classList.remove('open');
+  renderSchedule(group);
+}
+
+var JS_DAY_TO_NAME = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+var todayName = JS_DAY_TO_NAME[new Date().getDay()];
+
+function renderSchedule(group){
+  var sched = DATA.schedule[group] || {};
+  emptyState.style.display='none';
+  scheduleView.style.display='block';
+  scheduleView.innerHTML='';
+
+  var headWrap = document.createElement('div');
+  headWrap.className='group-head';
+  headWrap.innerHTML = '<span class="name">'+group+'</span><button class="change" id="akvtChangeBtn">изменить группу</button>';
+  scheduleView.appendChild(headWrap);
+  headWrap.querySelector('#akvtChangeBtn').addEventListener('click', function(){
+    searchInput.value=''; searchInput.focus();
+    scheduleView.style.display='none'; emptyState.style.display='block';
+    renderList('');
+  });
+
+  DAY_ORDER.forEach(function(day){
+    var lessons = sched[day];
+    var isToday = day===todayName;
+    var dayEl = document.createElement('div');
+    dayEl.className = 'day' + (isToday ? ' today' : '');
+    if(isToday) dayEl.classList.add('open');
+
+    var count = lessons ? lessons.length : 0;
+    var toggle = document.createElement('button');
+    toggle.className='day-toggle';
+    toggle.innerHTML = '<span class="dname">'+day+(isToday?'<span class="today-tag">сегодня</span>':'')+'</span>'+
+      '<span class="meta"><span>'+(count ? count+' '+pairsWord(count) : 'выходной')+'</span><span class="chev"></span></span>';
+    toggle.addEventListener('click', function(){ dayEl.classList.toggle('open'); });
+    dayEl.appendChild(toggle);
+
+    var lessonsWrap = document.createElement('div');
+    lessonsWrap.className='lessons';
+    if(!lessons || lessons.length===0){
+      lessonsWrap.innerHTML = '<div class="day-empty">Пар нет — свободный день</div>';
+    } else {
+      lessons.forEach(function(l){
+        var row = document.createElement('div');
+        row.className='lesson';
+        var sub = [l.teacher, l.room].filter(Boolean).join(' · ');
+        row.innerHTML = '<div class="time">'+l.pair+'</div>'+
+          '<div class="info">'+
+          '<div class="subject">'+escapeHtml(l.subject||'—')+'</div>'+
+          '<div class="subline">'+escapeHtml(sub)+'</div>'+
+          (l.note ? '<div class="note">'+escapeHtml(l.note)+'</div>' : '')+
+          '</div>';
+        lessonsWrap.appendChild(row);
+      });
+    }
+    dayEl.appendChild(lessonsWrap);
+    scheduleView.appendChild(dayEl);
+  });
+}
+
+function pairsWord(n){
+  var mod10=n%10, mod100=n%100;
+  if(mod10===1 && mod100!==11) return 'пара';
+  if([2,3,4].indexOf(mod10)!==-1 && [12,13,14].indexOf(mod100)===-1) return 'пары';
+  return 'пар';
+}
+function escapeHtml(s){ var d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+searchInput.addEventListener('input', function(e){ renderList(e.target.value); });
+searchInput.addEventListener('focus', function(e){ renderList(e.target.value); });
+document.addEventListener('click', function(e){ if(!e.target.closest('.picker')) pickerList.classList.remove('open'); });
+
+loadData();
+})();
+</script>

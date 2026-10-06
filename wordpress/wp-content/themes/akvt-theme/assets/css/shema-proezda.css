@@ -1,0 +1,332 @@
+/* АКВТ — страница карты (схема проезда) */
+.page-map {
+  --map-height: calc(100vh - 300px);
+}
+
+#map-container {
+  width: 100%;
+  height: var(--map-height, 600px);
+  min-height: 520px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  background: var(--paper-deep);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 22px;
+  min-height: var(--map-height, 600px);
+}
+
+.map-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-main {
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.location-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.location-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+  border-color: var(--periwinkle-deep);
+}
+
+.location-card.active {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.location-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  margin: 0 0 4px;
+}
+
+.location-card .address {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 2px;
+}
+
+.location-card .phone {
+  font-size: 0.8rem;
+  color: var(--faint);
+  font-family: var(--font-mono);
+}
+
+.location-card .tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-wash);
+  color: var(--accent-deep);
+  margin-bottom: 8px;
+}
+
+.map-search {
+  position: relative;
+}
+
+.map-search input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.map-search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
+
+.map-search input::placeholder {
+  color: var(--faint);
+}
+
+.route-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  display: none;
+  box-shadow: var(--shadow-2);
+}
+
+.route-panel.visible {
+  display: block;
+}
+
+.route-panel h4 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.route-panel .route-info {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.route-panel .route-info strong {
+  color: var(--ink);
+}
+
+.route-panel .route-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.route-panel .close-route {
+  float: right;
+  background: var(--paper-deep);
+  border: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: background var(--transition), color var(--transition);
+}
+
+.route-panel .close-route:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.map-legend {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 4px 2px 10px;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+}
+
+.map-legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.map-legend-dot.main { background: var(--accent); }
+.map-legend-dot.edu { background: var(--gold); }
+.map-legend-dot.dorm { background: var(--green); }
+
+.transport-info {
+  margin-top: 4px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.transport-info strong {
+  color: var(--ink);
+}
+
+.ymaps-2-1-79-balloon__content {
+  font-family: inherit !important;
+}
+
+.ymaps-2-1-79-balloon__layout {
+  border-radius: var(--radius-sm) !important;
+  box-shadow: var(--shadow-3) !important;
+}
+
+.ymaps-2-1-79-balloon__tail {
+  display: none !important;
+}
+
+.balloon-content {
+  padding: 6px 4px;
+  min-width: 210px;
+}
+
+.balloon-content h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+
+.balloon-content p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin: 0 0 2px;
+  line-height: 1.5;
+}
+
+.balloon-content .btn-route {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-accent);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.balloon-content .btn-route:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
+}
+
+body.map-fullscreen #primary_page,
+body.map-fullscreen #secondary_page,
+body.map-fullscreen #side-navi {
+  width: 100% !important;
+  float: none !important;
+}
+
+body.map-fullscreen #content_page {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+body.map-fullscreen .entry-content {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+body.map-fullscreen .entry-header .entry-title {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .map-layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .map-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .map-search {
+    width: 100%;
+  }
+  .map-search input {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px 16px;
+  }
+  .map-sidebar .location-card {
+    width: 100%;
+    min-width: 0;
+    padding: 16px 18px;
+  }
+  #map-container {
+    height: 420px;
+    min-height: 320px;
+  }
+  .map-legend {
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+  }
+  .transport-info {
+    padding: 14px 16px;
+    font-size: 0.82rem;
+  }
+}
+

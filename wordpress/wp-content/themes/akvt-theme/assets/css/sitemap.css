@@ -1,0 +1,50 @@
+
+/* WP-style sitemap page list */
+.sitemap-pages,
+.sitemap-pages ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sitemap-pages {
+  columns: 2;
+  column-gap: 36px;
+  margin: 12px 0 40px;
+}
+.sitemap-pages > li {
+  break-inside: avoid;
+  margin: 0 0 6px;
+  padding: 0;
+}
+.sitemap-pages a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  display: inline;
+}
+.sitemap-pages a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.sitemap-pages ul.children {
+  margin: 4px 0 8px 18px;
+  padding-left: 10px;
+  border-left: 2px solid var(--line-soft);
+  columns: 1;
+}
+.sitemap-pages ul.children li {
+  margin: 2px 0;
+}
+.sitemap-pages ul.children a {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.sitemap-intro {
+  color: var(--muted);
+  margin: 0 0 18px;
+  max-width: 60ch;
+}
+@media (max-width: 767px) {
+  .sitemap-pages { columns: 1; }
+}

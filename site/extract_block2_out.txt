@@ -1,0 +1,52 @@
+start 188141 end 197879 block length 9738
+--- head of block ---
+<script id="akvt-rasp-script">
+(function(){
+var FILES = [
+  "https://www.akvt.ru/wp-content/uploads/2025/10/bolshoe-raspisanie-s-0710.xls",
+  "https://www.akvt.ru/wp-content/uploads/2025/09/bolshoe-raspisanie-p-2609.xls"
+];
+var DAY_ORDER = ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+var TIME_RE = /^\d{1,2}-\d{1,2}$/;
+
+var searchInput = document.getElementById('akvtSearchInput');
+var pickerList = document.getElementById('akvtPickerList');
+var loadingState = document.getElementById('akvtLoadingState');
+var errorState = document.getElementById('akvtErrorState');
+var errorDetail = document.getElementById('akvtErrorDetail');
+var fallbackLinks = document.getElementById('akvtFallbackLinks');
+var emptyState = document.getElementById('akvtEmptyState');
+var scheduleView = document.getElementById('akvtScheduleView');
+var updatedNote = document.getElementById('akvtUpdatedNote');
+var retryBtn = document.getElementById('akvtRetryBtn');
+
+var DATA = null;
+
+function cellStr(v){ if(v===undefined||v===null) return ""; return String(v).trim(); }
+
+function parseAOA(aoa){
+  var headerRow=-1;
+  for(var r=0;r<aoa.length;r++){
+    var v = cellStr((aoa[r]||[])[0]);
+    if(v.indexOf('Дни')===0){ headerRow=r; break; }
+  }
+  if(headerRow===-1) throw new Error('Не нашли строку заголовка «Дни» в файле');
+  var headerCells = aoa[headerRow] || [];
+  var groups = [];
+  for(var c=2;c<headerCells.length;c++) groups.push(cellStr(headerCells[c]));
+
+  var pairPositions=[];
+  for(var r2=headerRow+1;r2<aoa.length;r2++){
+    var v2 = cellStr((aoa[r2]||[])[1]);
+    if(TIME_RE.test(v2)) pairPositions.push([r2, v2]);
+  }
+  if(pairPositions.length===0) return {groups:groups, records:[]};
+
+  var firstTime = pairPositions[0][1];
+  var dayBlocks=[]; var current=[];
+  for(var i=0;i<pairPositions.length;i++){
+    var pos = pairPositions[i];
+    if(pos[1]===firstTime && current.length){ dayBlocks.push(current); current=[]; }
+    current.push(pos);
+  }
+  if(current.length) dayBlocks.push(current);
