@@ -162,25 +162,66 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
   float: left;
   margin: 10px;
 }
-.u-underline { text-decoration: underline; }
+.u-underline {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--ink, #1f2937);
+}
 .u-mt-14 { margin-top: 14px; }
 .u-mt-22 { margin-top: 22px; }
 .u-hide { display: none; }
 
-/* WP shortcode tables (annotacii / documents) */
+/* WP shortcode tables (annotacii / documents) — modern cards */
 .akvt-doc-table {
-  border: 0;
-  border-collapse: collapse;
   width: 100%;
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  margin: 1.5em 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.akvt-doc-table tr {
+  transition: background 0.2s ease;
+  background: transparent !important;
+}
+.akvt-doc-table tr:hover {
+  background: #f1f5f9 !important;
 }
 .akvt-doc-table td {
   border: 0;
+  border-bottom: 1px solid #f1f5f9;
   vertical-align: middle;
+  padding: 12px 16px;
+}
+.akvt-doc-table tr:last-child td {
+  border-bottom: 0;
 }
 .akvt-doc-table td.akvt-doc-title {
   text-align: left;
   font-size: 15px;
+  font-weight: 500;
   vertical-align: middle;
+}
+.akvt-doc-table td.akvt-doc-title a {
+  color: #1e293b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.akvt-doc-table td.akvt-doc-title a:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+.akvt-doc-table img {
+  border-radius: 6px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+.akvt-doc-table tr:hover img {
+  transform: scale(1.08);
 }
 
 /* Shortcodes United gallery slides */
