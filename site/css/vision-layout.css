@@ -1,0 +1,201 @@
+/* АВТОГЕНЕРАЦИЯ: tools/build-vision-layout.py — не править вручную.
+   Адаптивные правила сайта для режима «Версия для слабовидящих»
+   (раскладка следует за эффективной шириной = ширина окна / масштаб шрифта). */
+/* ---- style.css ---- */
+/* font-size: px → rem */
+html.bvi body{font-size: 1.0312rem}
+html.bvi .akvt-success-icon{font-size: 1.75rem}
+/* @media (max-width) → эффективная ширина */
+html.bvi.bvi-mw-600 .akvt-feedback-card{padding: 18px;}
+html.bvi.bvi-mw-768 .akvt-form-grid{grid-template-columns: 1fr; gap: 16px;}
+/* ---- adaptive.css ---- */
+/* @media (max-width) → эффективная ширина */
+html.bvi.bvi-mw-1120 .hp-menu > a,html.bvi.bvi-mw-1120 .hp-menu > .has-drop > a{padding: 10px 10px; font-size: 0.8rem;}
+html.bvi.bvi-mw-1120 .mega-panel{grid-template-columns: repeat(2, 1fr);}
+html.bvi.bvi-mw-1120 .stats-grid{grid-template-columns: repeat(2, 1fr);}
+html.bvi.bvi-mw-1120 .spec-grid,html.bvi.bvi-mw-1120 .news-grid{grid-template-columns: repeat(2, 1fr);}
+html.bvi.bvi-mw-1120 .carousel .view-content{grid-template-columns: repeat(2, 1fr);}
+html.bvi.bvi-mw-1023 #cap_navi{flex-wrap: wrap;}
+html.bvi.bvi-mw-1023 #cap_navi .menu-internal-container{order: 2;}
+html.bvi.bvi-mw-1023 #searchform{margin-left: auto;}
+html.bvi.bvi-mw-1023 header#branding .wrap{gap: 10px;}
+html.bvi.bvi-mw-1023 #site-title{font-size: 1.2rem;}
+html.bvi.bvi-mw-1023 nav#access{flex: 1 1 100%; order: 3;}
+html.bvi.bvi-mw-1023 #access .menu{flex-wrap: wrap;}
+html.bvi.bvi-mw-1023 #access .sub-menu{position: absolute;}
+html.bvi.bvi-mw-1023 #slogan{order: 4;}
+html.bvi.bvi-mw-1023 .hero-grid{grid-template-columns: 1fr; gap: 44px;}
+html.bvi.bvi-mw-1023 .hero-visual{max-width: 560px; width: 100%; margin-inline: auto;}
+html.bvi.bvi-mw-1023 .about-grid{grid-template-columns: 1fr; gap: 40px;}
+html.bvi.bvi-mw-1023 .bento-grid{grid-template-columns: 1fr 1fr;}
+html.bvi.bvi-mw-1023 .wrap.above{display: flex; flex-direction: column;}
+html.bvi.bvi-mw-1023 #primary_page,html.bvi.bvi-mw-1023 #primary_single{order: 1; flex: 1 1 auto; width: 100%; min-width: 0;}
+html.bvi.bvi-mw-1023 #side-navi{order: 2; position: static; flex: 1 1 auto; width: 100%; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line-soft);}
+html.bvi.bvi-mw-1023 #secondary_page{order: 3; flex: 1 1 auto; width: 100%; margin-top: 28px; min-width: 0; max-width: 100%;}
+html.bvi.bvi-mw-1023 #secondary_page .widget,html.bvi.bvi-mw-1023 #secondary_page .widget_nav_menu,html.bvi.bvi-mw-1023 #secondary_page .menu-internal-container a,html.bvi.bvi-mw-1023 #secondary_page a{min-width: 0; max-width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: break-word;}
+html.bvi.bvi-mw-1023 #side-navi::before{content: "Разделы страницы"; display: block; font-family: var(--font-mono, monospace); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px;}
+html.bvi.bvi-mw-1023 #side-navi ul,html.bvi.bvi-mw-1023 #side-navi > div{display: flex; flex-wrap: wrap; gap: 8px;}
+html.bvi.bvi-mw-1023 #side-navi li{display: inline-block; border: none; min-width: 0; max-width: 100%; margin: 0; list-style: none;}
+html.bvi.bvi-mw-1023 #side-navi a{display: inline-flex; align-items: center; min-height: 40px; max-width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: var(--radius-pill, 999px); background: var(--surface); padding: 8px 16px; font-size: 0.84rem; line-height: 1.35; white-space: normal; overflow-wrap: anywhere; word-break: break-word; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); transition: all 0.2s ease;}
+html.bvi.bvi-mw-1023 #side-navi a:hover{border-color: var(--accent); background: var(--accent-wash); color: var(--accent-deep);}
+html.bvi.bvi-mw-1023 #side-navi .current_page_item > a,html.bvi.bvi-mw-1023 #side-navi .current-menu-item > a{background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(43, 89, 209, 0.25);}
+html.bvi.bvi-mw-1023 #footer-top .footer-compact,html.bvi.bvi-mw-1023 #footer-top .wrap{gap: 6px 12px;}
+html.bvi.bvi-mw-1023 .footer-links{margin-left: 0;}
+html.bvi.bvi-mw-900 .hp-menu{display: none;}
+html.bvi.bvi-mw-900 .hp-cta{display: none;}
+html.bvi.bvi-mw-900 .hp-burger{display: block; margin-left: 0;}
+html.bvi.bvi-mw-900 .hp-mobile-nav{display: block;}
+html.bvi.bvi-mw-900 .hp-nav{gap: 14px;}
+html.bvi.bvi-mw-900 .brand-tag{display: none;}
+html.bvi.bvi-mw-900 .map-layout-simple{grid-template-columns: 1fr;}
+html.bvi.bvi-mw-900 .map-tile{min-height: 300px;}
+html.bvi.bvi-mw-900 .fact-row{grid-template-columns: 1fr; gap: 6px;}
+html.bvi.bvi-mw-767 body{font-size: 0.9688rem;}
+html.bvi.bvi-mw-767 #hamburger-btn{display: block;}
+html.bvi.bvi-mw-767 #slogan{display: none;}
+html.bvi.bvi-mw-767 #cap_navi{flex-direction: column; align-items: stretch; gap: 12px;}
+html.bvi.bvi-mw-767 #cap_navi .menu-internal-container{order: 2;}
+html.bvi.bvi-mw-767 #cap_navi .menu{gap: 6px;}
+html.bvi.bvi-mw-767 #searchform{order: 1; margin-left: 0; width: 100%;}
+html.bvi.bvi-mw-767 #searchform .field{flex: 1 1 auto; width: auto; min-width: 0;}
+html.bvi.bvi-mw-767 #access .sub-toggle{display: flex; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); width: 40px; height: 40px; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; z-index: 2;}
+html.bvi.bvi-mw-767 #access .sub-toggle span{display: block; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin-top: -3px; transition: transform var(--transition), margin-top var(--transition);}
+html.bvi.bvi-mw-767 #access .sub-toggle.is-open span{transform: rotate(225deg); margin-top: 3px;}
+html.bvi.bvi-mw-767 .section{padding: 28px 0;}
+html.bvi.bvi-mw-767 .section-head{margin-bottom: 14px; gap: 8px;}
+html.bvi.bvi-mw-767 #site-description{letter-spacing: 0.08em;}
+html.bvi.bvi-mw-767 .stats-grid{grid-template-columns: 1fr 1fr;}
+html.bvi.bvi-mw-767 .stat{padding: 26px 22px;}
+html.bvi.bvi-mw-767 .spec-grid,html.bvi.bvi-mw-767 .news-grid{grid-template-columns: 1fr;}
+html.bvi.bvi-mw-767 .carousel .view-content{grid-template-columns: 1fr;}
+html.bvi.bvi-mw-767 .bento-grid{grid-template-columns: 1fr;}
+html.bvi.bvi-mw-767 .bento-span-2{grid-column: span 1;}
+html.bvi.bvi-mw-767 .cta-band{flex-direction: column; align-items: flex-start;}
+html.bvi.bvi-mw-767 #access .sub-menu{position: static; width: 100%; column-count: 1; transform: none; opacity: 0; visibility: hidden; max-height: 0; padding: 0 16px; overflow: hidden; transition: max-height 0.35s var(--transition), opacity var(--transition);}
+html.bvi.bvi-mw-767 #access .menu > li:hover > ul.sub-menu,html.bvi.bvi-mw-767 #access .menu > li:focus-within > ul.sub-menu{opacity: 1; visibility: visible; max-height: 1400px; padding: 14px 16px;}
+html.bvi.bvi-mw-767 #access .sub-menu a{font-size: 0.86rem;}
+html.bvi.bvi-mw-767 nav#access{flex: 1 1 100%; order: 3; max-height: 0; overflow: hidden; transition: max-height 0.45s var(--transition);}
+html.bvi.bvi-mw-767 nav#access.open{max-height: calc(100vh - var(--header-h)); overflow-y: auto;}
+html.bvi.bvi-mw-767 nav#access.open .sub-menu,html.bvi.bvi-mw-767 nav#access.open .menu > li:hover > ul.sub-menu,html.bvi.bvi-mw-767 nav#access.open .menu > li:focus-within > ul.sub-menu,html.bvi.bvi-mw-767 nav#access.open li.sub-open > ul.sub-menu{max-height: 1400px; opacity: 1; visibility: visible;}
+html.bvi.bvi-mw-767 #access li.sub-open > ul.sub-menu{padding: 10px 16px 14px 24px; border-top: 1px dashed var(--line-soft);}
+html.bvi.bvi-mw-767 .hero-actions .btn{width: 100%;}
+html.bvi.bvi-mw-767 .hero-window{display: none;}
+html.bvi.bvi-mw-767 .blob-stage{aspect-ratio: 1 / 0.9;}
+html.bvi.bvi-mw-767 .section-head{align-items: flex-start;}
+html.bvi.bvi-mw-767 #content_page,html.bvi.bvi-mw-767 #content_single,html.bvi.bvi-mw-767 #content{padding: 24px 18px; border-radius: var(--radius-sm);}
+html.bvi.bvi-mw-767 .entry-title{font-size: 1.5rem;}
+html.bvi.bvi-mw-767 .entry-content,html.bvi.bvi-mw-767 .entry-content p,html.bvi.bvi-mw-767 .entry-content li,html.bvi.bvi-mw-767 .entry-content div{text-align: left !important;}
+html.bvi.bvi-mw-767 .entry-content table{display: block; width: 100% !important; table-layout: auto;}
+html.bvi.bvi-mw-767 .entry-content thead,html.bvi.bvi-mw-767 .entry-content tbody,html.bvi.bvi-mw-767 .entry-content tr{display: block; width: 100% !important;}
+html.bvi.bvi-mw-767 .entry-content td,html.bvi.bvi-mw-767 .entry-content th{display: block; width: 100% !important; max-width: 100%; box-sizing: border-box; overflow-wrap: break-word; word-break: normal; text-align: left !important;}
+html.bvi.bvi-mw-767 .entry-content table.rtb td,html.bvi.bvi-mw-767 .entry-content table.rtb th{text-align: center;}
+html.bvi.bvi-mw-767 .entry-content table.rtb td a{display: inline-block;}
+html.bvi.bvi-mw-767 .wpcf7-form-control-wrap input[type="text"],html.bvi.bvi-mw-767 .wpcf7-form-control-wrap input[type="email"],html.bvi.bvi-mw-767 .wpcf7-form-control-wrap input[type="tel"],html.bvi.bvi-mw-767 .wpcf7-form-control-wrap input[type="url"],html.bvi.bvi-mw-767 .wpcf7-form-control-wrap input[type="search"],html.bvi.bvi-mw-767 .wpcf7-form-control-wrap textarea,html.bvi.bvi-mw-767 .wpcf7-form-control-wrap select{width: 100%; max-width: 100%;}
+html.bvi.bvi-mw-767 .u-float-img{float: none !important; margin: 14px auto !important; max-width: 100% !important; display: block !important; text-align: center !important; clear: both !important;}
+html.bvi.bvi-mw-767 .u-float-img a{display: inline-block !important; max-width: 100% !important;}
+html.bvi.bvi-mw-767 .u-float-img img{max-width: 100% !important; height: auto !important; margin: 0 auto !important;}
+html.bvi.bvi-mw-767 .su-custom-gallery{width: 100% !important; max-width: 100% !important;}
+html.bvi.bvi-mw-767 .su-custom-gallery-slide{width: 100% !important; max-width: 100% !important; height: auto !important; box-sizing: border-box !important; margin: 0 0 14px 0 !important;}
+html.bvi.bvi-mw-767 .su-custom-gallery-slide img{width: 100% !important; max-width: 100% !important; height: auto !important;}
+html.bvi.bvi-mw-767 .su-custom-gallery-title{max-width: 100% !important; box-sizing: border-box !important;}
+html.bvi.bvi-mw-767 .entry-content div[style*="grid-template-columns"]{grid-template-columns: 1fr !important;}
+html.bvi.bvi-mw-767 .entry-content div[style*="padding: 30px"],html.bvi.bvi-mw-767 .entry-content div[style*="padding:30px"],html.bvi.bvi-mw-767 .entry-content div[style*="padding: 20px"],html.bvi.bvi-mw-767 .entry-content div[style*="padding:20px"]{padding-left: 0 !important; padding-right: 0 !important;}
+html.bvi.bvi-mw-767 .entry-content div[style*="display: flex"]{flex-direction: column !important; align-items: stretch !important;}
+html.bvi.bvi-mw-767 .entry-content iframe,html.bvi.bvi-mw-767 .entry-content embed,html.bvi.bvi-mw-767 .entry-content object{max-width: 100% !important;}
+html.bvi.bvi-mw-767 .rpwe-title,html.bvi.bvi-mw-767 .rpwe-title a{overflow-wrap: break-word !important; word-break: break-word !important;}
+html.bvi.bvi-mw-767 .breadcrumb{border-radius: var(--radius-sm); font-size: 0.74rem; padding: 12px 16px;}
+html.bvi.bvi-mw-767 #colophon{margin-top: 12px;}
+html.bvi.bvi-mw-767 #footer-top{padding: 8px 0 6px;}
+html.bvi.bvi-mw-767 #footer-top .footer-compact,html.bvi.bvi-mw-767 #footer-top .wrap{display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px;}
+html.bvi.bvi-mw-767 #footer-top .logo.foot{grid-column: 1; grid-row: 1; font-size: 0.95rem;}
+html.bvi.bvi-mw-767 #footer-top .footer-social{grid-column: 2; grid-row: 1; justify-self: end;}
+html.bvi.bvi-mw-767 #footer-top .footer-addr{grid-column: 1 / -1; grid-row: 2; font-size: 0.62rem; line-height: 1.25; flex: none;}
+html.bvi.bvi-mw-767 #footer-top .footer-links{grid-column: 1 / -1; grid-row: 3; margin-left: 0; gap: 2px 10px;}
+html.bvi.bvi-mw-767 #footer-top .footer-links a{font-size: 0.62rem;}
+html.bvi.bvi-mw-767 #footer-bottom{padding: 4px 0 6px;}
+html.bvi.bvi-mw-767 .footer-copy{font-size: 0.58rem; line-height: 1.25;}
+html.bvi.bvi-mw-767 .footer-social .rollover2,html.bvi.bvi-mw-767 .footer-social .rollover3,html.bvi.bvi-mw-767 .footer-social .rollover6{width: 24px; height: 24px; border-radius: 6px; background-size: 14px 14px;}
+html.bvi.bvi-mw-520 .stats-grid{grid-template-columns: 1fr 1fr; gap: 0;}
+html.bvi.bvi-mw-520 .stat{padding: 22px 18px;}
+html.bvi.bvi-mw-520 .stat .stat-num{font-size: 2.2rem;}
+html.bvi.bvi-mw-520 .hp-top .ticker{font-size: 0.7rem;}
+html.bvi.bvi-mw-520 #cap_navi .menu a{font-size: 0.72rem; padding: 5px 8px;}
+html.bvi.bvi-mw-520 #searchform .field{width: 140px;}
+html.bvi.bvi-mw-520 .fact-row{grid-template-columns: 1fr;}
+html.bvi.bvi-mw-520 .btn{width: 100%;}
+html.bvi.bvi-mw-520 .hp-nav{height: 52px; --header-h: 52px;}
+html.bvi.bvi-mw-520 .brand-mark{font-size: 1.2rem;}
+html.bvi.bvi-mw-520 #site-title{font-size: 1.2rem;}
+html.bvi.bvi-mw-767 .year-banner img{height: 72px;}
+html.bvi.bvi-mw-1120 .news-card.featured{grid-column: span 1;}
+html.bvi.bvi-mw-1120 .news-card.featured h3{font-size: 1.28rem;}
+html.bvi.bvi-mw-480 .hero-actions{flex-direction: column; gap: 12px;}
+html.bvi.bvi-mw-480 .hero-actions .btn{width: 100%; justify-content: center;}
+html.bvi.bvi-mw-480 .news-card{padding: 20px 18px;}
+html.bvi.bvi-mw-480 .spec-card{padding: 22px 18px;}
+html.bvi.bvi-mw-374 .hero .eyebrow,html.bvi.bvi-mw-374 .hp-top .ticker,html.bvi.bvi-mw-374 .eyebrow{font-size: 0.68rem; letter-spacing: 0.05em;}
+html.bvi.bvi-mw-374 .hero h1.display-title,html.bvi.bvi-mw-374 .hero h1{font-size: clamp(1.65rem, 7.5vw, 2.15rem); line-height: 1.15;}
+html.bvi.bvi-mw-374 .wrap{padding-left: 14px; padding-right: 14px;}
+html.bvi.bvi-mw-374 .picker-card{padding: 16px 14px;}
+html.bvi.bvi-mw-374 .akvt-rasp .picker input{padding: 12px 14px; font-size: 0.9375rem;}
+html.bvi.bvi-mw-374 .akvt-doc-link{font-size: 0.8rem; padding: 8px 10px; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box;}
+html.bvi.bvi-mw-520 [class*="doc-grid"],html.bvi.bvi-mw-520 .akvt-doc-grid{grid-template-columns: 1fr !important;}
+/* ---- akvt-rasp.css ---- */
+/* font-size: px → rem */
+html.bvi .akvt-rasp{font-size: 1.0312rem}
+html.bvi .akvt-rasp .picker input{font-size: 1.0625rem}
+html.bvi .akvt-rasp .picker-list button{font-size: 0.9375rem}
+html.bvi .akvt-rasp .lesson .time{font-size: 0.7812rem}
+html.bvi .akvt-rasp .lesson .subject{font-size: 0.9375rem}
+html.bvi .akvt-rasp .lesson .subline{font-size: 0.8125rem}
+html.bvi .akvt-rasp .lesson .note{font-size: 0.7812rem}
+html.bvi .akvt-rasp .day-empty{font-size: 0.875rem}
+html.bvi .akvt-rasp footer{font-size: 0.7188rem}
+html.bvi .akvt-rasp .picker input{font-size:1.0625rem}
+html.bvi .akvt-rasp .picker-list button{font-size:0.9375rem}
+html.bvi .akvt-rasp .lesson .time{font-size:0.7812rem}
+html.bvi .akvt-rasp .lesson .subject{font-size:0.9375rem}
+html.bvi .akvt-rasp .lesson .subline{font-size:0.8125rem}
+html.bvi .akvt-rasp .lesson .note{font-size:0.7812rem}
+html.bvi .akvt-rasp .day-empty{font-size:0.875rem}
+html.bvi .akvt-rasp .updated-note{font-size:0.6875rem}
+/* @media (max-width) → эффективная ширина */
+html.bvi.bvi-mw-480 .akvt-rasp .day-toggle .meta span:first-child{display:none;}
+html.bvi.bvi-mw-480 .akvt-rasp .day-toggle .meta span:first-child{display:none;}
+html.bvi.bvi-mw-767 .akvt-rasp .lesson{grid-template-columns: 64px 1fr; gap: 8px;}
+html.bvi.bvi-mw-767 .akvt-rasp .picker{width: 100%;}
+html.bvi.bvi-mw-767 .akvt-rasp input#akvtSearchInput,html.bvi.bvi-mw-767 .akvt-rasp #akvtSearchInput{width: 100%; min-height: 44px; font-size: 1rem;}
+html.bvi.bvi-mw-767 .akvt-rasp .day{margin-bottom: 10px;}
+html.bvi.bvi-mw-767 .akvt-rasp .states,html.bvi.bvi-mw-767 .akvt-rasp .loading,html.bvi.bvi-mw-767 .akvt-rasp #akvtLoadingState,html.bvi.bvi-mw-767 .akvt-rasp #akvtErrorState,html.bvi.bvi-mw-767 .akvt-rasp #akvtEmptyState{padding: 16px 12px; font-size: 0.95rem;}
+html.bvi.bvi-mw-767 .akvt-rasp #akvtFallbackLinks a{display: inline-block; margin: 6px 8px 6px 0; padding: 8px 12px; border: 1px solid var(--line, #ccc); border-radius: 8px;}
+html.bvi.bvi-mw-767 .akvt-rasp #akvtRetryBtn,html.bvi.bvi-mw-767 .akvt-rasp button{min-height: 44px; min-width: 44px; padding: 10px 16px;}
+html.bvi.bvi-mw-767 .akvt-rasp .picker-list{background: #ffffff !important; box-shadow: 0 16px 40px -8px rgba(38, 37, 31, 0.35) !important; border: 1px solid var(--line); border-radius: var(--radius-sm);}
+html.bvi.bvi-mw-767 .akvt-rasp .picker-list button{padding: 12px 14px; font-size: 0.9375rem; min-height: 42px;}
+html.bvi.bvi-mw-767 .akvt-rasp .extra-files ul{list-style: none; padding-left: 0;}
+html.bvi.bvi-mw-767 .akvt-rasp .extra-files li{margin: 8px 0; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 0.88rem; line-height: 1.4;}
+html.bvi.bvi-mw-767 .akvt-rasp .extra-files a{text-decoration: none; color: var(--ink); font-weight: 500;}
+html.bvi.bvi-mw-767 .akvt-rasp .extra-files a:hover{color: var(--accent);}
+/* ---- global.css ---- */
+/* font-size: px → rem */
+html.bvi .recent-posts-extended .widget-title{font-size: 0.75rem !important}
+html.bvi .rpwe-block h3{font-size: 0.75rem !important}
+html.bvi .rpwe-summary{font-size: 0.75rem}
+html.bvi .rpwe-time{font-size: 0.6875rem}
+html.bvi .rpwe-comment{font-size: 0.6875rem}
+html.bvi .akvt-doc-table td.akvt-doc-title{font-size: 0.9375rem}
+/* ---- sitemap.css ---- */
+/* @media (max-width) → эффективная ширина */
+html.bvi.bvi-mw-767 .sitemap-pages{columns: 1;}
+/* ---- shema-proezda.css ---- */
+/* @media (max-width) → эффективная ширина */
+html.bvi.bvi-mw-900 .map-layout{grid-template-columns: 1fr; gap: 16px;}
+html.bvi.bvi-mw-900 .map-sidebar{display: flex; flex-direction: column; gap: 12px;}
+html.bvi.bvi-mw-900 .map-search{width: 100%;}
+html.bvi.bvi-mw-900 .map-search input{width: 100%; font-size: 0.9375rem; padding: 12px 16px;}
+html.bvi.bvi-mw-900 .map-sidebar .location-card{width: 100%; min-width: 0; padding: 16px 18px;}
+html.bvi.bvi-mw-900 #map-container{height: 420px; min-height: 320px;}
+html.bvi.bvi-mw-900 .map-legend{gap: 10px; flex-wrap: wrap; font-size: 0.82rem;}
+html.bvi.bvi-mw-900 .transport-info{padding: 14px 16px; font-size: 0.82rem;}
+/* ---- page-lukomore.css ---- */
+/* font-size: px → rem */
+html.bvi .luko-lead{font-size: 0.9375rem}

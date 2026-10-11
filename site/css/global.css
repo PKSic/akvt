@@ -6,7 +6,7 @@
    1) WP defaults (emoji, block library, preset CSS variables)
    2) WP gallery shortcode (.gallery / .gallery-columns-N)
    3) Recent Posts Extended widget (.rpwe-*)
-   4) Vision-mode font buttons (.vjlink.fs-*)
+   4) (режим для слабовидящих теперь отдельно: vision.css / vision-layout.css / js/vision.js)
    5) Utility classes (.u-justify, .u-center, …) — вместо style="..."
 
    Подключается на всех страницах: <link href="/css/global.css">
@@ -142,14 +142,6 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
 }
 .rpwe-clearfix:after { clear: both; }
 .rpwe-clearfix { zoom: 1; }
-
-/* ==========================================================================
-   Vision mode font-size buttons (footer partial; was inline style="")
-   ========================================================================== */
-.vjlink.fs-13 { font-size: 13px; }
-.vjlink.fs-15 { font-size: 15px; }
-.vjlink.fs-20 { font-size: 20px; }
-.vjlink.fs-25 { font-size: 25px; }
 
 /* ==========================================================================
    Utility classes (replaced repeated style="..." in content HTML)

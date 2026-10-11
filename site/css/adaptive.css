@@ -117,7 +117,7 @@
         списком карточек вместо строк);
       - поля формы Contact Form 7 (.wpcf7-form-control-wrap) — на всю
         ширину;
-      - хлебные крошки, кнопка "наверх" (.start) — компактнее;
+      - хлебные крошки — компактнее;
       - подвал — в 1 колонку.
 
    5. @media (max-width: 520px)    — самые узкие экраны: чуть мельче
@@ -799,17 +799,6 @@
     background-size: 14px 14px;
   }
 
-  .start {
-    width: 40px;
-    height: 40px;
-    right: 10px;
-    bottom: 10px;
-  }
-
-  .start svg {
-    width: 18px;
-    height: 18px;
-  }
 }
 
 @media (max-width: 520px) {
@@ -904,8 +893,7 @@
   #hamburger-btn,
   .hp-burger,
   .hp-mobile-nav,
-  .start,
-  .modalDialog,
+  .bvi-ui,
   .cta-band {
     display: none !important;
   }

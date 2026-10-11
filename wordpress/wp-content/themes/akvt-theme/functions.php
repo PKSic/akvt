@@ -66,6 +66,17 @@ function akvt_enqueue_assets() {
 
     // Основной интерактивный скрипт (бургер, аккордеоны, модалки)
     wp_enqueue_script('akvt-main', $theme_uri . '/assets/js/main.js', ['jquery'], AKVT_THEME_VERSION, true);
+
+    // Режим «Версия для слабовидящих» (настройка «Отображать кнопку» в Control Hub).
+    // Скрипт подключается в <head> (in_footer = false): классы режима ставятся на <html>
+    // до первой отрисовки, поэтому страница не «мигает» обычным видом. Разметку панели
+    // и кнопки скрипт создаёт сам.
+    $bvi_opt = function_exists('akvt_get_option') ? akvt_get_option('header_bvi_enabled', '1') : '1';
+    if (!in_array((string) $bvi_opt, ['0', '', 'false', 'off'], true)) {
+        wp_enqueue_style('akvt-vision-layout', $theme_uri . '/assets/css/vision-layout.css', ['akvt-adaptive'], AKVT_THEME_VERSION);
+        wp_enqueue_style('akvt-vision', $theme_uri . '/assets/css/vision.css', ['akvt-vision-layout'], AKVT_THEME_VERSION);
+        wp_enqueue_script('akvt-vision', $theme_uri . '/assets/js/vision.js', [], AKVT_THEME_VERSION, false);
+    }
 }
 add_action('wp_enqueue_scripts', 'akvt_enqueue_assets');
 

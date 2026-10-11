@@ -1,0 +1,973 @@
+/* ==========================================================================
+   АКВТ — режим «Версия для слабовидящих»
+   ==========================================================================
+   Состав режима (см. также js/vision.js и css/vision-layout.css):
+
+     vision.js          состояние (localStorage), панель настроек, классы на <html>
+     vision-layout.css  АВТОГЕНЕРАЦИЯ: адаптивные @media-правила сайта для
+                        «эффективной ширины» (ширина окна / масштаб шрифта)
+     vision.css         этот файл: цветовые схемы, размер текста, интервалы,
+                        изображения, нормализация компонентов, интерфейс панели
+
+   Классы на <html> (ставит vision.js):
+     bvi                      режим включён
+     bvi-theme-{bw|wb|blue|beige|green}
+     bvi-img-{gray|hide}      картинки: чёрно-белые / скрыты (по умолчанию показаны)
+     bvi-ls-{1|2}  bvi-lh-{1|2}   межбуквенный / межстрочный интервал
+     bvi-ff-serif             шрифт с засечками
+     bvi-mw-N                 эффективная ширина ≤ N px (для vision-layout.css)
+   CSS-переменная --bvi-scale (1 … 2) задаёт масштаб шрифта.
+
+   Все цвета в режиме выводятся из пяти схем ниже. Контраст текст/фон во всех
+   схемах не ниже 7:1 (WCAG AAA), проверен расчётом.
+   ========================================================================== */
+
+/* ------------------------------------------------------------------ Токены интерфейса (обычный режим) */
+:root {
+  --bvi-ui-bg: #ffffff;
+  --bvi-ui-fg: #1a1a1a;
+  --bvi-ui-border: #1a1a1a;
+  --bvi-ui-btn-bg: #f2f2f2;
+  --bvi-ui-btn-fg: #1a1a1a;
+  --bvi-ui-on-bg: #1a3fa0;
+  --bvi-ui-on-fg: #ffffff;
+  --bvi-ui-focus: #c00000;
+}
+
+/* ------------------------------------------------------------------ Цветовые схемы */
+html.bvi-theme-bw {
+  --bvi-bg: #ffffff;
+  --bvi-fg: #000000;
+  --bvi-link: #0000d0;
+  --bvi-visited: #5a0a8c;
+  --bvi-border: #000000;
+  --bvi-btn-bg: #000000;
+  --bvi-btn-fg: #ffffff;
+  --bvi-focus: #c00000;
+  --bvi-mark-bg: #ffe600;
+  --bvi-mark-fg: #000000;
+}
+html.bvi-theme-wb {
+  --bvi-bg: #000000;
+  --bvi-fg: #ffffff;
+  --bvi-link: #ffff40;
+  --bvi-visited: #ffb0ff;
+  --bvi-border: #ffffff;
+  --bvi-btn-bg: #ffffff;
+  --bvi-btn-fg: #000000;
+  --bvi-focus: #00e5ff;
+  --bvi-mark-bg: #ffe600;
+  --bvi-mark-fg: #000000;
+}
+html.bvi-theme-blue {
+  --bvi-bg: #9dd1ff;
+  --bvi-fg: #063462;
+  --bvi-link: #00006e;
+  --bvi-visited: #4a0a6a;
+  --bvi-border: #063462;
+  --bvi-btn-bg: #063462;
+  --bvi-btn-fg: #ffffff;
+  --bvi-focus: #8a0000;
+  --bvi-mark-bg: #ffe600;
+  --bvi-mark-fg: #000000;
+}
+html.bvi-theme-beige {
+  --bvi-bg: #f7f3d7;
+  --bvi-fg: #4d4b43;
+  --bvi-link: #003a9e;
+  --bvi-visited: #6b1a6b;
+  --bvi-border: #4d4b43;
+  --bvi-btn-bg: #4d4b43;
+  --bvi-btn-fg: #f7f3d7;
+  --bvi-focus: #a30000;
+  --bvi-mark-bg: #ffe600;
+  --bvi-mark-fg: #000000;
+}
+html.bvi-theme-green {
+  --bvi-bg: #3b2716;
+  --bvi-fg: #a9e44d;
+  --bvi-link: #ffd84d;
+  --bvi-visited: #ffb3d9;
+  --bvi-border: #a9e44d;
+  --bvi-btn-bg: #a9e44d;
+  --bvi-btn-fg: #3b2716;
+  --bvi-focus: #ffffff;
+  --bvi-mark-bg: #ffe600;
+  --bvi-mark-fg: #000000;
+}
+
+/* Интерфейс режима (панель, кнопка) окрашивается той же схемой */
+html.bvi {
+  --bvi-ui-bg: var(--bvi-bg);
+  --bvi-ui-fg: var(--bvi-fg);
+  --bvi-ui-border: var(--bvi-border);
+  --bvi-ui-btn-bg: var(--bvi-bg);
+  --bvi-ui-btn-fg: var(--bvi-fg);
+  --bvi-ui-on-bg: var(--bvi-btn-bg);
+  --bvi-ui-on-fg: var(--bvi-btn-fg);
+  --bvi-ui-focus: var(--bvi-focus);
+}
+
+/* Дизайн-токены сайта (style.css) переопределяем под схему — так
+   перекрашивается всё, что использует var(--ink), var(--accent) и т. д. */
+html.bvi {
+  --paper: var(--bvi-bg);
+  --paper-deep: var(--bvi-bg);
+  --surface: var(--bvi-bg);
+  --surface-warm: var(--bvi-bg);
+  --cream: var(--bvi-bg);
+  --accent-wash: var(--bvi-bg);
+  --green-wash: var(--bvi-bg);
+  --gold-wash: var(--bvi-bg);
+  --coral-wash: var(--bvi-bg);
+  --periwinkle: var(--bvi-bg);
+  --periwinkle-deep: var(--bvi-fg);
+  --mint: var(--bvi-bg);
+  --sky: var(--bvi-bg);
+  --coral: var(--bvi-fg);
+  --ink: var(--bvi-fg);
+  --ink-soft: var(--bvi-fg);
+  --muted: var(--bvi-fg);
+  --faint: var(--bvi-fg);
+  --line: var(--bvi-border);
+  --line-soft: var(--bvi-border);
+  --accent: var(--bvi-link);
+  --accent-deep: var(--bvi-link);
+  --green: var(--bvi-fg);
+  --green-deep: var(--bvi-fg);
+  --gold: var(--bvi-fg);
+  --ink-band: var(--bvi-bg);
+  --ink-band-2: var(--bvi-bg);
+  --on-dark: var(--bvi-fg);
+  --shadow-1: none;
+  --shadow-2: none;
+  --shadow-3: none;
+  --shadow-accent: none;
+  --transition: 0s;
+}
+
+/* ------------------------------------------------------------------ Размер текста и интервалы */
+html.bvi {
+  --bvi-scale: 1.5;
+  --bvi-lh: 1.6;
+  --bvi-ls: 0em;
+  --bvi-ws: 0em;
+  --bvi-font: Arial, "Helvetica Neue", Helvetica, Verdana, "Segoe UI", sans-serif;
+  font-size: calc(var(--bvi-scale) * 100%);
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+html.bvi-ls-1 { --bvi-ls: 0.06em; --bvi-ws: 0.12em; }
+html.bvi-ls-2 { --bvi-ls: 0.12em; --bvi-ws: 0.25em; }
+html.bvi-lh-1 { --bvi-lh: 1.9; }
+html.bvi-lh-2 { --bvi-lh: 2.3; }
+html.bvi-ff-serif { --bvi-font: Georgia, "Times New Roman", Times, "PT Serif", serif; }
+
+/* ------------------------------------------------------------------ Цвета: страховочная сетка
+   html.bvi[data-bvi][class] — повышенная специльность, чтобы перебить !important
+   в правилах сайта (.akvt-doc-table, .has-*-color и т. д.) и inline-стили. */
+html.bvi[data-bvi][class],
+html.bvi[data-bvi][class] body {
+  background: var(--bvi-bg) !important;
+  color: var(--bvi-fg) !important;
+}
+
+html.bvi[data-bvi][class] body *:where(:not(img, video, iframe, canvas, .bvi-ui, .bvi-ui *)),
+html.bvi[data-bvi][class] body *:where(:not(.bvi-ui, .bvi-ui *))::before,
+html.bvi[data-bvi][class] body *:where(:not(.bvi-ui, .bvi-ui *))::after {
+  color: var(--bvi-fg) !important;
+  background-color: var(--bvi-bg) !important;
+  background-image: none !important;
+  border-color: var(--bvi-border) !important;
+  outline-color: var(--bvi-focus);
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  text-transform: none !important;
+  font-family: var(--bvi-font) !important;
+  letter-spacing: var(--bvi-ls) !important;
+  word-spacing: var(--bvi-ws) !important;
+  /* anywhere (а не break-word): уменьшает и min-content, поэтому длинное слово
+     не раздувает колонки grid/flex и не создаёт горизонтальную прокрутку */
+  overflow-wrap: anywhere;
+}
+html.bvi[data-bvi][class] body *:where(:not(em, i, cite, dfn, var, .bvi-ui, .bvi-ui *)) {
+  font-style: normal !important;
+}
+
+/* Полностью пустые элементы без текста — это декор (точки, полоски, блики).
+   Рисуем их цветом текста там, где они несут смысл (см. ниже), иначе прячем. */
+html.bvi[data-bvi][class] body .blob,
+html.bvi[data-bvi][class] body .blob-stage,
+html.bvi[data-bvi][class] body .bento-shape,
+html.bvi[data-bvi][class] body .map-fade,
+html.bvi[data-bvi][class] body .hero-visual .win-bar .dot,
+html.bvi[data-bvi][class] body .map-legend-dot,
+html.bvi[data-bvi][class] body .nc-media:empty {
+  display: none !important;
+}
+html.bvi[data-bvi][class] body::before,
+html.bvi[data-bvi][class] body::after {
+  display: none !important;
+}
+
+/* Колонки grid/flex по умолчанию не сжимаются уже содержимого (min-width: auto) —
+   при увеличенном шрифте это выталкивает текст за край экрана, где его обрезает overflow-x */
+html.bvi[data-bvi][class] body :where(div, section, article, aside, header, footer, nav, form, fieldset, p, ul, ol, li, h1, h2, h3, h4, h5, h6, figure, blockquote):where(:not(.bvi-ui, .bvi-ui *)) {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ------------------------------------------------------------------ Текст */
+html.bvi[data-bvi][class] body {
+  font-family: var(--bvi-font) !important;
+  letter-spacing: var(--bvi-ls) !important;
+  word-spacing: var(--bvi-ws) !important;
+  font-size: 1.0625rem !important;
+  line-height: var(--bvi-lh) !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-height: 0;
+}
+html.bvi[data-bvi][class] body *:where(:not(.bvi-ui, .bvi-ui *)) {
+  line-height: var(--bvi-lh) !important;
+}
+html.bvi[data-bvi][class] h1,
+html.bvi[data-bvi][class] h2,
+html.bvi[data-bvi][class] h3,
+html.bvi[data-bvi][class] h4,
+html.bvi[data-bvi][class] h5,
+html.bvi[data-bvi][class] h6 {
+  line-height: calc(var(--bvi-lh) * 0.8) !important;
+  font-weight: 700 !important;
+  hyphens: manual;
+}
+html.bvi[data-bvi][class] h1 { font-size: 2rem !important; }
+html.bvi[data-bvi][class] h2 { font-size: 1.6rem !important; }
+html.bvi[data-bvi][class] h3 { font-size: 1.35rem !important; }
+html.bvi[data-bvi][class] h4,
+html.bvi[data-bvi][class] h5,
+html.bvi[data-bvi][class] h6 { font-size: 1.15rem !important; }
+
+/* Заголовок сайта в шапке — не как заголовок страницы */
+html.bvi[data-bvi][class] .hp-header h1,
+html.bvi[data-bvi][class] .hp-header h2,
+html.bvi[data-bvi][class] #site-title,
+html.bvi[data-bvi][class] #site-description {
+  font-size: 1.1rem !important;
+  line-height: 1.3 !important;
+  margin: 0;
+}
+
+/* Всё, что скрипт нашёл мельче базового размера (js/vision.js → enforceMinFont) */
+html.bvi[data-bvi][class] body .bvi-fs-min {
+  font-size: 1rem !important;
+}
+
+/* Мелкий текст не должен оставаться мелким */
+html.bvi[data-bvi][class] small,
+html.bvi[data-bvi][class] .eyebrow,
+html.bvi[data-bvi][class] .mono-label,
+html.bvi[data-bvi][class] .nc-date,
+html.bvi[data-bvi][class] .nc-tag,
+html.bvi[data-bvi][class] .rpwe-time,
+html.bvi[data-bvi][class] .rpwe-summary,
+html.bvi[data-bvi][class] .entry-meta,
+html.bvi[data-bvi][class] .breadcrumb,
+html.bvi[data-bvi][class] .gallery-caption,
+html.bvi[data-bvi][class] .wp-caption-text,
+html.bvi[data-bvi][class] .stat-label,
+html.bvi[data-bvi][class] .fact-k,
+html.bvi[data-bvi][class] .spec-tag,
+html.bvi[data-bvi][class] .chip {
+  font-size: 1rem !important;
+}
+
+/* Встроенные (inline) стили редакторов WordPress: размер, шрифт, выравнивание по ширине */
+html.bvi[data-bvi][class] [style*="font-size"]:not(h1, h2, h3, h4, h5, h6) {
+  font-size: 1em !important;
+}
+html.bvi[data-bvi][class] [style*="font-family"] {
+  font-family: var(--bvi-font) !important;
+}
+html.bvi[data-bvi][class] [style*="text-align"],
+html.bvi[data-bvi][class] .u-justify {
+  text-align: left !important;
+}
+html.bvi[data-bvi][class] [style*="float"],
+html.bvi[data-bvi][class] .alignleft,
+html.bvi[data-bvi][class] .alignright,
+html.bvi[data-bvi][class] .u-float-img {
+  float: none !important;
+}
+html.bvi[data-bvi][class] [style*="width"]:not(img, iframe, video, svg),
+html.bvi[data-bvi][class] [style*="height"]:not(img, iframe, video, svg, canvas, .hp-burger *) {
+  max-width: 100% !important;
+}
+html.bvi[data-bvi][class] [style*="height"]:not(img, iframe, video, svg, canvas) {
+  height: auto !important;
+  min-height: 0 !important;
+}
+html.bvi[data-bvi][class] .entry-content p,
+html.bvi[data-bvi][class] .entry-content li,
+html.bvi[data-bvi][class] .entry-content td,
+html.bvi[data-bvi][class] .entry-content th {
+  max-width: 100%;
+}
+html.bvi[data-bvi][class] .entry-content p,
+html.bvi[data-bvi][class] .entry-content ul,
+html.bvi[data-bvi][class] .entry-content ol {
+  margin-block: 0 1em;
+}
+
+/* ------------------------------------------------------------------ Ссылки */
+html.bvi[data-bvi][class] body a:where(:not(.bvi-ui, .bvi-ui *)),
+html.bvi[data-bvi][class] body a:where(:not(.bvi-ui, .bvi-ui *)) * {
+  color: var(--bvi-link) !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 0.1em !important;
+  text-underline-offset: 0.18em !important;
+}
+html.bvi[data-bvi][class] body a:visited:where(:not(.bvi-ui, .bvi-ui *)),
+html.bvi[data-bvi][class] body a:visited:where(:not(.bvi-ui, .bvi-ui *)) * {
+  color: var(--bvi-visited) !important;
+}
+html.bvi[data-bvi][class] body a:hover:where(:not(.bvi-ui, .bvi-ui *)),
+html.bvi[data-bvi][class] body a:hover:where(:not(.bvi-ui, .bvi-ui *)) *,
+html.bvi[data-bvi][class] body a:focus-visible:where(:not(.bvi-ui, .bvi-ui *)),
+html.bvi[data-bvi][class] body a:focus-visible:where(:not(.bvi-ui, .bvi-ui *)) * {
+  background-color: var(--bvi-link) !important;
+  color: var(--bvi-bg) !important;
+}
+html.bvi[data-bvi][class] body a[href^="tel:"],
+html.bvi[data-bvi][class] body a[href^="mailto:"] {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ------------------------------------------------------------------ Кнопки и формы */
+html.bvi[data-bvi][class] body :is(button, input[type="button"], input[type="submit"], input[type="reset"], .btn, .hp-cta, .wpcf7-submit, .akvt-btn-submit, a.btn, a.hp-cta):not(.bvi-ui, .bvi-ui *, .hp-burger) {
+  background-color: var(--bvi-btn-bg) !important;
+  color: var(--bvi-btn-fg) !important;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 6px !important;
+  min-height: 2.75rem;
+  padding: 0.5em 1em !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+html.bvi[data-bvi][class] body :is(.btn *, .hp-cta *, button:not(.hp-burger) *):not(.bvi-ui, .bvi-ui *) {
+  color: var(--bvi-btn-fg) !important;
+  background-color: transparent !important;
+  text-decoration: none !important;
+}
+html.bvi[data-bvi][class] body :is(.btn, .hp-cta, button, input[type="submit"]):not(.bvi-ui, .bvi-ui *, .hp-burger) {
+  max-width: 100%;
+  white-space: normal;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+}
+html.bvi[data-bvi][class] body :is(a.btn, a.hp-cta, .btn, .hp-cta):hover,
+html.bvi[data-bvi][class] body :is(a.btn, a.hp-cta, .btn, .hp-cta):focus-visible {
+  background-color: var(--bvi-bg) !important;
+  color: var(--bvi-fg) !important;
+}
+html.bvi[data-bvi][class] body :is(a.btn, a.hp-cta, .btn, .hp-cta):hover *,
+html.bvi[data-bvi][class] body :is(a.btn, a.hp-cta, .btn, .hp-cta):focus-visible * {
+  color: var(--bvi-fg) !important;
+}
+html.bvi[data-bvi][class] body :is(input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="hidden"]), select, textarea):not(.bvi-ui *) {
+  background-color: var(--bvi-bg) !important;
+  color: var(--bvi-fg) !important;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 4px !important;
+  min-height: 2.75rem;
+  padding: 0.4em 0.6em !important;
+  width: 100%;
+  max-width: 100%;
+  font-size: 1rem !important;
+}
+html.bvi[data-bvi][class] body :is(input, select, textarea)::placeholder {
+  color: var(--bvi-fg) !important;
+  opacity: 0.75;
+}
+html.bvi[data-bvi][class] body input[type="checkbox"],
+html.bvi[data-bvi][class] body input[type="radio"] {
+  width: 1.4em;
+  height: 1.4em;
+  accent-color: var(--bvi-btn-bg);
+}
+html.bvi[data-bvi][class] body label {
+  font-weight: 700;
+}
+
+/* Видимый фокус */
+html.bvi[data-bvi][class] body :focus-visible {
+  outline: 0.25rem solid var(--bvi-focus) !important;
+  outline-offset: 0.2rem !important;
+}
+html.bvi[data-bvi][class] body :is(a, button, input, select, textarea):focus:not(:focus-visible) {
+  outline: 0.15rem solid var(--bvi-focus) !important;
+  outline-offset: 0.15rem !important;
+}
+
+/* Выделение текста */
+html.bvi[data-bvi][class] ::selection {
+  background: var(--bvi-fg) !important;
+  color: var(--bvi-bg) !important;
+}
+
+/* ------------------------------------------------------------------ Карточки, таблицы, блоки */
+html.bvi[data-bvi][class] body :is(.bento-item, .spec-card, .news-card, .info-card, .card, .stat, .hero-card, .gov-card, .address-card, .akvt-spec-card, .akvt-feedback-card, .akvt-feedback-notice, .widget, .cta-band, .map-tile, .carousel-item, .fact-row, .mega-panel, .hero-window, .hc-1, .hc-2, .slide-callout, .pull-quote, .year-banner, .akvt-rasp .picker-list, .wp-caption, blockquote) {
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 0.4rem !important;
+  box-shadow: none !important;
+}
+html.bvi[data-bvi][class] body :is(.hp-header, #footer-top, #footer-bottom, #tape-wrap) {
+  border-color: var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body .hp-header {
+  border-bottom: 3px solid var(--bvi-border) !important;
+  position: static !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+html.bvi[data-bvi][class] body #footer-top {
+  border-top: 3px solid var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body hr {
+  border: 0 !important;
+  border-top: 2px solid var(--bvi-border) !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+html.bvi[data-bvi][class] body table {
+  border-collapse: collapse !important;
+  width: 100%;
+  max-width: 100%;
+  table-layout: auto;
+}
+html.bvi[data-bvi][class] body :is(th, td) {
+  border: 2px solid var(--bvi-border) !important;
+  padding: 0.5em 0.7em !important;
+  vertical-align: top;
+  text-align: left;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+html.bvi[data-bvi][class] body th {
+  font-weight: 700 !important;
+}
+html.bvi[data-bvi][class] body .bvi-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-block: 1em;
+}
+html.bvi[data-bvi][class] body .bvi-table-scroll > table {
+  margin: 0 !important;
+}
+
+/* Подсветка в виджете расписания, активные пункты меню */
+html.bvi[data-bvi][class] body :is(.current-menu-item, .current_page_item, .current-item, [aria-current], .is-active, .active) > a,
+html.bvi[data-bvi][class] body :is(a[aria-current], a.is-active, a.active) {
+  font-weight: 700 !important;
+  border-bottom: 0.2rem solid var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body mark {
+  background: var(--bvi-mark-bg) !important;
+  color: var(--bvi-mark-fg) !important;
+}
+
+/* ------------------------------------------------------------------ Шапка, меню, подвал */
+html.bvi[data-bvi][class] body .hp-top {
+  border-bottom: 2px solid var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body .hp-top .ticker {
+  animation: none !important;
+  transform: none !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.2rem;
+  white-space: normal;
+  width: auto;
+  padding: 0.5rem 1rem;
+}
+/* Бегущая строка: main.js дублирует её содержимое для анимации — оставляем объявление
+   и ссылку; телефон и адрес есть в подвале и на странице «Контакты» */
+html.bvi[data-bvi][class] body .hp-top .ticker > span:nth-child(n + 3) {
+  display: none !important;
+}
+html.bvi[data-bvi][class] body :is(.eyebrow, .mono-label, .section-num)::before,
+html.bvi[data-bvi][class] body :is(.eyebrow, .mono-label)::after {
+  display: none !important;
+}
+html.bvi[data-bvi][class] body .eyebrow {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+html.bvi[data-bvi][class] body .hp-top .ticker span {
+  white-space: normal;
+}
+html.bvi[data-bvi][class] body .hp-nav {
+  height: auto !important;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-block: 0.6rem;
+}
+html.bvi[data-bvi][class] body .hp-menu {
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+}
+html.bvi[data-bvi][class] body :is(.hp-menu > a, .hp-menu > .has-drop > a, .m-parent, .hp-mobile-nav a) {
+  padding: 0.5rem 0.7rem !important;
+  font-size: 1rem !important;
+  display: inline-block;
+}
+html.bvi[data-bvi][class] body .mega-panel {
+  position: absolute;
+  max-height: none;
+  overflow: visible;
+}
+html.bvi[data-bvi][class] body .mega-panel a {
+  display: block;
+  padding: 0.45rem 0.6rem;
+}
+/* Бургер: полоски рисуются фоном — задаём цвет текста */
+html.bvi[data-bvi][class] body .hp-burger {
+  border: 2px solid var(--bvi-border) !important;
+  min-width: 3rem;
+  min-height: 3rem;
+}
+html.bvi[data-bvi][class] body .hp-burger {
+  background-color: var(--bvi-bg) !important;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem !important;
+}
+html.bvi[data-bvi][class] body .hp-burger span {
+  background-color: var(--bvi-fg) !important;
+  height: 0.2rem !important;
+  width: 1.6rem !important;
+  margin: 0 !important;
+  display: block;
+  transform: none !important;
+  opacity: 1 !important;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav {
+  position: static;
+  max-height: none;
+  height: auto;
+  transform: none;
+  overflow: visible;
+  border-bottom: 2px solid var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav:not(.is-open):not(.open) {
+  display: none;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav.is-open,
+html.bvi[data-bvi][class] body .hp-mobile-nav.open {
+  display: block;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav a,
+html.bvi[data-bvi][class] body .hp-mobile-nav .m-sub {
+  display: block;
+}
+html.bvi[data-bvi][class] body .logo,
+html.bvi[data-bvi][class] body .logo * {
+  background-image: none !important;
+  white-space: normal !important;
+}
+html.bvi[data-bvi][class] body .logo {
+  display: block;
+  flex: 1 1 8rem;
+  min-width: 0;
+  max-width: 100%;
+}
+html.bvi[data-bvi][class] body .logo > div,
+html.bvi[data-bvi][class] body .logo h1,
+html.bvi[data-bvi][class] body .logo h2 {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  border: 0 !important;
+  padding: 0 !important;
+}
+html.bvi[data-bvi][class] body :is(.hp-header, .hp-top, #footer-top, #footer-bottom) * {
+  white-space: normal;
+}
+/* Социальные иконки были фоновыми картинками — показываем подписью */
+html.bvi[data-bvi][class] body .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+html.bvi[data-bvi][class] body :is(.rollover2, .rollover3, .rollover6) {
+  width: auto !important;
+  height: auto !important;
+  padding: 0.3rem 0.6rem !important;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 0.3rem !important;
+  display: inline-block !important;
+  transform: none !important;
+}
+html.bvi[data-bvi][class] body .rollover2::after { content: "ВКонтакте"; }
+html.bvi[data-bvi][class] body .rollover3::after { content: "Одноклассники"; }
+html.bvi[data-bvi][class] body .rollover6::after { content: "Telegram"; }
+html.bvi[data-bvi][class] body :is(.rollover2, .rollover3, .rollover6)::after {
+  background: none !important;
+  text-decoration: underline;
+}
+html.bvi[data-bvi][class] body .wrap {
+  max-width: min(100%, 76rem);
+  padding-inline: clamp(0.75rem, 3vw, 2rem);
+}
+
+/* Подвал и текстовые блоки не должны «ломать» ширину */
+html.bvi[data-bvi][class] body :is(.footer-compact, .footer-addr, .footer-links) {
+  display: block;
+  height: auto;
+}
+html.bvi[data-bvi][class] body .footer-links a {
+  display: inline-block;
+  margin: 0.3rem 1rem 0.3rem 0;
+}
+
+/* Появление блоков при прокрутке и счётчики: показываем сразу */
+html.bvi[data-bvi][class] body [data-reveal],
+html.bvi[data-bvi][class] body [data-reveal] * {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+html.bvi[data-bvi][class] *,
+html.bvi[data-bvi][class] *::before,
+html.bvi[data-bvi][class] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+/* Сетки с 3+ колонками и карусели без адаптива */
+html.bvi[data-bvi][class] body .gallery .gallery-item {
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+}
+html.bvi.bvi-mw-767[data-bvi][class] body .gallery .gallery-item { width: 50% !important; }
+html.bvi.bvi-mw-480[data-bvi][class] body .gallery .gallery-item { width: 100% !important; }
+
+/* ------------------------------------------------------------------ Изображения */
+html.bvi[data-bvi][class] body img {
+  max-width: 100% !important;
+  height: auto !important;
+  border: 2px solid var(--bvi-border);
+  background-color: #fff !important;
+}
+html.bvi[data-bvi][class] body .logo img,
+html.bvi[data-bvi][class] body a > img.emoji {
+  border: 0;
+}
+html.bvi-img-gray[data-bvi][class] body img,
+html.bvi-img-gray[data-bvi][class] body video {
+  filter: grayscale(1) contrast(1.1) !important;
+}
+html.bvi-img-hide[data-bvi][class] body img:not(.emoji, .wp-smiley),
+html.bvi-img-hide[data-bvi][class] body picture,
+html.bvi-img-hide[data-bvi][class] body video,
+html.bvi-img-hide[data-bvi][class] body .year-banner,
+html.bvi-img-hide[data-bvi][class] body .hero-visual {
+  display: none !important;
+}
+html.bvi[data-bvi][class] body .bvi-alt {
+  display: inline-block;
+  border: 2px dashed var(--bvi-border);
+  padding: 0.15em 0.5em;
+  margin: 0.2em 0;
+  font-weight: 700;
+}
+html.bvi:not(.bvi-img-hide) .bvi-alt {
+  display: none !important;
+}
+/* Карта и видео остаются интерактивными, но не вылезают за экран */
+html.bvi[data-bvi][class] body :is(iframe, video, #map-container, #map, .ymaps-2-1-79-map) {
+  max-width: 100% !important;
+}
+html.bvi[data-bvi][class] body iframe {
+  border: 2px solid var(--bvi-border);
+  background: #fff !important;
+}
+
+/* ================================================================== ИНТЕРФЕЙС РЕЖИМА */
+.bvi-ui,
+.bvi-ui * {
+  box-sizing: border-box;
+}
+.bvi-ui {
+  font-family: Arial, "Helvetica Neue", Helvetica, Verdana, sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  font-style: normal;
+}
+.bvi-ui button {
+  font: inherit;
+  letter-spacing: inherit;
+}
+.bvi-ui h2 {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* --- Плавающая кнопка «глаз» */
+.bvi-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--bvi-ui-border);
+  border-radius: 50%;
+  background: var(--bvi-ui-bg);
+  color: var(--bvi-ui-fg);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.bvi-fab svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+.bvi-fab:hover,
+.bvi-fab:focus-visible {
+  background: var(--bvi-ui-on-bg);
+  color: var(--bvi-ui-on-fg);
+}
+.bvi-fab:focus-visible,
+.bvi-ui button:focus-visible,
+.bvi-ui a:focus-visible {
+  outline: 4px solid var(--bvi-ui-focus);
+  outline-offset: 3px;
+}
+html.bvi .bvi-fab {
+  box-shadow: none;
+}
+body.legacy-menu-open .bvi-fab {
+  display: none;
+}
+
+/* --- Полоса состояния (только когда режим включён) */
+.bvi-bar {
+  display: none;
+  background: var(--bvi-ui-bg);
+  color: var(--bvi-ui-fg);
+  border-bottom: 3px solid var(--bvi-ui-border);
+}
+html.bvi .bvi-bar {
+  display: block;
+}
+.bvi-bar-inner {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+.bvi-bar-title {
+  margin-right: auto;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+/* --- Диалог настроек */
+.bvi-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow-y: auto;
+}
+.bvi-overlay[hidden] {
+  display: none;
+}
+.bvi-dialog {
+  width: min(780px, 100%);
+  margin: auto;
+  background: var(--bvi-ui-bg);
+  color: var(--bvi-ui-fg);
+  border: 3px solid var(--bvi-ui-border);
+  border-radius: 8px;
+}
+.bvi-dialog:focus {
+  outline: none;
+}
+.bvi-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 3px solid var(--bvi-ui-border);
+}
+.bvi-head h2 {
+  margin: 0;
+  font-size: 1.3em;
+  line-height: 1.25;
+  color: inherit;
+}
+.bvi-body {
+  padding: 8px 16px 4px;
+}
+.bvi-group {
+  margin: 0;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 2px solid var(--bvi-ui-border);
+  min-width: 0;
+}
+.bvi-group:last-child {
+  border-bottom: 0;
+}
+.bvi-group legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 8px;
+  font-weight: 700;
+  font-size: 1em;
+}
+.bvi-row {
+  clear: both;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.bvi-btn {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 8px 14px;
+  border: 2px solid var(--bvi-ui-border);
+  border-radius: 6px;
+  background: var(--bvi-ui-btn-bg);
+  color: var(--bvi-ui-btn-fg);
+  font-weight: 700;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+}
+.bvi-btn:hover {
+  text-decoration: underline;
+}
+.bvi-btn[aria-pressed="true"] {
+  background: var(--bvi-ui-on-bg);
+  color: var(--bvi-ui-on-fg);
+}
+.bvi-btn[aria-pressed="true"]::before {
+  content: "\2713\00a0";
+}
+.bvi-btn.bvi-danger {
+  border-style: dashed;
+}
+.bvi-size-out {
+  align-self: center;
+  min-width: 4.5ch;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* Образцы цветовых схем (цвета фиксированы и не зависят от текущей схемы) */
+.bvi-sw {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 150px;
+  padding: 8px 12px;
+  border: 3px solid var(--bvi-ui-border);
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 700;
+}
+.bvi-sw .bvi-aa {
+  font-size: 1.5em;
+  line-height: 1.1;
+}
+.bvi-sw .bvi-nm {
+  font-size: 0.8em;
+  font-weight: 400;
+}
+.bvi-sw[aria-pressed="true"] {
+  outline: 4px solid var(--bvi-ui-focus);
+  outline-offset: 2px;
+}
+.bvi-sw[aria-pressed="true"] .bvi-nm::before {
+  content: "\2713\00a0";
+}
+.bvi-sw-bw { background: #ffffff; color: #000000; }
+.bvi-sw-wb { background: #000000; color: #ffffff; }
+.bvi-sw-blue { background: #9dd1ff; color: #063462; }
+.bvi-sw-beige { background: #f7f3d7; color: #4d4b43; }
+.bvi-sw-green { background: #3b2716; color: #a9e44d; }
+
+.bvi-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px 16px;
+  border-top: 3px solid var(--bvi-ui-border);
+}
+.bvi-foot .bvi-btn:last-child {
+  margin-left: auto;
+}
+.bvi-hint {
+  margin: 6px 0 0;
+  font-size: 0.85em;
+}
+.bvi-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+html.bvi-modal-open,
+html.bvi-modal-open body {
+  overflow: hidden !important;
+}
+
+@media (max-width: 520px) {
+  .bvi-overlay { padding: 0; }
+  .bvi-dialog { border-radius: 0; border-width: 0 0 3px; min-height: 100%; }
+  .bvi-sw { min-width: calc(50% - 4px); flex: 1 1 calc(50% - 4px); }
+  .bvi-foot .bvi-btn { flex: 1 1 100%; margin-left: 0 !important; }
+  .bvi-fab { right: 10px; bottom: 10px; width: 54px; height: 54px; }
+}
+
+@media print {
+  .bvi-ui { display: none !important; }
+}
