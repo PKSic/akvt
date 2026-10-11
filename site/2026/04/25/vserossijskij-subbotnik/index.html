@@ -58,6 +58,21 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
 <link rel="apple-touch-icon-precomposed" href="../../../../favicon.ico">
 <link rel="shortcut icon" href="../../../../favicon.ico" />
 <link rel="image_src" href="../../../../favicon.ico" />
+<!-- PWA & Mobile Web App Meta Tags -->
+<link rel="manifest" href="/manifest.json" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="АКВТ" />
+<meta name="application-name" content="АКВТ" />
+<meta name="msapplication-TileColor" content="#2b59d1" />
+<meta name="msapplication-TileImage" content="/icons/icon-192.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png" />
+
 </head>
 
 <body class="post-template-default single single-post postid-34073 single-format-standard custom-background singular two-column right-sidebar">
@@ -163,6 +178,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/14
   <a href="../../../../parents/index.html">Родителям</a>
   <a href="../../../../obrashheniya-grazhdan/index.html">Обращения граждан</a>
   <a href="http://sdo2.akvt.ru">Образовательный портал</a>
+  <a href="javascript:void(0)" onclick="window.akvtInstallApp && window.akvtInstallApp()" class="pwa-m-install" style="color:var(--accent); font-weight:600;">📱 Добавить на экран «Домой»</a>
 </nav>
 
 <!--akvt-header:end-->
@@ -362,6 +378,7 @@ var wpcf7 = {"api":{"root":"https:\/\/www.akvt.ru\/wp-json\/","namespace":"conta
 
 <script type='text/javascript' src='../../../../js/main.js' defer></script>
 <script type="text/javascript" src="../../../../wp-content/themes/twentyeleven-child/js/vision.js"></script>
+<script type="text/javascript" src="/js/pwa.js" defer></script>
 </body>
 </html>
 

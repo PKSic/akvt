@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "id": "/?source=pwa",
+  "name": "Астраханский колледж вычислительной техники",
+  "short_name": "АКВТ",
+  "description": "Официальный портал ГБПОУ АО «АКВТ» — специальности, приёмная кампания, расписание занятий, документы",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f3f1",
+  "theme_color": "#2b59d1",
+  "lang": "ru-RU",
+  "dir": "ltr",
+  "categories": ["education", "news", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Приёмная кампания 2026",
+      "short_name": "Приём 2026",
+      "description": "Правила приёма, даты и подача заявления",
+      "url": "/postupayushhim/priemnaya-kampaniya-2026/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Специальности СПО",
+      "short_name": "Специальности",
+      "description": "Каталог направлений подготовки",
+      "url": "/postupayushhim/realizuemye-specialnosti/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Официальные документы",
+      "short_name": "Документы",
+      "description": "Устав, лицензии и акты с ГОСТ ЭЦП",
+      "url": "/osnovnye-svedeniya-2-2/dokumenty/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Схема проезда",
+      "short_name": "Контакты",
+      "description": "Адрес колледжа и маршруты транспорта",
+      "url": "/shema-proezda/",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
