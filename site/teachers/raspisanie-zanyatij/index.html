@@ -446,6 +446,110 @@ function pickDataSheetAOA(wb){
   throw new Error('Не нашли лист с данными расписания (проверены листы: '+wb.SheetNames.join(', ')+')');
 }
 
+var ROOM_RE = /^(ауд\.?|мастер\.?|спорт\.?|лабор\.?|\d{3})/i;
+var TEACHER_RE = /([А-ЯЁ][а-яё\-]+)\s+([А-ЯЁ]\.\s*[А-ЯЁ]\.?)/;
+
+function splitTeacherRoom(line){
+  line = (line || '').trim();
+  if(!line) return { teacher: '', room: '' };
+  var parts = line.split(/\s{2,}|\s+(?=(?:ауд|\d{3}))/i);
+  if(parts.length >= 2){
+    return { teacher: parts[0].trim(), room: parts.slice(1).join(' ').trim() };
+  }
+  if(ROOM_RE.test(line)){
+    return { teacher: '', room: line };
+  }
+  return { teacher: line, room: '' };
+}
+
+function parsePairBlock(rawVals){
+  var v0 = (rawVals[0] || '').trim();
+  var v1 = (rawVals[1] || '').trim();
+  var v2 = (rawVals[2] || '').trim();
+  var v3 = (rawVals[3] || '').trim();
+  var v4 = (rawVals[4] || '').trim();
+
+  if(!v0 && !v1 && !v2 && !v3 && !v4) return [];
+
+  // 1. Только нижняя половина заполнена (пара только во 2-ю неделю / знаменатель)
+  if(!v0 && !v1 && (v2 || v3 || v4)){
+    var tr2 = splitTeacherRoom(v3 || v4);
+    return [{
+      subject: v2,
+      teacher: tr2.teacher,
+      room: tr2.room,
+      week: 2,
+      isSplit: true
+    }];
+  }
+
+  // 2. Аудитория во второй строке для верхней пары (стандартная еженедельная пара)
+  if(v0 && (ROOM_RE.test(v2) || (!v3 && !v4 && ROOM_RE.test(v2)))){
+    var tr1 = splitTeacherRoom(v1);
+    var room = v2 || tr1.room;
+    return [{
+      subject: v0,
+      teacher: tr1.teacher,
+      room: room,
+      week: 'all',
+      isSplit: false
+    }];
+  }
+
+  // 3. Деление на подгруппы (обе строки содержат преподавателей с инициалами)
+  if(v0 && TEACHER_RE.test(v2) && !v3 && !v4){
+    var trA = splitTeacherRoom(v1);
+    var trB = splitTeacherRoom(v2);
+    return [{
+      subject: v0,
+      teacher: trA.teacher + ' / ' + trB.teacher,
+      room: [trA.room, trB.room].filter(Boolean).join(' · '),
+      subgroups: [
+        { name: '1 п/г', teacher: trA.teacher, room: trA.room },
+        { name: '2 п/г', teacher: trB.teacher, room: trB.room }
+      ],
+      week: 'all',
+      isSplit: false
+    }];
+  }
+
+  // 4. Разделение по неделям (сверху 1-я неделя, снизу 2-я неделя)
+  if(v0 && (v2 || v3)){
+    var trTop = splitTeacherRoom(v1);
+    var trBot = splitTeacherRoom(v3 || v4);
+    return [
+      {
+        subject: v0,
+        teacher: trTop.teacher,
+        room: trTop.room,
+        week: 1,
+        isSplit: true
+      },
+      {
+        subject: v2,
+        teacher: trBot.teacher,
+        room: trBot.room,
+        week: 2,
+        isSplit: true
+      }
+    ];
+  }
+
+  // 5. Заполнена только верхняя часть (пара проводится каждую неделю)
+  if(v0){
+    var tr = splitTeacherRoom(v1);
+    return [{
+      subject: v0,
+      teacher: tr.teacher,
+      room: tr.room,
+      week: 'all',
+      isSplit: false
+    }];
+  }
+
+  return [];
+}
+
 function parseAOA(aoa){
   var headerRow=-1;
   for(var r=0;r<aoa.length;r++){
@@ -485,31 +589,26 @@ function parseAOA(aoa){
         var group = groups[ci];
         if(!group) continue;
         var col = 2+ci;
-        var vals=[];
+        var rawVals=[];
         for(var rr=pr; rr<nextPr; rr++){
-          var v3 = cellStr((aoa[rr]||[])[col]);
-          if(v3) vals.push(v3);
+          rawVals.push(cellStr((aoa[rr]||[])[col]));
         }
-        if(vals.length===0) continue;
-        var subject=vals[0], teacher="", room="", note="";
-        if(vals.length>=2){
-          var m = vals[1].split(/\s{2,}/);
-          if(m.length===2){ teacher=m[0].trim(); room=m[1].trim(); } else { teacher=vals[1]; }
+        var pairLessons = parsePairBlock(rawVals);
+        for(var li=0; li<pairLessons.length; li++){
+          var pl = pairLessons[li];
+          records.push({
+            day: dayName,
+            pair: timeRange,
+            group: group,
+            subject: pl.subject,
+            teacher: pl.teacher,
+            room: pl.room,
+            week: pl.week,
+            isSplit: pl.isSplit,
+            subgroups: pl.subgroups,
+            note: pl.note || ''
+          });
         }
-        if(vals.length>=3){
-          var line3 = vals[2];
-          if(!room){
-            var m2 = line3.split(/\s{2,}/);
-            if(m2.length===2){
-              var t2=m2[0].trim(), r2v=m2[1].trim();
-              room=r2v;
-              if(t2 && t2!==teacher) note=(note+" | "+line3).replace(/^ \| /,'');
-            } else if(/^ауд/i.test(line3)){ room=line3; }
-            else { note=(note+" | "+line3).replace(/^ \| /,''); }
-          } else { note=(note+" | "+line3).replace(/^ \| /,''); }
-        }
-        if(vals.length>=4){ note=(note+" | "+vals.slice(3).join(" | ")).replace(/^ \| /,''); }
-        records.push({day:dayName, pair:timeRange, group:group, subject:subject, teacher:teacher, room:room, note:note});
       }
     }
   }
@@ -524,7 +623,16 @@ function buildSchedule(allGroups, allRecords){
   allRecords.forEach(function(rec){
     if(!schedule[rec.group]) schedule[rec.group]={};
     if(!schedule[rec.group][rec.day]) schedule[rec.group][rec.day]=[];
-    schedule[rec.group][rec.day].push({pair:rec.pair, subject:rec.subject, teacher:rec.teacher, room:rec.room, note:rec.note});
+    schedule[rec.group][rec.day].push({
+      pair: rec.pair,
+      subject: rec.subject,
+      teacher: rec.teacher,
+      room: rec.room,
+      week: rec.week,
+      isSplit: rec.isSplit,
+      subgroups: rec.subgroups,
+      note: rec.note
+    });
   });
   return {days_order: DAY_ORDER, groups: groupsSorted, schedule: schedule};
 }
@@ -671,6 +779,7 @@ function selectGroup(group){
   renderSchedule(group);
 }
 
+var CURRENT_WEEK = 1; // 1 = 1-я неделя (активна по умолчанию), 2 = 2-я неделя, 'all' = обе недели
 var JS_DAY_TO_NAME = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
 var todayName = JS_DAY_TO_NAME[new Date().getDay()];
 
@@ -700,14 +809,52 @@ function renderSchedule(group){
     renderList('');
   });
 
+  // Переключатель недель (1 неделя, 2 неделя, обе недели)
+  var weekBar = document.createElement('div');
+  weekBar.className = 'akvt-week-bar';
+  weekBar.innerHTML = [
+    '<div class="akvt-week-toggle" role="tablist">',
+    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === 1 ? 'active' : '') + '" data-w="1">',
+    '    <span class="num">1 неделя</span> <span class="subtag">текущая</span>',
+    '  </button>',
+    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === 2 ? 'active' : '') + '" data-w="2">',
+    '    <span class="num">2 неделя</span>',
+    '  </button>',
+    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === "all" ? 'active' : '') + '" data-w="all">',
+    '    <span class="num">Обе недели</span>',
+    '  </button>',
+    '</div>',
+    '<div class="akvt-week-info">',
+    '  <span class="pulse-dot"></span> ' + (CURRENT_WEEK === 1 ? 'Сейчас идёт <strong>1-я неделя</strong> (числитель)' : (CURRENT_WEEK === 2 ? 'Выбрана <strong>2-я неделя</strong> (знаменатель)' : 'Отображаются <strong>обе недели</strong>')),
+    '</div>'
+  ].join('');
+  scheduleView.appendChild(weekBar);
+
+  weekBar.querySelectorAll('.akvt-week-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var w = btn.getAttribute('data-w');
+      CURRENT_WEEK = (w === 'all') ? 'all' : parseInt(w, 10);
+      renderSchedule(group);
+    });
+  });
+
   DAY_ORDER.forEach(function(day){
-    var lessons = sched[day];
+    var allLessons = sched[day] || [];
+    var visibleLessons = [];
+    if(CURRENT_WEEK === 'all'){
+      visibleLessons = allLessons;
+    } else {
+      visibleLessons = allLessons.filter(function(l){
+        return l.week === CURRENT_WEEK || l.week === 'all';
+      });
+    }
+
     var isToday = day===todayName;
     var dayEl = document.createElement('div');
     dayEl.className = 'day' + (isToday ? ' today' : '');
     if(isToday) dayEl.classList.add('open');
 
-    var count = lessons ? lessons.length : 0;
+    var count = visibleLessons.length;
     var toggle = document.createElement('button');
     toggle.className='day-toggle';
     toggle.innerHTML = '<span class="dname">'+day+(isToday?'<span class="today-tag">сегодня</span>':'')+'</span>'+
@@ -717,17 +864,32 @@ function renderSchedule(group){
 
     var lessonsWrap = document.createElement('div');
     lessonsWrap.className='lessons';
-    if(!lessons || lessons.length===0){
+    if(!visibleLessons || visibleLessons.length===0){
       lessonsWrap.innerHTML = '<div class="day-empty">Пар нет — свободный день</div>';
     } else {
-      lessons.forEach(function(l){
+      visibleLessons.forEach(function(l){
         var row = document.createElement('div');
         row.className='lesson';
-        var sub = [l.teacher, l.room].filter(Boolean).join(' · ');
-        row.innerHTML = '<div class="time">'+l.pair+'</div>'+
+
+        var weekBadgeHtml = '';
+        if(l.isSplit){
+          if(l.week === 1) weekBadgeHtml = '<span class="lesson-week-badge w1">1 неделя</span>';
+          else if(l.week === 2) weekBadgeHtml = '<span class="lesson-week-badge w2">2 неделя</span>';
+        }
+
+        var sublineHtml = '';
+        if(l.subgroups && l.subgroups.length){
+          sublineHtml = l.subgroups.map(function(sg){
+            return '<span class="lesson-subgroup-badge">' + escapeHtml(sg.name) + '</span>' + escapeHtml([sg.teacher, sg.room].filter(Boolean).join(' · '));
+          }).join(' &nbsp;•&nbsp; ');
+        } else {
+          sublineHtml = escapeHtml([l.teacher, l.room].filter(Boolean).join(' · '));
+        }
+
+        row.innerHTML = '<div class="time">'+escapeHtml(l.pair)+'</div>'+
           '<div class="info">'+
-          '<div class="subject">'+escapeHtml(l.subject||'—')+'</div>'+
-          '<div class="subline">'+escapeHtml(sub)+'</div>'+
+          '<div class="subject">'+escapeHtml(l.subject||'—')+weekBadgeHtml+'</div>'+
+          '<div class="subline">'+sublineHtml+'</div>'+
           (l.note ? '<div class="note">'+escapeHtml(l.note)+'</div>' : '')+
           '</div>';
         lessonsWrap.appendChild(row);
