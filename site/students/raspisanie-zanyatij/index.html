@@ -478,45 +478,39 @@ function splitTeacherRoom(line){
   return { teacher: line, room: '' };
 }
 
-function parsePairBlock(rawVals){
+function parsePairSlot(rawVals){
   var v0 = (rawVals[0] || '').trim();
   var v1 = (rawVals[1] || '').trim();
   var v2 = (rawVals[2] || '').trim();
   var v3 = (rawVals[3] || '').trim();
   var v4 = (rawVals[4] || '').trim();
 
-  if(!v0 && !v1 && !v2 && !v3 && !v4) return [];
+  if(!v0 && !v1 && !v2 && !v3 && !v4){
+    return null; // слот полностью пуст
+  }
 
-  // 1. Только нижняя половина заполнена (пара только во 2-ю неделю / знаменатель)
+  // 1. Верхняя половина пустая, нижняя заполнена (пара только во 2-ю неделю)
   if(!v0 && !v1 && (v2 || v3 || v4)){
     var tr2 = splitTeacherRoom(v3 || v4);
-    return [{
-      subject: v2,
-      teacher: tr2.teacher,
-      room: tr2.room,
-      week: 2,
-      isSplit: true
-    }];
+    return {
+      w1: { isFree: true, note: 'Занятие только во 2-ю неделю' },
+      w2: { subject: v2, teacher: tr2.teacher, room: tr2.room, week: 2, isSplit: true }
+    };
   }
 
   // 2. Аудитория во второй строке для верхней пары (стандартная еженедельная пара)
   if(v0 && (ROOM_RE.test(v2) || (!v3 && !v4 && ROOM_RE.test(v2)))){
     var tr1 = splitTeacherRoom(v1);
     var room = v2 || tr1.room;
-    return [{
-      subject: v0,
-      teacher: tr1.teacher,
-      room: room,
-      week: 'all',
-      isSplit: false
-    }];
+    var lWeekly = { subject: v0, teacher: tr1.teacher, room: room, week: 'all', isSplit: false };
+    return { w1: lWeekly, w2: lWeekly };
   }
 
   // 3. Деление на подгруппы (обе строки содержат преподавателей с инициалами)
   if(v0 && TEACHER_RE.test(v2) && !v3 && !v4){
     var trA = splitTeacherRoom(v1);
     var trB = splitTeacherRoom(v2);
-    return [{
+    var lSG = {
       subject: v0,
       teacher: trA.teacher + ' / ' + trB.teacher,
       room: [trA.room, trB.room].filter(Boolean).join(' · '),
@@ -526,44 +520,28 @@ function parsePairBlock(rawVals){
       ],
       week: 'all',
       isSplit: false
-    }];
+    };
+    return { w1: lSG, w2: lSG };
   }
 
-  // 4. Разделение по неделям (сверху 1-я неделя, снизу 2-я неделя)
+  // 4. Разделение по неделям (сверху пара 1-й недели, снизу пара 2-й недели)
   if(v0 && (v2 || v3)){
     var trTop = splitTeacherRoom(v1);
     var trBot = splitTeacherRoom(v3 || v4);
-    return [
-      {
-        subject: v0,
-        teacher: trTop.teacher,
-        room: trTop.room,
-        week: 1,
-        isSplit: true
-      },
-      {
-        subject: v2,
-        teacher: trBot.teacher,
-        room: trBot.room,
-        week: 2,
-        isSplit: true
-      }
-    ];
+    return {
+      w1: { subject: v0, teacher: trTop.teacher, room: trTop.room, week: 1, isSplit: true },
+      w2: { subject: v2, teacher: trBot.teacher, room: trBot.room, week: 2, isSplit: true }
+    };
   }
 
   // 5. Заполнена только верхняя часть (пара проводится каждую неделю)
   if(v0){
     var tr = splitTeacherRoom(v1);
-    return [{
-      subject: v0,
-      teacher: tr.teacher,
-      room: tr.room,
-      week: 'all',
-      isSplit: false
-    }];
+    var lTop = { subject: v0, teacher: tr.teacher, room: tr.room, week: 'all', isSplit: false };
+    return { w1: lTop, w2: lTop };
   }
 
-  return [];
+  return null;
 }
 
 function parseAOA(aoa){
@@ -609,20 +587,14 @@ function parseAOA(aoa){
         for(var rr=pr; rr<nextPr; rr++){
           rawVals.push(cellStr((aoa[rr]||[])[col]));
         }
-        var pairLessons = parsePairBlock(rawVals);
-        for(var li=0; li<pairLessons.length; li++){
-          var pl = pairLessons[li];
+        var slotRes = parsePairSlot(rawVals);
+        if(slotRes){
           records.push({
             day: dayName,
             pair: timeRange,
             group: group,
-            subject: pl.subject,
-            teacher: pl.teacher,
-            room: pl.room,
-            week: pl.week,
-            isSplit: pl.isSplit,
-            subgroups: pl.subgroups,
-            note: pl.note || ''
+            w1: slotRes.w1,
+            w2: slotRes.w2
           });
         }
       }
@@ -641,13 +613,8 @@ function buildSchedule(allGroups, allRecords){
     if(!schedule[rec.group][rec.day]) schedule[rec.group][rec.day]=[];
     schedule[rec.group][rec.day].push({
       pair: rec.pair,
-      subject: rec.subject,
-      teacher: rec.teacher,
-      room: rec.room,
-      week: rec.week,
-      isSplit: rec.isSplit,
-      subgroups: rec.subgroups,
-      note: rec.note
+      w1: rec.w1,
+      w2: rec.w2
     });
   });
   return {days_order: DAY_ORDER, groups: groupsSorted, schedule: schedule};
@@ -795,7 +762,7 @@ function selectGroup(group){
   renderSchedule(group);
 }
 
-var CURRENT_WEEK = 1; // 1 = 1-я неделя (активна по умолчанию), 2 = 2-я неделя, 'all' = обе недели
+var CURRENT_WEEK = 1; // 1 = 1-я неделя (активна по умолчанию), 2 = 2-я неделя
 var JS_DAY_TO_NAME = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
 var todayName = JS_DAY_TO_NAME[new Date().getDay()];
 
@@ -825,89 +792,98 @@ function renderSchedule(group){
     renderList('');
   });
 
-  // Переключатель недель (1 неделя, 2 неделя, обе недели)
-  var weekBar = document.createElement('div');
-  weekBar.className = 'akvt-week-bar';
-  weekBar.innerHTML = [
-    '<div class="akvt-week-toggle" role="tablist">',
-    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === 1 ? 'active' : '') + '" data-w="1">',
-    '    <span class="num">1 неделя</span> <span class="subtag">текущая</span>',
-    '  </button>',
-    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === 2 ? 'active' : '') + '" data-w="2">',
-    '    <span class="num">2 неделя</span>',
-    '  </button>',
-    '  <button type="button" class="akvt-week-tab ' + (CURRENT_WEEK === "all" ? 'active' : '') + '" data-w="all">',
-    '    <span class="num">Обе недели</span>',
-    '  </button>',
-    '</div>',
-    '<div class="akvt-week-info">',
-    '  <span class="pulse-dot"></span> ' + (CURRENT_WEEK === 1 ? 'Сейчас идёт <strong>1-я неделя</strong> (числитель)' : (CURRENT_WEEK === 2 ? 'Выбрана <strong>2-я неделя</strong> (знаменатель)' : 'Отображаются <strong>обе недели</strong>')),
-    '</div>'
-  ].join('');
-  scheduleView.appendChild(weekBar);
+  // Лаконичная и понятная плашка текущей недели с кнопкой переключения
+  var weekBanner = document.createElement('div');
+  weekBanner.className = 'akvt-week-banner-clean' + (CURRENT_WEEK === 2 ? ' is-w2' : '');
+  
+  var statusText = CURRENT_WEEK === 1 
+    ? 'Сейчас идёт <strong>1-я неделя</strong> (числитель)' 
+    : 'Расписание на <strong>2-ю неделю</strong> (знаменатель)';
+    
+  var btnText = CURRENT_WEEK === 1 
+    ? 'Посмотреть 2-ю неделю →' 
+    : '← Вернуться к 1-й неделе';
 
-  weekBar.querySelectorAll('.akvt-week-tab').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var w = btn.getAttribute('data-w');
-      CURRENT_WEEK = (w === 'all') ? 'all' : parseInt(w, 10);
-      renderSchedule(group);
-    });
+  weekBanner.innerHTML = [
+    '<div class="akvt-week-status-row">',
+    '  <span class="pulse-dot' + (CURRENT_WEEK === 2 ? ' is-w2' : '') + '"></span>',
+    '  <span class="akvt-week-name">' + statusText + '</span>',
+    '</div>',
+    '<button type="button" class="akvt-week-switch-pill" id="akvtToggleWeekBtn">',
+    '  ' + btnText,
+    '</button>'
+  ].join('');
+  scheduleView.appendChild(weekBanner);
+
+  weekBanner.querySelector('#akvtToggleWeekBtn').addEventListener('click', function(){
+    CURRENT_WEEK = (CURRENT_WEEK === 1) ? 2 : 1;
+    renderSchedule(group);
   });
 
   DAY_ORDER.forEach(function(day){
-    var allLessons = sched[day] || [];
-    var visibleLessons = [];
-    if(CURRENT_WEEK === 'all'){
-      visibleLessons = allLessons;
-    } else {
-      visibleLessons = allLessons.filter(function(l){
-        return l.week === CURRENT_WEEK || l.week === 'all';
-      });
-    }
-
+    var slots = sched[day] || [];
     var isToday = day===todayName;
     var dayEl = document.createElement('div');
     dayEl.className = 'day' + (isToday ? ' today' : '');
     if(isToday) dayEl.classList.add('open');
 
-    var count = visibleLessons.length;
+    // Считаем активные пары (без пустых слотов)
+    var activeCount = 0;
+    slots.forEach(function(s){
+      var item = (CURRENT_WEEK === 1) ? s.w1 : s.w2;
+      if(item && !item.isFree) activeCount++;
+    });
+
     var toggle = document.createElement('button');
     toggle.className='day-toggle';
     toggle.innerHTML = '<span class="dname">'+day+(isToday?'<span class="today-tag">сегодня</span>':'')+'</span>'+
-      '<span class="meta"><span>'+(count ? count+' '+pairsWord(count) : 'выходной')+'</span><span class="chev"></span></span>';
+      '<span class="meta"><span>'+(activeCount ? activeCount+' '+pairsWord(activeCount) : 'выходной')+'</span><span class="chev"></span></span>';
     toggle.addEventListener('click', function(){ dayEl.classList.toggle('open'); });
     dayEl.appendChild(toggle);
 
     var lessonsWrap = document.createElement('div');
     lessonsWrap.className='lessons';
-    if(!visibleLessons || visibleLessons.length===0){
+    if(!slots || slots.length===0){
       lessonsWrap.innerHTML = '<div class="day-empty">Пар нет — свободный день</div>';
     } else {
-      visibleLessons.forEach(function(l){
+      slots.forEach(function(s){
+        var item = (CURRENT_WEEK === 1) ? s.w1 : s.w2;
         var row = document.createElement('div');
-        row.className='lesson';
 
-        var weekBadgeHtml = '';
-        if(l.isSplit){
-          if(l.week === 1) weekBadgeHtml = '<span class="lesson-week-badge w1">1 неделя</span>';
-          else if(l.week === 2) weekBadgeHtml = '<span class="lesson-week-badge w2">2 неделя</span>';
-        }
-
-        var sublineHtml = '';
-        if(l.subgroups && l.subgroups.length){
-          sublineHtml = l.subgroups.map(function(sg){
-            return '<span class="lesson-subgroup-badge">' + escapeHtml(sg.name) + '</span>' + escapeHtml([sg.teacher, sg.room].filter(Boolean).join(' · '));
-          }).join(' &nbsp;•&nbsp; ');
+        if(!item || item.isFree){
+          // Фиксированное место для свободной пары — гарантирует, что 3-4 и 5-6 не съезжают!
+          row.className = 'lesson lesson-empty-slot';
+          var freeNote = (item && item.note) ? item.note : (CURRENT_WEEK === 1 ? 'Занятие только во 2-ю неделю' : 'Занятие только в 1-ю неделю');
+          row.innerHTML = '<div class="time">' + escapeHtml(s.pair) + '</div>' +
+            '<div class="info">' +
+            '<div class="subject empty-text">Нет пары</div>' +
+            '<div class="subline">' + escapeHtml(freeNote) + '</div>' +
+            '</div>';
         } else {
-          sublineHtml = escapeHtml([l.teacher, l.room].filter(Boolean).join(' · '));
-        }
+          // Обычная пара
+          row.className = 'lesson';
+          var weekBadgeHtml = '';
+          if(item.isSplit){
+            if(item.week === 1) weekBadgeHtml = '<span class="lesson-week-badge w1">1 неделя</span>';
+            else if(item.week === 2) weekBadgeHtml = '<span class="lesson-week-badge w2">2 неделя</span>';
+          }
 
-        row.innerHTML = '<div class="time">'+escapeHtml(l.pair)+'</div>'+
-          '<div class="info">'+
-          '<div class="subject">'+escapeHtml(l.subject||'—')+weekBadgeHtml+'</div>'+
-          '<div class="subline">'+sublineHtml+'</div>'+
-          (l.note ? '<div class="note">'+escapeHtml(l.note)+'</div>' : '')+
-          '</div>';
+          var sublineHtml = '';
+          if(item.subgroups && item.subgroups.length){
+            sublineHtml = item.subgroups.map(function(sg){
+              return '<span class="lesson-subgroup-badge">' + escapeHtml(sg.name) + '</span>' + escapeHtml([sg.teacher, sg.room].filter(Boolean).join(' · '));
+            }).join(' &nbsp;•&nbsp; ');
+          } else {
+            sublineHtml = escapeHtml([item.teacher, item.room].filter(Boolean).join(' · '));
+          }
+
+          row.innerHTML = '<div class="time">' + escapeHtml(s.pair) + '</div>' +
+            '<div class="info">' +
+            '<div class="subject">' + escapeHtml(item.subject || '—') + weekBadgeHtml + '</div>' +
+            '<div class="subline">' + sublineHtml + '</div>' +
+            (item.note ? '<div class="note">' + escapeHtml(item.note) + '</div>' : '') +
+            '</div>';
+        }
         lessonsWrap.appendChild(row);
       });
     }
