@@ -4350,10 +4350,12 @@ html.bvi-no-images a.start svg {
 }
 
 .akvt-pwa-icon {
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 11px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  object-fit: contain;
+  background: #ffffff;
+  box-shadow: 0 3px 8px rgba(15, 30, 65, 0.12);
   flex-shrink: 0;
 }
 
