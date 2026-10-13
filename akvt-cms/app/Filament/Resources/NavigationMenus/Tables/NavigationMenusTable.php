@@ -14,27 +14,28 @@ class NavigationMenusTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Название меню')
+                    ->searchable()
+                    ->weight('bold'),
                 TextColumn::make('code')
+                    ->label('Код области темы')
+                    ->badge()
+                    ->color('info')
                     ->searchable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('items_count')
+                    ->label('Количество ссылок')
+                    ->counts('items')
+                    ->badge()
+                    ->color('success')
+                    ->alignCenter(),
                 TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
+                    ->label('Дата изменения')
+                    ->dateTime('d.m.Y H:i')
+                    ->sortable(),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->label('Изменить'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

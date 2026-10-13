@@ -14,42 +14,33 @@ class TeachersTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
                 TextColumn::make('full_name')
-                    ->searchable(),
-                TextColumn::make('photo_path')
-                    ->searchable(),
+                    ->label('ФИО преподавателя')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold'),
                 TextColumn::make('position')
+                    ->label('Должность')
+                    ->badge()
+                    ->color('info')
                     ->searchable(),
                 TextColumn::make('education_level')
-                    ->searchable(),
-                TextColumn::make('qualification')
-                    ->searchable(),
+                    ->label('Образование')
+                    ->limit(45)
+                    ->tooltip(fn ($record) => $record->education_level),
+                TextColumn::make('disciplines')
+                    ->label('Дисциплины')
+                    ->limit(40)
+                    ->tooltip(fn ($record) => $record->disciplines),
                 TextColumn::make('total_experience_years')
+                    ->label('Стаж (лет)')
+                    ->suffix(' лет')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('ped_experience_years')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('sort_order')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('sort_order', 'asc')
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->label('Изменить'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

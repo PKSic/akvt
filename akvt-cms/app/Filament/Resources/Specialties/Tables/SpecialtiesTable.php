@@ -14,40 +14,34 @@ class SpecialtiesTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
                 TextColumn::make('code')
-                    ->searchable(),
+                    ->label('Код специальности')
+                    ->badge()
+                    ->color('primary')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Наименование образовательной программы')
+                    ->searchable()
+                    ->weight('bold')
+                    ->wrap(),
                 TextColumn::make('study_period')
+                    ->label('Срок обучения')
                     ->searchable(),
                 TextColumn::make('budget_places')
+                    ->label('Бюджетных мест')
                     ->numeric()
+                    ->alignCenter()
                     ->sortable(),
                 TextColumn::make('contract_places')
+                    ->label('Платных мест')
                     ->numeric()
+                    ->alignCenter()
                     ->sortable(),
-                TextColumn::make('detail_page_url')
-                    ->searchable(),
-                TextColumn::make('sort_order')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('sort_order', 'asc')
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->label('Изменить'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
