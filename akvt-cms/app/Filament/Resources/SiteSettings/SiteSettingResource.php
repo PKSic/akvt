@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class SiteSettingResource extends Resource
 {
+    protected static ?string $modelLabel = 'Настройка сайта';
+    protected static ?string $pluralModelLabel = 'Реквизиты и настройки';
+    protected static ?string $navigationLabel = 'Реквизиты и контакты';
+    protected static \UnitEnum|string|null $navigationGroup = 'Система и SEO';
     protected static ?string $model = SiteSetting::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCog6Tooth;
 
     public static function form(Schema $schema): Schema
     {

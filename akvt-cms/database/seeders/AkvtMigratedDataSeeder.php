@@ -30,26 +30,30 @@ class AkvtMigratedDataSeeder extends Seeder
         $redirects = file_exists($redirectsPath) ? json_decode(file_get_contents($redirectsPath), true) : [];
 
         // 1. Создаем пользователя-администратора для входа в Filament
+        $adminEmail = env('ADMIN_DEFAULT_EMAIL', 'admin@akvt.ru');
+        $adminPass = env('ADMIN_DEFAULT_PASSWORD', 'AdminAKVT2026!');
+        $adminName = env('ADMIN_DEFAULT_NAME', 'Главный Администратор АКВТ');
+
         User::firstOrCreate(
-            ['email' => 'admin@akvt.ru'],
+            ['email' => $adminEmail],
             [
-                'name' => 'Главный Администратор АКВТ',
-                'password' => bcrypt('AdminAKVT2026!'),
+                'name' => $adminName,
+                'password' => bcrypt($adminPass),
             ]
         );
-        $this->command->info("Пользователь admin@akvt.ru создан (Пароль: AdminAKVT2026!)");
+        $this->command->info("Пользователь {$adminEmail} создан (Пароль из .env: {$adminPass})");
 
         // 2. Глобальные синглтоны (Site Settings)
         $defaultSettings = [
-            'site_name' => 'ГБПОУ АО «Астраханский колледж вычислительной техники»',
-            'site_short_name' => 'АКВТ',
-            'site_slogan' => 'Территория успеха',
-            'phone_reception' => '+7 (8512) 66-75-03',
-            'phone_hotline' => '+7 (8512) 99-99-54',
-            'email_official' => 'info@akvt.ru',
-            'address' => '414056, г. Астрахань, пер. Смоляной, д. 2',
-            'vk_url' => 'https://vk.com/akvt_official',
-            'tg_url' => 'https://t.me/akvt_live',
+            'site_name' => env('COLLEGE_OFFICIAL_NAME', 'ГБПОУ АО «Астраханский колледж вычислительной техники»'),
+            'site_short_name' => env('COLLEGE_SHORT_NAME', 'АКВТ'),
+            'site_slogan' => env('COLLEGE_SLOGAN', 'Территория успеха'),
+            'phone_reception' => env('COLLEGE_PHONE_RECEPTION', '+7 (8512) 66-75-03'),
+            'phone_hotline' => env('COLLEGE_PHONE_HOTLINE', '+7 (8512) 99-99-54'),
+            'email_official' => env('COLLEGE_EMAIL', 'info@akvt.ru'),
+            'address' => env('COLLEGE_ADDRESS', '414056, г. Астрахань, пер. Смоляной, д. 2'),
+            'vk_url' => env('COLLEGE_VK_URL', 'https://vk.com/akvt_official'),
+            'tg_url' => env('COLLEGE_TG_URL', 'https://t.me/akvt_live'),
         ];
         foreach ($defaultSettings as $key => $val) {
             SiteSetting::updateOrCreate(['key' => $key], ['value' => $val, 'group' => 'general']);

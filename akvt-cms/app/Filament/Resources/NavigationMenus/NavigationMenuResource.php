@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class NavigationMenuResource extends Resource
 {
+    protected static ?string $modelLabel = 'Меню навигации';
+    protected static ?string $pluralModelLabel = 'Меню навигации';
+    protected static ?string $navigationLabel = 'Конструктор меню';
+    protected static \UnitEnum|string|null $navigationGroup = 'Структура сайта';
     protected static ?string $model = NavigationMenu::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBars3;
 
     public static function form(Schema $schema): Schema
     {

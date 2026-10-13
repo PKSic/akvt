@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class SpecialtyResource extends Resource
 {
+    protected static ?string $modelLabel = 'Специальность';
+    protected static ?string $pluralModelLabel = 'Специальности';
+    protected static ?string $navigationLabel = 'Специальности';
+    protected static \UnitEnum|string|null $navigationGroup = 'Образование';
     protected static ?string $model = Specialty::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
 
     public static function form(Schema $schema): Schema
     {

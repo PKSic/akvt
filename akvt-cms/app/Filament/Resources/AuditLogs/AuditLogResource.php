@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class AuditLogResource extends Resource
 {
+    protected static ?string $modelLabel = 'Запись аудита';
+    protected static ?string $pluralModelLabel = 'Журнал аудита';
+    protected static ?string $navigationLabel = 'Журнал аудита (Логи)';
+    protected static \UnitEnum|string|null $navigationGroup = 'Безопасность';
     protected static ?string $model = AuditLog::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLockClosed;
 
     public static function form(Schema $schema): Schema
     {

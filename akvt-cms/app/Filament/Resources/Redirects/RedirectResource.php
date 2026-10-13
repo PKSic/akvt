@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class RedirectResource extends Resource
 {
+    protected static ?string $modelLabel = '301-Редирект';
+    protected static ?string $pluralModelLabel = '301-Редиректы';
+    protected static ?string $navigationLabel = '301-Редиректы (SEO)';
+    protected static \UnitEnum|string|null $navigationGroup = 'Система и SEO';
     protected static ?string $model = Redirect::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowPath;
 
     public static function form(Schema $schema): Schema
     {

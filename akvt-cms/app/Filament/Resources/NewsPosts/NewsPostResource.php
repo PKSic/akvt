@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class NewsPostResource extends Resource
 {
+    protected static ?string $modelLabel = 'Новость';
+    protected static ?string $pluralModelLabel = 'Новости и статьи';
+    protected static ?string $navigationLabel = 'Новости и статьи';
+    protected static \UnitEnum|string|null $navigationGroup = 'Контент и страницы';
     protected static ?string $model = NewsPost::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
 
     public static function form(Schema $schema): Schema
     {

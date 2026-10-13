@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class DocumentResource extends Resource
 {
+    protected static ?string $modelLabel = 'Нормативный документ';
+    protected static ?string $pluralModelLabel = 'Нормативные документы';
+    protected static ?string $navigationLabel = 'Реестр документов (ЭЦП)';
+    protected static \UnitEnum|string|null $navigationGroup = 'Нормативные реестры';
     protected static ?string $model = Document::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
 
     public static function form(Schema $schema): Schema
     {

@@ -16,9 +16,13 @@ use Filament\Tables\Table;
 
 class PageResource extends Resource
 {
+    protected static ?string $modelLabel = 'Страница';
+    protected static ?string $pluralModelLabel = 'Страницы';
+    protected static ?string $navigationLabel = 'Страницы сайта';
+    protected static \UnitEnum|string|null $navigationGroup = 'Контент и страницы';
     protected static ?string $model = Page::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
     public static function form(Schema $schema): Schema
     {
