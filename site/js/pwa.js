@@ -29,7 +29,8 @@
   }
 
   // Проверка таймаута скрытия баннера пользователем (не беспокоить 3 дня при закрытии)
-  var dismissedUntil = localStorage.getItem('akvt_pwa_dismissed');
+  var dismissedUntil = null;
+  try { dismissedUntil = localStorage.getItem('akvt_pwa_dismissed'); } catch (e) {}
   if (dismissedUntil && Date.now() < parseInt(dismissedUntil, 10)) {
     return;
   }
@@ -77,7 +78,7 @@
     document.getElementById('akvt-pwa-close-btn').addEventListener('click', function(e) {
       e.stopPropagation();
       banner.classList.remove('show');
-      localStorage.setItem('akvt_pwa_dismissed', (Date.now() + 3 * 24 * 60 * 60 * 1000).toString());
+      try { localStorage.setItem('akvt_pwa_dismissed', (Date.now() + 3 * 24 * 60 * 60 * 1000).toString()); } catch (err) {}
     });
 
     // Закрытие модального окна

@@ -453,9 +453,6 @@
       document.body.style.left = "";
       document.body.style.right = "";
     }
-    if (location.hash === "#openModal") {
-      location.hash = "#close";
-    }
   });
 
   /* ------------------------------------------------- Live Admin Settings Synchronization */
