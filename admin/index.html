@@ -77,21 +77,21 @@
           <a class="sidebar-nav-item" data-view="view-specialties">
             <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
             <span>Специальности СПО</span>
-            <span class="sidebar-count">15</span>
+            <span class="sidebar-count">8</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-staff">
             <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
             <span>Сотрудники и кадры</span>
-            <span class="sidebar-count">42</span>
+            <span class="sidebar-count">84</span>
           </a>
         </li>
         <li>
           <a class="sidebar-nav-item" data-view="view-documents">
             <span class="skeu-tile"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
             <span>Документы и ГОСТ ЭЦП</span>
-            <span class="sidebar-count">14 разд.</span>
+            <span class="sidebar-count">389</span>
           </a>
         </li>
         <li>
@@ -182,23 +182,42 @@
           </div>
         </div>
 
+        
+        <div class="panel-card" style="border: 2px solid var(--primary); background: rgba(59,130,246,0.04); margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div>
+              <div class="badge badge-primary" style="margin-bottom: 6px;">PHP 8.3 · Laravel 12 · Filament v3/v5</div>
+              <h2 style="font-size: 18px; margin: 0; color: var(--text-heading);">Серверная панель управления (Filament Admin)</h2>
+              <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 0 0;">
+                Полная реляционная БД: 149 страниц с блочным конструктором (Page Builder), 124 статьи, 84 преподавателя, 405 документов и 242 301-редиректа.
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <span class="badge badge-success">● База синхронизирована</span>
+              <a href="http://127.0.0.1:8000/admin" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 6px;">
+                Войти в Filament Admin ↗
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Metrics -->
         <div class="metrics-grid">
           <div class="metric-card">
-            <div class="metric-num"><span class="metric-status-dot"></span> 292</div>
-            <div class="metric-label">Страницы сайта (0px скролла)</div>
+            <div class="metric-num"><span class="metric-status-dot"></span> 155</div>
+            <div class="metric-label">Страницы сайта (мигрировано)</div>
           </div>
           <div class="metric-card">
-            <div class="metric-num">15</div>
+            <div class="metric-num">8</div>
             <div class="metric-label">Специальностей СПО в реестре</div>
           </div>
           <div class="metric-card">
-            <div class="metric-num">42</div>
-            <div class="metric-label">Сотрудника в реестре кадров</div>
+            <div class="metric-num">84</div>
+            <div class="metric-label">Преподавателей и сотрудников</div>
           </div>
           <div class="metric-card">
-            <div class="metric-num">14</div>
-            <div class="metric-label">Разделов сведений (Закон об образовании)</div>
+            <div class="metric-num">389</div>
+            <div class="metric-label">Документов в реестре (ЭЦП ГОСТ)</div>
           </div>
           <div class="metric-card">
             <div class="metric-num" style="color:var(--success);">Активно</div>
@@ -602,7 +621,7 @@
 
         <div class="table-search-bar">
           <input type="text" class="table-search-input" placeholder="Поиск по коду или названию..." onkeyup="filterTable('specialtiesTable', this.value)">
-          <span style="font-size:13px; color:var(--text-muted); align-self:center;">Всего программ: <strong>15</strong></span>
+          <span style="font-size:13px; color:var(--text-muted); align-self:center;">Всего программ: <strong>8</strong></span>
         </div>
 
         <div class="data-table-wrap">
@@ -625,165 +644,88 @@
                 <td><strong>09.02.01</strong></td>
                 <td>Компьютерные системы и комплексы</td>
                 <td>Техник по компьютерным системам</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>50</strong> / 25</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
+                <td><strong>25</strong> / 15</td>
                 <td>65 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.06</strong></td>
-                <td>ТОП-50* Сетевое и системное администрирование</td>
-                <td>Сетевой и системный администратор</td>
-                <td><span class="badge badge-primary">9 кл. / Заочно</span></td>
-                <td>3 г. 10 м. / 2 г. 10 м.</td>
-                <td><strong>50</strong> / 20</td>
-                <td>66 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td>Сетевое и системное администрирование</td>
+                <td>Системный администратор</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
+                <td><strong>25</strong> / 15</td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.11</strong></td>
-                <td>ТОП-50* Разработка и управление программным обеспечением</td>
+                <td>Разработка и управление программным обеспечением</td>
                 <td>Программист</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>50</strong> / 25</td>
-                <td>70 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
+                <td><strong>25</strong> / 15</td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.09</strong></td>
                 <td>Веб-разработка</td>
-                <td>Разработчик веб-приложений</td>
-                <td><span class="badge badge-primary">9 кл. / Заочно</span></td>
-                <td>3 г. 10 м. / 2 г. 10 м.</td>
+                <td>Разработчик веб приложений</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
                 <td><strong>25</strong> / 15</td>
-                <td>68 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>10.02.05</strong></td>
-                <td>ТОП-50* Обеспечение информационной безопасности АС</td>
+                <td>Обеспечение информационной безопасности автоматизированных систем</td>
                 <td>Техник по защите информации</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
                 <td><strong>25</strong> / 15</td>
-                <td>68 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>13.02.13</strong></td>
-                <td>Эксплуатация и обслуживание электромеханического оборудования</td>
-                <td>Техник-электромеханик</td>
-                <td><span class="badge badge-primary">9 кл. / Заочно</span></td>
-                <td>3 г. 10 м. / 2 г. 10 м.</td>
+                <td>Эксплуатация и обслуживаниеэлектрическогои электромеханического оборудования (по отраслям)</td>
+                <td>Техник</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
                 <td><strong>25</strong> / 15</td>
-                <td>60 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>27.02.04</strong></td>
                 <td>Автоматические системы управления</td>
-                <td>Техник по АСУ</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>62 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td>Техник</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
+                <td><strong>25</strong> / 15</td>
+                <td>65 000 ₽</td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>25.02.08</strong></td>
-                <td>Эксплуатация беспилотных авиационных систем (БАС)</td>
-                <td>Оператор БПЛА / Внешний пилот</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>72 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>09.02.07</strong></td>
-                <td>Информационные системы и программирование</td>
-                <td>Программист / Администратор БД</td>
-                <td><span class="badge badge-primary">9 / 11 кл.</span></td>
-                <td>3 г. 10 м. / 2 г. 10 м.</td>
-                <td><strong>125</strong> / 50</td>
-                <td>68 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>15.02.14</strong></td>
-                <td>Оснащение средствами автоматизации процессов</td>
-                <td>Техник по автоматизации</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>62 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>22.07.03</strong></td>
-                <td>Автоматизация технологических процессов и производств</td>
-                <td>Техник</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>62 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>14.04.48</strong></td>
-                <td>Техническая эксплуатация электромеханического оборудования</td>
-                <td>Техник</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>60 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>09.03.05</strong></td>
-                <td>Информационная безопасность автоматизированных систем</td>
-                <td>Техник по защите информации</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
-                <td><strong>25</strong> / 10</td>
-                <td>66 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>09.02.03</strong></td>
-                <td>Программирование в компьютерных системах</td>
-                <td>Техник-программист</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>3 г. 10 м.</td>
+                <td>Эксплуатация беспилотных авиационных систем</td>
+                <td>Оператор беспилотных летательных аппаратов</td>
+                <td><span class="badge badge-primary">Очная, Заочная</span></td>
+                <td>3 года 10 месяцев</td>
                 <td><strong>25</strong> / 15</td>
                 <td>65 000 ₽</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>НПО</strong></td>
-                <td>Профессии СПО (Мастер по обработке информации)</td>
-                <td>Оператор ЭВМ</td>
-                <td><span class="badge badge-primary">9 кл.</span></td>
-                <td>1 г. 10 м.</td>
-                <td><strong>50</strong> / 0</td>
-                <td>—</td>
-                <td><span class="badge badge-success">✓ РУП загружен</span></td>
+                <td><span class="badge badge-success">✓ РУП ФГОС</span></td>
                 <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
             </tbody>
@@ -806,7 +748,7 @@
 
         <div class="table-search-bar">
           <input type="text" class="table-search-input" placeholder="Поиск по ФИО или должности..." onkeyup="filterTable('staffTable', this.value)">
-          <span style="font-size:13px; color:var(--text-muted); align-self:center;">В реестре: <strong>42 сотрудника</strong></span>
+          <span style="font-size:13px; color:var(--text-muted); align-self:center;">В реестре: <strong>84 преподавателей и сотрудников</strong></span>
         </div>
 
         <div class="data-table-wrap">
@@ -825,124 +767,852 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>Дмитрий Александрович Лунёв</strong></td>
-                <td>Директор колледжа</td>
-                <td><span class="badge badge-primary">Руководство</span></td>
+                <td><strong>Абухов С.К.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
                 <td>akvt@astrobl.ru</td>
-                <td>Высшее (АГТУ) · Стаж 26 лет</td>
-                <td>Пн 14:00–17:00</td>
+                <td>Северокавказский горнометаллургический институт, 1971, ин... · Стаж 1 лет</td>
+                <td>Основы электробезопасности, Электрические машины и аппараты, Электр...</td>
                 <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Светлана Васильевна Расторгуева</strong></td>
-                <td>Заместитель директора по УМР</td>
+                <td><strong>Адельшина Ш.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический институт, 198... · Стаж 44 лет</td>
+                <td>География</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Айтжанова Ж.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ОАОУ СПО «Астраханский социально-педагогический колледж»,... · Стаж 36 лет</td>
+                <td>Физическая культура</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Алексеева Е.Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ ВПО «Астраханский государственный университет», 2006 ... · Стаж 11 лет</td>
+                <td>Иностранный язык в профессиональной деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Андрианова Ю.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники», 20... · Стаж 15 лет</td>
+                <td>Внедрение информационных систем, Математическое моделирование, Внед...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Беляева М.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский колледж вычислительной техники, 1996г., млад... · Стаж 18 лет</td>
+                <td>Информатика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Бойченко Л.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>1999г., среднее профессиональное образование, по спец-ти ... · Стаж 24 лет</td>
+                <td>Сетевое и системное администрирование операционных систем, Криптогр...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Булынина С.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет, ... · Стаж 22 лет</td>
+                <td>Биология, Экологические основы природопользования</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ван-Гуй А.Р.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВПО «Астраханский государственный университет», 201... · Стаж 7 лет</td>
+                <td>Иностранный язык, Иностранный язык в профессиональной деятельности,...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ветлугина Ю.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО Астраханский колледж вычислительной техники, 2003... · Стаж 23 лет</td>
+                <td>Организация, принципы построение и функционирования компьютерных се...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Воронцев А.Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПТУ №6,1997, радиомеханик;  ГБПОУ АО «Астраханский колле... · Стаж 28 лет</td>
+                <td>Техническая эксплуатация холодильного оборудования</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Габуков А.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Таганрогский государственный радиотехнический университет... · Стаж 31 лет</td>
+                <td>Инженерная графика, Инженерная и машинная графика, Инженерная компь...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Гавин А.Е.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Таганрогский радиотехнический институт, 1986 г., радиоинж... · Стаж 5 лет</td>
+                <td>Эксплуатация компьютерных сетей, Компьютерные системы и сети</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Головкина М.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>АГТУ, инженер по специальности «Эксплуатация перегрузочно... · Стаж 3 лет</td>
+                <td>Физика, Инженерная графика, Инженерная компьютерная графика, Инжене...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Гаврилова А.О.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет, ... · Стаж 25 лет</td>
+                <td>История, История России, Обществознание</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Гайнуллина А.Р.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ОАОУ СПО «Астраханский социально-педагогический колледж»,... · Стаж 11 лет</td>
+                <td>Физическая культура</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Горкун  О.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Воронежский государственный университет, 1994, физик, пре... · Стаж 31 лет</td>
+                <td>Информатика, Физика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Горобец И.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Таганрогский государственный радиотехнический университет... · Стаж 24 лет</td>
+                <td>Операционные системы и среды, Технология разработки программного об...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Джамбеков А.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Программа специалитета по специальности 220301 Автоматиза... · Стаж 4 лет</td>
+                <td>Математика, Элементы высшей математики</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Долгополова И.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет, ... · Стаж 10 лет</td>
+                <td>Русский язык,  Литература</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Заитова Р. Р.</strong></td>
+                <td>Преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники», 20... · Стаж 15 лет</td>
+                <td>Родной язык/Введение в профессиональную деятельность, Дискретная ма...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Здановская И.К.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический институт им. ... · Стаж 34 лет</td>
+                <td>Обществознание,, Правовое обеспечение профессиональной деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Земцова Л.О.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Семипалатинский технологический институт мясной и молочно... · Стаж 25 лет</td>
+                <td>Теория вероятностей и математическая статистика, Планирование и орг...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Зимина М.И.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБП ОУ АО «АКВТ», техник по защите информации, 2016 год П... · Стаж 6 лет</td>
+                <td>Основы финансовой грамотности, Основы предпринимательской деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Исхакова А.Р.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО «Астраханский колледж вычислительной техники», 2... · Стаж 4 лет</td>
+                <td>Основы проектной деятельности, Основы информационной безопасности, ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ирижипова С.Х.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Высшее образование, учитель начальных классов и английско... · Стаж 14 лет</td>
+                <td>Иностранный язык, Иностранный язык в профессиональной деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Каргина А.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВО «АГУ»,  2015 г, бакалавр по направлению подготов... · Стаж 5 лет</td>
+                <td>История, Обществознание, История России</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Круглова Т.Ю.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ ВПО «Астраханский государственный университете», 2005... · Стаж 20 лет</td>
+                <td>Иностранный язык, Иностранный язык в профессиональной деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Кадымова Р.К.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханское педагогическое училище им. Н.К. Крупской, 19... · Стаж 38 лет</td>
+                <td>Физическая культура</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Корнева Н.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Среднее профессиональное образование по специальности 10.... · Стаж 1 лет</td>
+                <td>Основы безопасности и защиты Родины</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Кириченко Е.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский ордена "Знак Почета" государственный педагог... · Стаж 38 лет</td>
+                <td>Основы философии, Обществознание</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Комаров А.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Высшее образование по специальности «Радиотехника», квали... · Стаж 3 лет</td>
+                <td>Эксплуатация и обслуживание альтернативных источников энергии, Элек...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Комарова Е.Ю.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Высшее образование, квалификация математик-программист, п... · Стаж 17 лет</td>
+                <td>Системное программирование, Базы данных, Инструментальные средства ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Кондратенко Ю.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>АГТУ, 2002, инженер по специальности «Химическая технолог... · Стаж 4 лет</td>
+                <td>Графический дизайн и мультимедиа, Графический дизайн, Проектировани...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Красюкова Т.И.</strong></td>
+                <td>Зав. библиотекой, преподаватель</td>
+                <td><span class="badge badge-primary">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Дагестанский государственный университет им. В.И.Ленина, ... · Стаж 21 лет</td>
+                <td>Безопасность жизнедеятельности, История региона, Основы безопасност...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Лещенков А.Д.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБП ОУ АО «АКВТ», программист, 09.02.07 Информационные си... · Стаж 2 лет</td>
+                <td>Проектирование, разработка и оптимизация веб-приложений, Системное ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Липатова О.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>АГУ им. В.Н.Татищева, бакалавр 44.03.05 Педагогическое об... · Стаж 2 лет</td>
+                <td>Химия</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Марчукова О.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники», 20... · Стаж 5 лет</td>
+                <td>Математика, Элементы высшей математики</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Милютин В.В.</strong></td>
+                <td>преподаватель, руководитель службы информатизации и технического обеспечения</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Таганрогский государственный радиотехнический университет... · Стаж 22 лет</td>
+                <td>Администрирование сетевых операционных систем, Эксплуатация объекто...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Митрошин М.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, специальность 09.02.01 Компьютерные системы и компле... · Стаж 3 лет</td>
+                <td>Разработка прикладных приложений</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Малетина Н.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ ВПО «АГУ»,  2007 г., бакалавр филологического образов... · Стаж 6 лет</td>
+                <td>Русский язык, Литература</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Мурыгина И.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ПТУ №8, 1995г., оператор средств связи, современной оргте... · Стаж 18 лет</td>
+                <td>Безопасность жизнедеятельности, Основы проектной деятельности, Инфо...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Новикова С.Ф.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Волгоградский институт физкультуры, 1974г., преподаватель... · Стаж 47 лет</td>
+                <td>Физическая культура</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Плеханова О.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет,1... · Стаж 27 лет</td>
+                <td>История региона, История России, История</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Рагузова О.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский колледж вычислительной техники», 2010г., ста... · Стаж 14 лет</td>
+                <td>Архитектура аппаратных средств, Технические средства информатизации...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Растопшина Т.С.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Таганрогский радиотехнический институт, 1984г., инженер м... · Стаж 21 лет</td>
+                <td>Основы алгоритмизации и программирования, Теория вероятностей и мат...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Расторгуева С.В.</strong></td>
+                <td>зам. директора по учебно-методической и воспитательной работе, преподаватель</td>
                 <td><span class="badge badge-primary">Руководство</span></td>
                 <td>54-08-35</td>
-                <td>rastorguevasv@mail.ru</td>
-                <td>Высшее педагогическое · Стаж 24 года</td>
-                <td>Вт 10:00–12:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники», 20... · Стаж 23 лет</td>
+                <td>Производственная практика по профилю специальности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Денис Геннадьевич Чалов</strong></td>
-                <td>Заместитель директора по общим вопросам</td>
-                <td><span class="badge badge-primary">Руководство</span></td>
-                <td>54-08-35</td>
-                <td>chalov@akvt.ru</td>
-                <td>Высшее техническое · Стаж 20 лет</td>
-                <td>Ср 14:00–16:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>Виктор Сергеевич Морозов</strong></td>
-                <td>Заместитель директора по комплексной безопасности</td>
-                <td><span class="badge badge-primary">Руководство</span></td>
-                <td>54-08-35</td>
-                <td>morozov@akvt.ru</td>
-                <td>Высшее военное/техническое · Стаж 18 лет</td>
-                <td>Чт 14:00–16:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>Наталья Викторовна Савина</strong></td>
-                <td>Руководитель центра «IT-куб»</td>
-                <td><span class="badge badge-warning">Центр «IT-куб»</span></td>
-                <td>66-75-03</td>
-                <td>itcube@akvt.ru</td>
-                <td>Высшее (Информатика) · Стаж 14 лет</td>
-                <td>Пн-Пт 9:00–17:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>Ольга Николаевна Беляева</strong></td>
-                <td>Заведующая отделением информационных технологий</td>
-                <td><span class="badge badge-success">Отделение IT</span></td>
-                <td>54-08-35</td>
-                <td>it-dept@akvt.ru</td>
-                <td>Высшее техническое · Стаж 19 лет</td>
-                <td>Пн-Пт 13:00–16:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>Елена Владимировна Кузнецова</strong></td>
-                <td>Заведующая учебной частью</td>
-                <td><span class="badge badge-success">Учебная часть</span></td>
-                <td>54-08-35</td>
-                <td>uch@akvt.ru</td>
-                <td>Высшее педагогическое · Стаж 22 года</td>
-                <td>Пн-Пт 9:00–15:00</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
-              </tr>
-              <tr>
-                <td><strong>Алексей Михайлович Ковалёв</strong></td>
-                <td>Преподаватель спецдисциплин (Python, Web-разработка, БД)</td>
+                <td><strong>Сафрыгина З.К.</strong></td>
+                <td>преподаватель</td>
                 <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
-                <td>kovalev@akvt.ru</td>
-                <td>Высшее (АГТУ ИТиК) · Стаж 9 лет</td>
-                <td>По расписанию</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВО «АГТУ», 2016, бакалавр по направлению подготовки... · Стаж 8 лет</td>
+                <td>Прикладное программирование, Разработка мобильных приложений Основы...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Игорь Анатольевич Смирнов</strong></td>
-                <td>Преподаватель сетевых дисциплин (Cisco, Linux, Администрирование)</td>
+                <td><strong>Староверова Е.Л.</strong></td>
+                <td>преподаватель</td>
                 <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
-                <td>smirnov@akvt.ru</td>
-                <td>Высшее техническое · Стаж 12 лет</td>
-                <td>По расписанию</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники», 20... · Стаж 16 лет</td>
+                <td>Организационно-правовое обеспечение информационной безопасности, Си...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Татьяна Павловна Васильева</strong></td>
-                <td>Преподаватель информационной безопасности и защиты данных</td>
+                <td><strong>Тимофеев Д.Н.</strong></td>
+                <td>преподаватель</td>
                 <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
-                <td>vasilieva@akvt.ru</td>
-                <td>Высшее (ИБ АС) · Стаж 11 лет</td>
-                <td>По расписанию</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет, ... · Стаж 21 лет</td>
+                <td>Технология электромонтажа, Теоретические основы организации работ п...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Сергей Николаевич Попов</strong></td>
-                <td>Преподаватель электротехники и автоматизации</td>
+                <td><strong>Тимофеева П.А.</strong></td>
+                <td>преподаватель</td>
                 <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
-                <td>popov@akvt.ru</td>
-                <td>Высшее электротехническое · Стаж 16 лет</td>
-                <td>По расписанию</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный технический университет, 200... · Стаж 11 лет</td>
+                <td>Метрология, стандартизация и сертификация, Технология сборки и апро...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
               <tr>
-                <td><strong>Марина Александровна Новикова</strong></td>
-                <td>Преподаватель высшей математики и математической логики</td>
+                <td><strong>Умбетова Г.З.</strong></td>
+                <td>преподаватель</td>
                 <td><span class="badge badge-success">Пед. состав</span></td>
                 <td>54-08-35</td>
-                <td>novikova@akvt.ru</td>
-                <td>Высшее математическое (АГУ) · Стаж 15 лет</td>
-                <td>По расписанию</td>
-                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
+                <td>akvt@astrobl.ru</td>
+                <td>высшее образование по специальности «Математика», учитель... · Стаж 20 лет</td>
+                <td>Математика, Элементы высшей математики</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Финаревский А.Л.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Новочеркасский ордена Трудового Красного Знамени политехн... · Стаж 9 лет</td>
+                <td>Основы электротехники, Электроника и схемотехника, Технология текущ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ходжаева Н.Д.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ СПО «Астраханский колледж вычислительной техники» 200... · Стаж 24 лет</td>
+                <td>Эксплуатация автоматизированных (информационных) систем в защищенно...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Чишиев Э.Р.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВПО «Астраханский государственный технический униве... · Стаж 4 лет</td>
+                <td>Основы алгоритмизации и программирования</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Чернов Д.Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Бакалавр по направлению подготовки 080100 Экономика,  нап... · Стаж 0 лет</td>
+                <td>Технологии физического уровня передачи данных, Консультирование гра...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ширяева Н.Г.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский технический институт рыбной промышленности и... · Стаж 38 лет</td>
+                <td>Техническая механика, Электрические, гидравлические и пневматически...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Шкодина О.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Высшее образование, квалификация учитель русского языка и... · Стаж 17 лет</td>
+                <td>Русский язык, Литература</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Яблокова М.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>АГПИ им.С.М. Кирова, 1995г., учитель математики и физики,... · Стаж 16 лет</td>
+                <td>Физика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Барышева Е.В.</strong></td>
+                <td>Преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский технический институт рыбной промышленности и... · Стаж 15 лет</td>
+                <td>Материаловедение, Охрана труда, Холодильное оборудование</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Гуляев Н.Д.</strong></td>
+                <td>Преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, Государственное бюджетное профессиональное образоват... · Стаж 1 лет</td>
+                <td>Учебная практика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Исенгулова С.Т.</strong></td>
+                <td>Преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Студентка 4 курса Агро-биологического факультета Астрахан... · Стаж 0 лет</td>
+                <td>Химия</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Кубисенов С.М.</strong></td>
+                <td>Преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Образовательная программа СПО по специальности 15.02.07 А... · Стаж 4 лет</td>
+                <td>Автоматизированные системы управления электротехническими установка...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Мартынов А.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Среднее профессиональное образование по специальности Выч... · Стаж 9 лет</td>
+                <td>Программирование микроконтроллеров, Основы проектирования цифровой ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Макрушин А. Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, специальность 09.02.07 Информационные системы и прог... · Стаж 1 лет</td>
+                <td>Устройства, функционирование и сопровождение информационных систем,...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Маукиева А.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ВПО, Федеральное государственное бюджетное образовательно... · Стаж 0 лет</td>
+                <td>Основы финансовой грамотности, Основы предпринимательской деятельности</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Поташов М.М.</strong></td>
+                <td>преподаватель 
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУВПО Таганрогский государственный радиотехнический унив... · Стаж 3 лет</td>
+                <td>Автоматизированные системы управления электротехническими установка...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Поташова А.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО специальность 10.02.05 Обеспечение информационной без... · Стаж 2 лет</td>
+                <td>Родной язык/Введение в профессиональную деятельность, Основы информ...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Мухамбетова М.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, ГБПОУ АО "Астраханский колледж вычислительной техник... · Стаж 1 лет</td>
+                <td>Основы безопасности и защиты Родины, Основы проектной деятельности,...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Чернова В.Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>АКВТ, техник по компьютерным системам, 2022 год    АНО ДП... · Стаж 2 лет</td>
+                <td>Родной язык/Введение в профессиональную деятельность, Информационны...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Черняев М.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО «АКВТ», программист по специальности 09.02.07 Ин... · Стаж 2 лет</td>
+                <td>Основы проектирования баз данных, Интеллектуальные системы и технол...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Свешникова М.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Высшее образование, бакалавр образования по направлению «... · Стаж 6 лет</td>
+                <td>Иностранный язык</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Бойченко К.Д.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, ГБПОУ АО "Астраханский колледж вычислительной техник... · Стаж 0 лет</td>
+                <td>Родной язык/Введение в профессиональную деятельность, Графический д...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Ладыгин В.В.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВО "Астраханский государственный технический универ... · Стаж 2 лет</td>
+                <td>Электроснабжение предприятия</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Сумцов К.А.</strong></td>
+                <td>преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>СПО, ГБПОУ АО "Астраханский колледж вычислительной техник... · Стаж 1 лет</td>
+                <td>Настройка, сопровождение и ремонт технических систем и средств защи...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Даудов С.Ш.</strong></td>
+                <td>преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ ВПО "Астраханский государственный университет", 2008,... · Стаж 17 лет</td>
+                <td>Математика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Маслов М.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО "Астраханский колледж вычислительной техники", 2... · Стаж 0 лет</td>
+                <td>Оптимизация веб-приложений, Проектирование и разработка информацион...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Кондрашова И.Л.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО "Астраханский колледж вычислительной техники", 2... · Стаж 0 лет</td>
+                <td>Информатика</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Пакшинцева Н.Н.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГОУ ВПО "Астраханский государственный университет", 2007,... · Стаж 5 лет</td>
+                <td>Иностранный язык</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Пушкин А.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО "АГПК", Информационные системы и программировани... · Стаж 0 лет</td>
+                <td>Основы проектирования баз данных, Проектирование, разработка и опти...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Увалиев Д.С.</strong></td>
+                <td>преподаватель
+внешний совместитель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГБОУ ВО "Ивановская пожарно-спасательная академия ", 201... · Стаж 0 лет</td>
+                <td>Конструкция и техническая эксплуатация функционального оборудования...</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Шарифулина Н.Ф.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>Астраханский государственный педагогический университет, ... · Стаж 15 лет</td>
+                <td>Основы безопасности и защиты Родины, География</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Давыдова Н.А.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ГБПОУ АО "Астраханский колледж вычислительной техники",20... · Стаж 0 лет</td>
+                <td>Основы программирования в системе 1С: Предприятие 8</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
+              </tr>
+              <tr>
+                <td><strong>Трофимова Е.М.</strong></td>
+                <td>преподаватель</td>
+                <td><span class="badge badge-success">Пед. состав</span></td>
+                <td>54-08-35</td>
+                <td>akvt@astrobl.ru</td>
+                <td>ФГОУ ВПО "АГТУ", 2009, Документоведение и документационно... · Стаж 0 лет</td>
+                <td>Психология общения</td>
+                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button></td>
               </tr>
             </tbody>
           </table>
