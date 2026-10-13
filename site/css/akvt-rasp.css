@@ -497,3 +497,310 @@
 }
 
 
+
+
+/* ---------- Week Switcher / Недели расписания ---------- */
+.akvt-week-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-2);
+}
+
+.akvt-week-toggle {
+  display: inline-flex;
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-pill);
+  padding: 4px;
+  gap: 4px;
+}
+
+.akvt-week-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.akvt-week-tab:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.akvt-week-tab.active {
+  background: var(--accent);
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px -3px rgba(43, 89, 209, 0.45);
+}
+
+.akvt-week-tab .subtag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(255, 255, 255, 0.28);
+  padding: 2px 7px;
+  border-radius: 999px;
+  line-height: 1.1;
+}
+
+.akvt-week-tab:not(.active) .subtag {
+  background: var(--accent-wash);
+  color: var(--accent);
+}
+
+.akvt-week-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: pulseGreen 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.lesson-week-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.lesson-week-badge.w1 {
+  background: #e0e7ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+}
+
+.lesson-week-badge.w2 {
+  background: #fae8ff;
+  color: #86198f;
+  border: 1px solid #f5d0fe;
+}
+
+.lesson-subgroup-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #475569;
+  margin-right: 6px;
+}
+
+@media (max-width: 640px) {
+  .akvt-week-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .akvt-week-toggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .akvt-week-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 10px;
+    font-size: 0.84rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .akvt-week-tab .subtag {
+    display: none !important;
+  }
+  .akvt-week-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 8px 6px;
+    font-size: 0.86rem;
+  }
+}
+
+
+/* ---------- Clean Week Banner & Fixed Slot Positions ---------- */
+.akvt-week-banner-clean {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-2);
+}
+
+.akvt-week-banner-clean.is-w2 {
+  background: #faf8ff;
+  border-color: #e9d5ff;
+}
+
+.akvt-week-status-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.akvt-week-status-row strong {
+  color: var(--accent);
+}
+
+.akvt-week-banner-clean.is-w2 .akvt-week-status-row strong {
+  color: #7c3aed;
+}
+
+.pulse-dot.is-w2 {
+  background: #8b5cf6;
+  box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  animation: pulsePurple 2s infinite;
+}
+
+@keyframes pulsePurple {
+  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(139, 92, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+.akvt-week-switch-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--accent-wash);
+  color: var(--accent);
+  border: 1px solid rgba(43, 89, 209, 0.2);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.akvt-week-switch-pill:hover {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.akvt-week-banner-clean.is-w2 .akvt-week-switch-pill {
+  background: #f3e8ff;
+  color: #7c3aed;
+  border-color: #d8b4fe;
+}
+
+.akvt-week-banner-clean.is-w2 .akvt-week-switch-pill:hover {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+/* ---------- Fixed Lesson Layout & Alignment ---------- */
+.akvt-rasp .lesson {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: 14px 20px !important;
+  border-top: 1px solid var(--line-soft) !important;
+}
+
+.akvt-rasp .lesson .time {
+  flex: 0 0 54px !important;
+  min-width: 54px !important;
+  height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  color: var(--green-deep) !important;
+  background: var(--green-wash) !important;
+  border-radius: var(--radius-xs) !important;
+  text-align: center !important;
+  line-height: 1 !important;
+}
+
+/* Свободный слот / Нет пары */
+.akvt-rasp .lesson.lesson-empty-slot {
+  background: rgba(246, 243, 241, 0.45);
+}
+
+.akvt-rasp .lesson.lesson-empty-slot .time {
+  color: var(--muted) !important;
+  background: var(--paper-deep) !important;
+  opacity: 0.85;
+}
+
+.akvt-rasp .lesson.lesson-empty-slot .subject.empty-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 2px;
+}
+
+.akvt-rasp .lesson.lesson-empty-slot .subline {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+@media (max-width: 600px) {
+  .akvt-week-banner-clean {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+  }
+  .akvt-week-switch-pill {
+    width: 100%;
+    justify-content: center;
+  }
+  .akvt-rasp .lesson {
+    padding: 12px 14px !important;
+    gap: 12px !important;
+  }
+}

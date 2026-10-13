@@ -3560,3 +3560,194 @@ a.skip-link:focus-visible {
 }
 
 
+
+/* ============================================================================
+   PWA & Mobile Install Banner Styles
+   ============================================================================ */
+.akvt-pwa-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 99999;
+  width: min(92vw, 420px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.akvt-pwa-banner.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.akvt-pwa-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(253, 252, 251, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--line, #dcd6ce);
+  border-radius: 20px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 36px -8px rgba(38, 37, 31, 0.22), 0 2px 8px rgba(38, 37, 31, 0.08);
+}
+
+.akvt-pwa-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.akvt-pwa-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  object-fit: contain;
+  background: #ffffff;
+  box-shadow: 0 3px 8px rgba(15, 30, 65, 0.12);
+  flex-shrink: 0;
+}
+
+.akvt-pwa-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.akvt-pwa-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink, #1c1b18);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+}
+
+.akvt-pwa-desc {
+  font-size: 0.76rem;
+  color: var(--muted, #7b786e);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.akvt-pwa-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.akvt-pwa-btn {
+  background: var(--accent, #2b59d1);
+  color: #ffffff;
+  border: none;
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(43, 89, 209, 0.35);
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.akvt-pwa-btn:active {
+  transform: scale(0.96);
+  background: var(--accent-deep, #1e3f9e);
+}
+
+.akvt-pwa-close {
+  background: none;
+  border: none;
+  color: var(--muted, #7b786e);
+  font-size: 15px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.akvt-pwa-close:hover {
+  color: var(--ink, #1c1b18);
+}
+
+.akvt-pwa-ios-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 100000;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.akvt-pwa-ios-modal.active {
+  display: flex;
+}
+
+.akvt-pwa-ios-content {
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 20px 32px;
+  width: 100%;
+  max-width: 500px;
+  animation: slideUpSheet 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes slideUpSheet {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.akvt-pwa-ios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.akvt-pwa-ios-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink, #1c1b18);
+}
+
+.akvt-pwa-ios-steps {
+  list-style-type: decimal;
+  padding-left: 20px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-soft, #4b4941);
+}
+
+.akvt-pwa-ios-steps li {
+  margin-bottom: 12px;
+}
+
+.akvt-pwa-ios-steps .ios-icon {
+  display: inline-block;
+  vertical-align: -2px;
+  color: var(--accent, #2b59d1);
+}
+
+.akvt-pwa-ios-foot {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: var(--paper-deep, #efece7);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: var(--muted, #7b786e);
+  text-align: center;
+}

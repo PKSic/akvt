@@ -439,7 +439,7 @@
         <div class="panel-card">
           <div class="panel-card-title">
             <span>5. Главный промо-слайдер (Hero Slider & Banners)</span>
-            <button class="btn btn-secondary" onclick="alert('Новый слайд добавлен!')" style="font-size:12px; padding:4px 10px;">+ Добавить слайд</button>
+            <button class="btn btn-primary" onclick="openAddSlideModal()" style="font-size:12px; padding:6px 14px;">+ Добавить слайд</button>
           </div>
           <p class="form-help" style="margin-bottom:16px;">Управление слайдами, баннерами акций, текстами кнопок и фоновыми изображениями на первом экране сайта.</p>
           
@@ -462,11 +462,12 @@
             </div>
           </div>
 
+          <div id="slidesContainer">
           <!-- Slide 1 -->
-          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+          <div class="bento-card-editor slide-card-item" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
               <span class="badge badge-primary">Слайд 1 (Главный)</span>
-              <label style="font-size:12px;"><input type="checkbox" id="hb_slide1_on" checked> Активен</label>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide1_on" checked> Активен</label> <button class="btn btn-danger" style="padding:2px 8px; font-size:11px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteSlideCard(this)">Удалить</button>
             </div>
             <div class="form-grid-2">
               <div class="form-group">
@@ -495,10 +496,10 @@
           </div>
 
           <!-- Slide 2 -->
-          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+          <div class="bento-card-editor slide-card-item" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
               <span class="badge badge-success">Слайд 2 (Достижения)</span>
-              <label style="font-size:12px;"><input type="checkbox" id="hb_slide2_on" checked> Активен</label>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide2_on" checked> Активен</label> <button class="btn btn-danger" style="padding:2px 8px; font-size:11px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteSlideCard(this)">Удалить</button>
             </div>
             <div class="form-grid-2">
               <div class="form-group">
@@ -527,10 +528,10 @@
           </div>
 
           <!-- Slide 3 -->
-          <div class="bento-card-editor" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
+          <div class="bento-card-editor slide-card-item" style="margin-bottom:12px; background:#ffffff; border:1px solid var(--border);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
               <span class="badge badge-warning">Слайд 3 (IT-куб)</span>
-              <label style="font-size:12px;"><input type="checkbox" id="hb_slide3_on" checked> Активен</label>
+              <label style="font-size:12px;"><input type="checkbox" id="hb_slide3_on" checked> Активен</label> <button class="btn btn-danger" style="padding:2px 8px; font-size:11px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteSlideCard(this)">Удалить</button>
             </div>
             <div class="form-grid-2">
               <div class="form-group">
@@ -559,6 +560,7 @@
           </div>
         </div>
 
+        </div>
         <!-- Partners and Employers -->
         <div class="panel-card">
           <div class="panel-card-title">
@@ -628,7 +630,7 @@
                 <td><strong>50</strong> / 25</td>
                 <td>65 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.06</strong></td>
@@ -639,7 +641,7 @@
                 <td><strong>50</strong> / 20</td>
                 <td>66 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.11</strong></td>
@@ -650,7 +652,7 @@
                 <td><strong>50</strong> / 25</td>
                 <td>70 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.09</strong></td>
@@ -661,7 +663,7 @@
                 <td><strong>25</strong> / 15</td>
                 <td>68 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>10.02.05</strong></td>
@@ -672,7 +674,7 @@
                 <td><strong>25</strong> / 15</td>
                 <td>68 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>13.02.13</strong></td>
@@ -683,7 +685,7 @@
                 <td><strong>25</strong> / 15</td>
                 <td>60 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>27.02.04</strong></td>
@@ -694,7 +696,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>62 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>25.02.08</strong></td>
@@ -705,7 +707,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>72 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.07</strong></td>
@@ -716,7 +718,7 @@
                 <td><strong>125</strong> / 50</td>
                 <td>68 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>15.02.14</strong></td>
@@ -727,7 +729,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>62 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>22.07.03</strong></td>
@@ -738,7 +740,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>62 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>14.04.48</strong></td>
@@ -749,7 +751,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>60 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.03.05</strong></td>
@@ -760,7 +762,7 @@
                 <td><strong>25</strong> / 10</td>
                 <td>66 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>09.02.03</strong></td>
@@ -771,7 +773,7 @@
                 <td><strong>25</strong> / 15</td>
                 <td>65 000 ₽</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>НПО</strong></td>
@@ -782,7 +784,7 @@
                 <td><strong>50</strong> / 0</td>
                 <td>—</td>
                 <td><span class="badge badge-success">✓ РУП загружен</span></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
             </tbody>
           </table>
@@ -840,7 +842,7 @@
                 <td>rastorguevasv@mail.ru</td>
                 <td>Высшее педагогическое · Стаж 24 года</td>
                 <td>Вт 10:00–12:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Денис Геннадьевич Чалов</strong></td>
@@ -850,7 +852,7 @@
                 <td>chalov@akvt.ru</td>
                 <td>Высшее техническое · Стаж 20 лет</td>
                 <td>Ср 14:00–16:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Виктор Сергеевич Морозов</strong></td>
@@ -860,7 +862,7 @@
                 <td>morozov@akvt.ru</td>
                 <td>Высшее военное/техническое · Стаж 18 лет</td>
                 <td>Чт 14:00–16:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Наталья Викторовна Савина</strong></td>
@@ -870,7 +872,7 @@
                 <td>itcube@akvt.ru</td>
                 <td>Высшее (Информатика) · Стаж 14 лет</td>
                 <td>Пн-Пт 9:00–17:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Ольга Николаевна Беляева</strong></td>
@@ -880,7 +882,7 @@
                 <td>it-dept@akvt.ru</td>
                 <td>Высшее техническое · Стаж 19 лет</td>
                 <td>Пн-Пт 13:00–16:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Елена Владимировна Кузнецова</strong></td>
@@ -890,7 +892,7 @@
                 <td>uch@akvt.ru</td>
                 <td>Высшее педагогическое · Стаж 22 года</td>
                 <td>Пн-Пт 9:00–15:00</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Алексей Михайлович Ковалёв</strong></td>
@@ -900,7 +902,7 @@
                 <td>kovalev@akvt.ru</td>
                 <td>Высшее (АГТУ ИТиК) · Стаж 9 лет</td>
                 <td>По расписанию</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Игорь Анатольевич Смирнов</strong></td>
@@ -910,7 +912,7 @@
                 <td>smirnov@akvt.ru</td>
                 <td>Высшее техническое · Стаж 12 лет</td>
                 <td>По расписанию</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Татьяна Павловна Васильева</strong></td>
@@ -920,7 +922,7 @@
                 <td>vasilieva@akvt.ru</td>
                 <td>Высшее (ИБ АС) · Стаж 11 лет</td>
                 <td>По расписанию</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Сергей Николаевич Попов</strong></td>
@@ -930,7 +932,7 @@
                 <td>popov@akvt.ru</td>
                 <td>Высшее электротехническое · Стаж 16 лет</td>
                 <td>По расписанию</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Марина Александровна Новикова</strong></td>
@@ -940,7 +942,7 @@
                 <td>novikova@akvt.ru</td>
                 <td>Высшее математическое (АГУ) · Стаж 15 лет</td>
                 <td>По расписанию</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
             </tbody>
           </table>
@@ -998,7 +1000,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">ustav.pdf.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2021/04/folder-120x120.jpg" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Лицензия на осуществление образовательной деятельности с приложениями</strong></td>
@@ -1008,7 +1010,7 @@
                 <td>Минобрнауки АО</td>
                 <td><span class="badge badge-primary">license.pdf.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2022/12/liczenziya-na-obra" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Выписка из реестра лицензий по состоянию на 20 января 2026 г.</strong></td>
@@ -1018,7 +1020,7 @@
                 <td>Рособрнадзор</td>
                 <td><span class="badge badge-primary">vypiska_2026.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2026/01/vypiska-iz-reestra" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Правила приёма граждан на обучение на 2026/2027 учебный год</strong></td>
@@ -1028,7 +1030,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">pravila2026.pdf.sig</span></td>
                 <td><a href="#" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Правила внутреннего распорядка обучающихся</strong></td>
@@ -1038,7 +1040,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">rasporyadok.sig</span></td>
                 <td><a href="https://disk.yandex.ru/i/iFH36rrdEdDoZQ" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Правила внутреннего трудового распорядка работников</strong></td>
@@ -1048,7 +1050,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">trudovoy.sig</span></td>
                 <td><a href="https://disk.yandex.ru/i/wq6XoCHoiIPDpg" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Коллективный договор ГБПОУ АО «АКВТ»</strong></td>
@@ -1058,7 +1060,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">koldogovor.sig</span></td>
                 <td><a href="https://disk.360.yandex.ru/i/RDikCMNzIa6riA" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Дополнительное соглашение №1 к Коллективному договору</strong></td>
@@ -1068,7 +1070,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">dop_sogl_1.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2023/01/2022-12-27_akvt_dop-sogl-№1-k-kol-dogovoru-prodlenies.pdf" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Дополнительное соглашение №2 к Коллективному договору (оплата труда)</strong></td>
@@ -1078,7 +1080,7 @@
                 <td>Чалов Д.Г.</td>
                 <td><span class="badge badge-primary">dop_sogl_2.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2023/02/2023-01-17_akvt_dop-sogl-№2-k-kol-dogovoru-oplata-trudas-2.pdf" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Дополнительное соглашение №3 к Коллективному договору (дни выплаты ЗП)</strong></td>
@@ -1088,7 +1090,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">dop_sogl_3.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2023/04/2023-03-20_akvt_dop-sogl-№3-k-kol-dogovoru-dni-zps.pdf" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>План финансово-хозяйственной деятельности (ПФХД) на 2026 год</strong></td>
@@ -1098,7 +1100,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">pfhd_2026.sig</span></td>
                 <td><a href="#" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Положение о порядке оказания платных образовательных услуг</strong></td>
@@ -1108,7 +1110,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">platnye.sig</span></td>
                 <td><a href="https://disk.yandex.ru/i/P8DfN-qH4QKoJw" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Положение о внебюджетной деятельности учреждения</strong></td>
@@ -1118,7 +1120,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">vnebyudzhet.sig</span></td>
                 <td><a href="https://disk.yandex.ru/i/Sgks2w5DYTYBGw" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Приказ об утверждении стоимости обучения по программам СПО на 2024-2025 уч. год</strong></td>
@@ -1128,7 +1130,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">stoimost2025.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2025/03/stoimost-obucheniy" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Отчёт о результатах самообследования ГБПОУ АО «АКВТ»</strong></td>
@@ -1138,7 +1140,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">samoobsledovanie.sig</span></td>
                 <td><a href="#" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Положение о стипендиальном обеспечении студентов</strong></td>
@@ -1148,7 +1150,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">stipendii.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2022/04/20220111-polozh-o-" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Паспорт доступности объекта социальной инфраструктуры для инвалидов (учебный корпус)</strong></td>
@@ -1158,7 +1160,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">pasport_dostupnosti.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2022/02/pasport-dostupnost" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Положение о Центре цифрового образования «IT-куб» на базе ГБПОУ АО «АКВТ»</strong></td>
@@ -1168,7 +1170,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">it_cube_polozhenie.sig</span></td>
                 <td><a href="https://www.akvt.ru/wp-content/uploads/2023/10/polozheniya-it-kub" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>План мероприятий по устранению недостатков независимой оценки качества (НОК)</strong></td>
@@ -1178,7 +1180,7 @@
                 <td>Лунёв Д.А.</td>
                 <td><span class="badge badge-primary">nok_plan.sig</span></td>
                 <td><a href="https://disk.yandex.ru/i/HV-WcZKMRvx4jQ" target="_blank" style="color:var(--primary); font-weight:600;">[PDF]</a></td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
             </tbody>
           </table>
@@ -1447,7 +1449,7 @@
         </div>
 
         <div class="data-table-wrap">
-          <table class="data-table">
+          <table class="data-table" id="locationsTable">
             <thead>
               <tr>
                 <th>Наименование</th>
@@ -1459,7 +1461,7 @@
                 <th>Действия</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="locationsTableBody">
               <tr>
                 <td><strong>Главный корпус АКВТ</strong></td>
                 <td><span class="badge badge-primary">Главный корпус</span></td>
@@ -1467,7 +1469,7 @@
                 <td><code>46.374500, 48.059800</code></td>
                 <td>54-08-35</td>
                 <td>Авт: 4, 17, 37, 55, 60, 66; Марш: 8, 20, 28, 35, 45, 74</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Учебный корпус №2</strong></td>
@@ -1476,7 +1478,7 @@
                 <td><code>46.329300, 48.020900</code></td>
                 <td>66-75-03</td>
                 <td>Авт: 19н, 25н, 30н. Остановка «Автогородок»</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
               <tr>
                 <td><strong>Студенческое общежитие</strong></td>
@@ -1485,7 +1487,7 @@
                 <td><code>46.336800, 48.035100</code></td>
                 <td>99-99-54</td>
                 <td>Марш: 1с, 14с, 89с. Остановка «ул. Ахшарумова»</td>
-                <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>
+                <td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>
               </tr>
             </tbody>
           </table>
@@ -1506,45 +1508,45 @@
 
         <div class="panel-card">
           <div class="panel-card-title"><span>Главное меню (Шапка сайта)</span></div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
+          <div id="menusContainer" style="display:flex; flex-direction:column; gap:10px;">
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Поступающим (Выпадающее Mega-меню)" style="flex:1;">
               <input type="text" class="form-input" value="/postupayushhim/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Сведения об организации (Mega-меню)" style="flex:1;">
               <input type="text" class="form-input" value="/osnovnye-svedeniya-2-2/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Студентам" style="flex:1;">
               <input type="text" class="form-input" value="/students/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Преподавателям" style="flex:1;">
               <input type="text" class="form-input" value="/teachers/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Родителям" style="flex:1;">
               <input type="text" class="form-input" value="/parents/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
             <div style="display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);">
               <span style="cursor:grab;">☰</span>
               <input type="text" class="form-input" value="Контакты" style="flex:1;">
               <input type="text" class="form-input" value="/obrashheniya-grazhdan/" style="flex:1;">
-              <button class="btn btn-secondary" style="padding:4px 8px;">✕</button>
+              <button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>
             </div>
           </div>
-          <button class="btn btn-primary" style="margin-top:14px;">+ Добавить пункт меню</button>
+          <button class="btn btn-primary" style="margin-top:14px;" onclick="openAddMenuModal()">+ Добавить пункт меню</button>
         </div>
       </section>
 
@@ -2267,6 +2269,164 @@
     <span id="toastMsg">Все настройки успешно сохранены в реестр!</span>
   </div>
 
+  
+  <!-- Modal: Add Campus Location -->
+  <div class="generic-modal" id="modalLocation">
+    <div class="generic-modal-card">
+      <div class="generic-modal-header">
+        <h3 class="generic-modal-title">Добавить корпус или локацию</h3>
+        <button class="generic-modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <div class="generic-modal-body">
+        <div class="form-group">
+          <label class="form-label">Наименование корпуса / локации</label>
+          <input type="text" id="new_loc_title" class="form-input" placeholder="Например: Учебно-производственные мастерские">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Тип объекта</label>
+            <select id="new_loc_type" class="form-select">
+              <option value="Учебный корпус">Учебный корпус</option>
+              <option value="Главный корпус">Главный корпус</option>
+              <option value="Общежитие">Общежитие</option>
+              <option value="Мастерские">Мастерские</option>
+              <option value="Спортивный комплекс">Спортивный комплекс</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон вахты / коменданта</label>
+            <input type="text" id="new_loc_phone" class="form-input" placeholder="54-08-35">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Фактический адрес</label>
+          <input type="text" id="new_loc_address" class="form-input" placeholder="г. Астрахань, пер. Смоляной, 2">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Координаты Яндекс.Карт</label>
+            <input type="text" id="new_loc_coords" class="form-input" value="46.374500, 48.059800">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Маршруты транспорта</label>
+            <input type="text" id="new_loc_transport" class="form-input" placeholder="Авт: 4, 17, 37; Марш: 8, 20">
+          </div>
+        </div>
+      </div>
+      <div class="generic-modal-footer">
+        <button class="btn btn-secondary" onclick="closeModals()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveNewLocation()">Сохранить локацию</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Campus Location -->
+  <div class="generic-modal" id="modalEditLocation">
+    <div class="generic-modal-card">
+      <div class="generic-modal-header">
+        <h3 class="generic-modal-title">Редактировать корпус / локацию</h3>
+        <button class="generic-modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <div class="generic-modal-body">
+        <div class="form-group">
+          <label class="form-label">Наименование корпуса</label>
+          <input type="text" id="edit_loc_title" class="form-input">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Тип</label>
+            <input type="text" id="edit_loc_type" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Телефон</label>
+            <input type="text" id="edit_loc_phone" class="form-input">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Адрес</label>
+          <input type="text" id="edit_loc_address" class="form-input">
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">Координаты</label>
+            <input type="text" id="edit_loc_coords" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Транспорт</label>
+            <input type="text" id="edit_loc_transport" class="form-input">
+          </div>
+        </div>
+      </div>
+      <div class="generic-modal-footer">
+        <button class="btn btn-danger" style="margin-right:auto; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteLocationRow()">Удалить корпус</button>
+        <button class="btn btn-secondary" onclick="closeModals()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveEditedLocation()">Сохранить изменения</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Hero Slide -->
+  <div class="generic-modal" id="modalAddSlide">
+    <div class="generic-modal-card">
+      <div class="generic-modal-header">
+        <h3 class="generic-modal-title">Добавить промо-слайд</h3>
+        <button class="generic-modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <div class="generic-modal-body">
+        <div class="form-group">
+          <label class="form-label">Заголовок слайда</label>
+          <input type="text" id="new_slide_title" class="form-input" placeholder="Например: День открытых дверей в АКВТ">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Подзаголовок / Описание</label>
+          <input type="text" id="new_slide_sub" class="form-input" placeholder="Мастер-классы, экскурсии в IT-лаборатории и общение с преподавателями">
+        </div>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label class="form-label">Изображение (URL / путь)</label>
+            <input type="text" id="new_slide_img" class="form-input" value="wp-content/uploads/2026/03/genr_2026_v4.webp">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Текст кнопки действия</label>
+            <input type="text" id="new_slide_btn" class="form-input" value="Подробнее →">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ссылка кнопки</label>
+            <input type="text" id="new_slide_link" class="form-input" value="/postupayushhim/">
+          </div>
+        </div>
+      </div>
+      <div class="generic-modal-footer">
+        <button class="btn btn-secondary" onclick="closeModals()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveNewSlide()">Добавить слайд</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Menu Item -->
+  <div class="generic-modal" id="modalAddMenu">
+    <div class="generic-modal-card">
+      <div class="generic-modal-header">
+        <h3 class="generic-modal-title">Добавить пункт навигации</h3>
+        <button class="generic-modal-close" onclick="closeModals()">✕</button>
+      </div>
+      <div class="generic-modal-body">
+        <div class="form-group">
+          <label class="form-label">Текст пункта меню</label>
+          <input type="text" id="new_menu_title" class="form-input" placeholder="Например: Профориентация">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ссылка / URL страницы</label>
+          <input type="text" id="new_menu_url" class="form-input" placeholder="/postupayushhim/proforientaciya/">
+        </div>
+      </div>
+      <div class="generic-modal-footer">
+        <button class="btn btn-secondary" onclick="closeModals()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveNewMenuItem()">Добавить в меню</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Navigation between views
     document.querySelectorAll('.sidebar-nav-item').forEach(function(item) {
@@ -2304,7 +2464,7 @@
       if (event && event.target) event.target.classList.add('active');
     }
 
-    // Toast
+    // Toast Notifications
     function showToast(msg) {
       var toast = document.getElementById('adminToast');
       var toastMsg = document.getElementById('toastMsg');
@@ -2313,13 +2473,11 @@
       setTimeout(function() { toast.classList.remove('show'); }, 3200);
     }
 
-    
     // Theme Switcher Engine (Light / Dark / Auto - Browser-synced)
     function initThemeEngine() {
       var savedTheme = localStorage.getItem('akvt_admin_theme') || 'auto';
       applyAdminTheme(savedTheme);
       
-      // Listen to OS / Browser color-scheme changes if 'auto'
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
         var current = localStorage.getItem('akvt_admin_theme') || 'auto';
         if (current === 'auto') {
@@ -2349,7 +2507,6 @@
       } else if (mode === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
       } else {
-        // Auto: follow browser / OS prefers-color-scheme
         var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         applySystemTheme(isDark);
       }
@@ -2365,7 +2522,7 @@
 
     initThemeEngine();
 
-    // Global Save
+    // Universal Persistence (Form Controls + Tables & Lists)
     function saveAllSettings() {
       var data = {};
       document.querySelectorAll('input, textarea, select').forEach(function(el) {
@@ -2374,28 +2531,53 @@
           else data[el.id] = el.value;
         }
       });
+
+      // Save dynamic table bodies and containers
+      var savedContainers = {};
+      var containerIds = ['specialtiesTableBody', 'staffTableBody', 'docTableBody', 'locationsTableBody', 'slidesContainer', 'menusContainer'];
+      containerIds.forEach(function(cid) {
+        var c = document.getElementById(cid);
+        if (c) savedContainers[cid] = c.innerHTML;
+      });
+      data['_saved_containers'] = savedContainers;
+
       localStorage.setItem('akvt_all_settings', JSON.stringify(data));
-      showToast('Все изменения успешно сохранены в систему без редактирования кода!');
+      showToast('Все изменения успешно сохранены в локальную базу данных!');
     }
 
-    // Restore on Load
+    // Restore on Page Load
     (function restore() {
       var saved = localStorage.getItem('akvt_all_settings');
       if (saved) {
         try {
           var data = JSON.parse(saved);
+          
+          // Restore containers first
+          if (data._saved_containers) {
+            for (var cid in data._saved_containers) {
+              var c = document.getElementById(cid);
+              if (c && data._saved_containers[cid]) {
+                c.innerHTML = data._saved_containers[cid];
+              }
+            }
+          }
+
+          // Restore form values
           for (var id in data) {
+            if (id === '_saved_containers') continue;
             var el = document.getElementById(id);
             if (el) {
               if (el.type === 'checkbox') el.checked = data[id];
               else el.value = data[id];
             }
           }
-        } catch(e){}
+        } catch(e) {
+          console.error('Error restoring settings:', e);
+        }
       }
     })();
 
-    // Table Filter
+    // Table Filtering
     function filterTable(tableId, query) {
       var q = query.toLowerCase().trim();
       var rows = document.querySelectorAll('#' + tableId + ' tbody tr');
@@ -2414,30 +2596,31 @@
       });
     }
 
-    // Device Preview
-    function openDevicePreview(w) {
-      var m = document.getElementById('previewModal');
-      var iframe = document.getElementById('previewIframe');
-      iframe.style.width = w;
-      m.classList.add('active');
-    }
-    function closePreview() {
-      document.getElementById('previewModal').classList.remove('active');
-    }
-    function setDevice(w, btn) {
-      document.getElementById('previewIframe').style.width = w;
-      document.querySelectorAll('.dev-btn').forEach(function(b) { b.classList.remove('active'); });
-      if (btn) btn.classList.add('active');
-    }
-    function reloadPreview() {
-      var iframe = document.getElementById('previewIframe');
-      iframe.src = iframe.src;
+    // Modal Helpers
+    function closeModals() {
+      document.querySelectorAll('.generic-modal').forEach(function(m) {
+        m.classList.remove('active');
+      });
     }
 
-    // Modals
-    
-    // Table Rows Editing Logic
+    // Universal Table Row Delete
+    function deleteTableRow(btn) {
+      var tr = btn.closest('tr');
+      if (!tr) return;
+      var title = (tr.cells[1] && tr.cells[1].innerText.trim()) ? tr.cells[1].innerText.trim() : (tr.cells[0] ? tr.cells[0].innerText.trim() : 'запись');
+      if (confirm('Вы уверены, что хотите безвозвратно удалить: "' + title + '"?')) {
+        tr.remove();
+        showToast('Запись успешно удалена из таблицы!');
+        saveAllSettings();
+      }
+    }
+
+    // ================================================================ SPECIALTIES
     var currentEditingRow = null;
+
+    function openAddSpecialtyModal() {
+      document.getElementById('modalSpecialty').classList.add('active');
+    }
 
     function editSpecialtyRow(btn) {
       var tr = btn.closest('tr');
@@ -2472,9 +2655,36 @@
       if (currentEditingRow && confirm('Удалить эту специальность из реестра?')) {
         currentEditingRow.remove();
         closeModals();
-        showToast('Специальность удалена из реестра!');
+        showToast('Специальность удалена!');
         saveAllSettings();
       }
+    }
+
+    function saveNewSpecialty() {
+      var code = document.getElementById('new_spec_code').value.trim();
+      var title = document.getElementById('new_spec_title').value.trim();
+      var qual = document.getElementById('new_spec_qual').value.trim();
+      var base = document.getElementById('new_spec_base').value;
+      var duration = document.getElementById('new_spec_duration').value || '3 г. 10 м.';
+      var budget = document.getElementById('new_spec_budget').value || '25';
+      var comm = document.getElementById('new_spec_comm').value || '15';
+      var price = document.getElementById('new_spec_price').value || '65 000 ₽';
+
+      if (!code || !title) { alert('Укажите код и название специальности!'); return; }
+
+      var tbody = document.getElementById('specialtiesTableBody');
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><strong>' + code + '</strong></td><td>' + title + '</td><td>' + qual + '</td><td><span class="badge badge-primary">' + base + '</span></td><td>' + duration + '</td><td><strong>' + budget + '</strong> / ' + comm + '</td><td>' + price + '</td><td><span class="badge badge-success">✓ РУП загружен</span></td><td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editSpecialtyRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>';
+      tbody.insertBefore(tr, tbody.firstChild);
+
+      closeModals();
+      showToast('Специальность ' + code + ' добавлена в каталог!');
+      saveAllSettings();
+    }
+
+    // ================================================================ STAFF
+    function openAddStaffModal() {
+      document.getElementById('modalStaff').classList.add('active');
     }
 
     function editStaffRow(btn) {
@@ -2508,9 +2718,34 @@
       if (currentEditingRow && confirm('Удалить сотрудника из реестра?')) {
         currentEditingRow.remove();
         closeModals();
-        showToast('Сотрудник удален из реестра!');
+        showToast('Сотрудник удален!');
         saveAllSettings();
       }
+    }
+
+    function saveNewStaff() {
+      var name = document.getElementById('new_staff_name').value.trim();
+      var role = document.getElementById('new_staff_role').value.trim();
+      var dept = document.getElementById('new_staff_dept').value;
+      var phone = document.getElementById('new_staff_phone').value.trim();
+      var email = document.getElementById('new_staff_email').value.trim();
+      var edu = document.getElementById('new_staff_edu').value.trim();
+
+      if (!name) { alert('Укажите ФИО сотрудника!'); return; }
+
+      var tbody = document.getElementById('staffTableBody') || document.querySelector('#staffTable tbody');
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><strong>' + name + '</strong></td><td>' + role + '</td><td><span class="badge badge-primary">' + dept + '</span></td><td>' + phone + '</td><td>' + email + '</td><td>' + edu + '</td><td>По расписанию</td><td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editStaffRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>';
+      tbody.insertBefore(tr, tbody.firstChild);
+
+      closeModals();
+      showToast('Сотрудник ' + name + ' добавлен в реестр!');
+      saveAllSettings();
+    }
+
+    // ================================================================ DOCUMENTS
+    function openAddDocModal() {
+      document.getElementById('modalDoc').classList.add('active');
     }
 
     function editDocRow(btn) {
@@ -2542,70 +2777,9 @@
       if (currentEditingRow && confirm('Удалить этот документ из реестра?')) {
         currentEditingRow.remove();
         closeModals();
-        showToast('Документ удален из реестра!');
+        showToast('Документ удален!');
         saveAllSettings();
       }
-    }
-
-    function editGenericRow(btn) {
-      var tr = btn.closest('tr');
-      var title = tr.cells[1] ? tr.cells[1].innerText : tr.cells[0].innerText;
-      var newVal = prompt('Редактировать запись:', title);
-      if (newVal !== null) {
-        if (tr.cells[1]) tr.cells[1].innerText = newVal;
-        else tr.cells[0].innerText = newVal;
-        showToast('Запись обновлена!');
-        saveAllSettings();
-      }
-    }
-
-    function openAddSpecialtyModal() { document.getElementById('modalSpecialty').classList.add('active'); }
-    function openAddStaffModal() { document.getElementById('modalStaff').classList.add('active'); }
-    function openAddDocModal() { document.getElementById('modalDoc').classList.add('active'); }
-    function closeModals() {
-      document.querySelectorAll('.generic-modal').forEach(function(m) { m.classList.remove('active'); });
-    }
-
-    function saveNewSpecialty() {
-      var code = document.getElementById('new_spec_code').value.trim();
-      var title = document.getElementById('new_spec_title').value.trim();
-      var qual = document.getElementById('new_spec_qual').value.trim();
-      var base = document.getElementById('new_spec_base').value;
-      var duration = document.getElementById('new_spec_duration').value || '3 г. 10 м.';
-      var budget = document.getElementById('new_spec_budget').value || '25';
-      var comm = document.getElementById('new_spec_comm').value || '15';
-      var price = document.getElementById('new_spec_price').value || '65 000 ₽';
-
-      if (!code || !title) { alert('Укажите код и название специальности!'); return; }
-
-      var tbody = document.getElementById('specialtiesTableBody');
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td><strong>' + code + '</strong></td><td>' + title + '</td><td>' + qual + '</td><td><span class="badge badge-primary">' + base + '</span></td><td>' + duration + '</td><td><strong>' + budget + '</strong> / ' + comm + '</td><td>' + price + '</td><td><span class="badge badge-success">✓ Загружен</span></td><td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>';
-      tbody.insertBefore(tr, tbody.firstChild);
-
-      closeModals();
-      showToast('Специальность ' + code + ' успешно добавлена в каталог!');
-      saveAllSettings();
-    }
-
-    function saveNewStaff() {
-      var name = document.getElementById('new_staff_name').value.trim();
-      var role = document.getElementById('new_staff_role').value.trim();
-      var dept = document.getElementById('new_staff_dept').value;
-      var phone = document.getElementById('new_staff_phone').value.trim();
-      var email = document.getElementById('new_staff_email').value.trim();
-      var edu = document.getElementById('new_staff_edu').value.trim();
-
-      if (!name) { alert('Укажите ФИО сотрудника!'); return; }
-
-      var tbody = document.querySelector('#staffTable tbody');
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td><strong>' + name + '</strong></td><td>' + role + '</td><td><span class="badge badge-primary">' + dept + '</span></td><td>' + phone + '</td><td>' + email + '</td><td>' + edu + '</td><td>По расписанию</td><td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>';
-      tbody.insertBefore(tr, tbody.firstChild);
-
-      closeModals();
-      showToast('Сотрудник ' + name + ' добавлен в реестр кадров!');
-      saveAllSettings();
     }
 
     function saveNewDoc() {
@@ -2617,9 +2791,9 @@
 
       if (!title) { alert('Укажите название документа!'); return; }
 
-      var tbody = document.querySelector('#docTable tbody');
+      var tbody = document.getElementById('docTableBody') || document.querySelector('#docTable tbody');
       var tr = document.createElement('tr');
-      tr.innerHTML = '<td><strong>' + title + '</strong></td><td>' + cat + '</td><td>' + date + '</td><td><span class="badge badge-success">✓ ЭЦП ГОСТ</span></td><td>' + signer + '</td><td><span class="badge badge-primary">' + sigfile + '</span></td><td><a href="#" style="color:var(--primary); font-weight:600;">[PDF]</a></td><td><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editGenericRow(this)">Правка</button></td>';
+      tr.innerHTML = '<td><strong>' + title + '</strong></td><td>' + cat + '</td><td>' + date + '</td><td><span class="badge badge-success">✓ ЭЦП ГОСТ</span></td><td>' + signer + '</td><td><span class="badge badge-primary">' + sigfile + '</span></td><td><a href="#" style="color:var(--primary); font-weight:600;">[PDF]</a></td><td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editDocRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>';
       tbody.insertBefore(tr, tbody.firstChild);
 
       closeModals();
@@ -2627,15 +2801,147 @@
       saveAllSettings();
     }
 
-    function handleFileSchedule(input) {
-      if (input.files && input.files[0]) {
-        var status = document.getElementById('scheduleUploadStatus');
-        status.style.display = 'block';
-        status.textContent = '✓ Файл ' + input.files[0].name + ' успешно разобран. Расписание обновлено!';
-        showToast('Расписание занятий успешно синхронизировано!');
+    // ================================================================ CAMPUS LOCATIONS
+    function openAddLocationModal() {
+      document.getElementById('modalLocation').classList.add('active');
+    }
+
+    function editLocationRow(btn) {
+      var tr = btn.closest('tr');
+      currentEditingRow = tr;
+      var cells = tr.cells;
+      document.getElementById('edit_loc_title').value = cells[0].innerText.trim();
+      document.getElementById('edit_loc_type').value = cells[1].innerText.trim();
+      document.getElementById('edit_loc_address').value = cells[2].innerText.trim();
+      document.getElementById('edit_loc_coords').value = cells[3].innerText.trim();
+      document.getElementById('edit_loc_phone').value = cells[4].innerText.trim();
+      document.getElementById('edit_loc_transport').value = cells[5].innerText.trim();
+      document.getElementById('modalEditLocation').classList.add('active');
+    }
+
+    function saveEditedLocation() {
+      if (!currentEditingRow) return;
+      var cells = currentEditingRow.cells;
+      cells[0].innerHTML = '<strong>' + document.getElementById('edit_loc_title').value.trim() + '</strong>';
+      cells[1].innerHTML = '<span class="badge badge-primary">' + document.getElementById('edit_loc_type').value.trim() + '</span>';
+      cells[2].innerText = document.getElementById('edit_loc_address').value.trim();
+      cells[3].innerHTML = '<code>' + document.getElementById('edit_loc_coords').value.trim() + '</code>';
+      cells[4].innerText = document.getElementById('edit_loc_phone').value.trim();
+      cells[5].innerText = document.getElementById('edit_loc_transport').value.trim();
+      closeModals();
+      showToast('Данные корпуса успешно обновлены!');
+      saveAllSettings();
+    }
+
+    function deleteLocationRow() {
+      if (currentEditingRow && confirm('Удалить эту локацию?')) {
+        currentEditingRow.remove();
+        closeModals();
+        showToast('Локация удалена!');
+        saveAllSettings();
       }
     }
 
+    function saveNewLocation() {
+      var title = document.getElementById('new_loc_title').value.trim();
+      var type = document.getElementById('new_loc_type').value;
+      var phone = document.getElementById('new_loc_phone').value.trim() || '54-08-35';
+      var address = document.getElementById('new_loc_address').value.trim();
+      var coords = document.getElementById('new_loc_coords').value.trim() || '46.374500, 48.059800';
+      var transport = document.getElementById('new_loc_transport').value.trim() || 'Авт: 4, 17, 37';
+
+      if (!title || !address) { alert('Укажите название и адрес корпуса!'); return; }
+
+      var tbody = document.getElementById('locationsTableBody') || document.querySelector('#locationsTable tbody');
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><strong>' + title + '</strong></td><td><span class="badge badge-primary">' + type + '</span></td><td>' + address + '</td><td><code>' + coords + '</code></td><td>' + phone + '</td><td>' + transport + '</td><td><div style="display:flex; gap:6px;"><button class="btn btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="editLocationRow(this)">Правка</button><button class="btn btn-danger" style="padding:4px 8px; font-size:12px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteTableRow(this)">Удалить</button></div></td>';
+      tbody.insertBefore(tr, tbody.firstChild);
+
+      closeModals();
+      showToast('Корпус ' + title + ' добавлен в базу!');
+      saveAllSettings();
+    }
+
+    // ================================================================ HERO SLIDER
+    function openAddSlideModal() {
+      document.getElementById('modalAddSlide').classList.add('active');
+    }
+
+    function saveNewSlide() {
+      var title = document.getElementById('new_slide_title').value.trim();
+      var sub = document.getElementById('new_slide_sub').value.trim();
+      var img = document.getElementById('new_slide_img').value.trim();
+      var btn = document.getElementById('new_slide_btn').value.trim() || 'Подробнее →';
+      var link = document.getElementById('new_slide_link').value.trim() || '/';
+
+      if (!title) { alert('Укажите заголовок промо-слайда!'); return; }
+
+      var container = document.getElementById('slidesContainer');
+      var slideCard = document.createElement('div');
+      slideCard.className = 'bento-card-editor slide-card-item';
+      slideCard.style.cssText = 'margin-bottom:12px; background:#ffffff; border:1px solid var(--border);';
+      slideCard.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><span class="badge badge-primary">Новый промо-слайд</span><div style="display:flex; gap:8px; align-items:center;"><label style="font-size:12px;"><input type="checkbox" checked> Активен</label><button class="btn btn-danger" style="padding:2px 8px; font-size:11px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteSlideCard(this)">Удалить</button></div></div><div class="form-grid-2"><div class="form-group"><label class="form-label">Заголовок слайда</label><input type="text" class="form-input" value="' + title + '"></div><div class="form-group"><label class="form-label">Подзаголовок / Описание</label><input type="text" class="form-input" value="' + sub + '"></div></div><div class="form-grid-3"><div class="form-group"><label class="form-label">Изображение (URL)</label><input type="text" class="form-input" value="' + img + '"></div><div class="form-group"><label class="form-label">Текст кнопки действия</label><input type="text" class="form-input" value="' + btn + '"></div><div class="form-group"><label class="form-label">Ссылка кнопки</label><input type="text" class="form-input" value="' + link + '"></div></div>';
+      container.appendChild(slideCard);
+
+      closeModals();
+      showToast('Новый слайд успешно добавлен в промо-слайдер!');
+      saveAllSettings();
+    }
+
+    function deleteSlideCard(btn) {
+      var card = btn.closest('.slide-card-item') || btn.closest('.bento-card-editor');
+      if (confirm('Удалить этот промо-слайд?')) {
+        card.remove();
+        showToast('Слайд удален из промо-ленты!');
+        saveAllSettings();
+      }
+    }
+
+    // ================================================================ MENUS
+    function openAddMenuModal() {
+      document.getElementById('modalAddMenu').classList.add('active');
+    }
+
+    function saveNewMenuItem() {
+      var title = document.getElementById('new_menu_title').value.trim();
+      var url = document.getElementById('new_menu_url').value.trim();
+
+      if (!title || !url) { alert('Укажите название и ссылку пункта меню!'); return; }
+
+      var container = document.getElementById('menusContainer');
+      var item = document.createElement('div');
+      item.style.cssText = 'display:flex; gap:10px; align-items:center; background:#f8fafc; padding:10px 14px; border-radius:8px; border:1px solid var(--border);';
+      item.innerHTML = '<span style="cursor:grab;">☰</span><input type="text" class="form-input" value="' + title + '" style="flex:1;"><input type="text" class="form-input" value="' + url + '" style="flex:1;"><button class="btn btn-danger" style="padding:4px 8px; background:rgba(239,68,68,0.1); color:#ef4444; border:1px solid rgba(239,68,68,0.2);" onclick="deleteMenuItem(this)" title="Удалить пункт меню">✕</button>';
+      container.appendChild(item);
+
+      closeModals();
+      showToast('Пункт меню "' + title + '" добавлен в навигацию!');
+      saveAllSettings();
+    }
+
+    function deleteMenuItem(btn) {
+      var item = btn.closest('div');
+      if (confirm('Удалить этот пункт навигации?')) {
+        item.remove();
+        showToast('Пункт навигации удален!');
+        saveAllSettings();
+      }
+    }
+
+    // Schedule Handler
+    function handleFileSchedule(input) {
+      if (input.files && input.files[0]) {
+        var status = document.getElementById('scheduleUploadStatus');
+        if (status) {
+          status.style.display = 'block';
+          status.textContent = '✓ Файл ' + input.files[0].name + ' успешно загружен в систему!';
+        }
+        showToast('Расписание занятий обновлено!');
+        saveAllSettings();
+      }
+    }
+
+    // Backup & Export / Import
     function exportSettingsJson() {
       var saved = localStorage.getItem('akvt_all_settings') || '{}';
       var blob = new Blob([saved], {type: 'application/json'});
@@ -2659,6 +2965,26 @@
         };
         reader.readAsText(input.files[0]);
       }
+    }
+
+    // Device Preview
+    function openDevicePreview(w) {
+      var m = document.getElementById('previewModal');
+      var iframe = document.getElementById('previewIframe');
+      iframe.style.width = w;
+      m.classList.add('active');
+    }
+    function closePreview() {
+      document.getElementById('previewModal').classList.remove('active');
+    }
+    function setDevice(w, btn) {
+      document.getElementById('previewIframe').style.width = w;
+      document.querySelectorAll('.dev-btn').forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+    }
+    function reloadPreview() {
+      var iframe = document.getElementById('previewIframe');
+      iframe.src = iframe.src;
     }
   </script>
 </body>
