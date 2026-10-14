@@ -325,7 +325,10 @@
 
     if (burger && mobileNav && burger.dataset.wired !== "1") {
       burger.dataset.wired = "1";
+      // В режиме для слабовидящих меню лежит в потоке страницы, блокировать скролл нельзя
+      var bviOn = function () { return document.documentElement.classList.contains("bvi"); };
       var lockScroll = function () {
+        if (bviOn()) return;
         var y = window.scrollY || window.pageYOffset;
         document.body.dataset.scrollY = String(y);
         document.body.style.position = "fixed";
@@ -334,7 +337,9 @@
         document.body.style.right = "0";
       };
       var unlockScroll = function () {
+        if (document.body.dataset.scrollY === undefined) return;
         var y = parseInt(document.body.dataset.scrollY || "0", 10);
+        delete document.body.dataset.scrollY;
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";

@@ -524,7 +524,7 @@ html.bvi[data-bvi][class] body .hp-menu {
   flex-wrap: wrap;
   gap: 0.25rem 0.5rem;
 }
-html.bvi[data-bvi][class] body :is(.hp-menu > a, .hp-menu > .has-drop > a, .m-parent, .hp-mobile-nav a) {
+html.bvi[data-bvi][class] body :is(.hp-menu > a, .hp-menu > .has-drop > a) {
   padding: 0.5rem 0.7rem !important;
   font-size: 1rem !important;
   display: inline-block;
@@ -538,29 +538,65 @@ html.bvi[data-bvi][class] body .mega-panel a {
   display: block;
   padding: 0.45rem 0.6rem;
 }
-/* Бургер: полоски рисуются фоном — задаём цвет текста */
-html.bvi[data-bvi][class] body .hp-burger {
-  border: 2px solid var(--bvi-border) !important;
-  min-width: 3rem;
-  min-height: 3rem;
-}
-html.bvi[data-bvi][class] body .hp-burger {
-  background-color: var(--bvi-bg) !important;
+/* Бургер: три полоски (☰), в открытом состоянии крестик (✕).
+   Полоски в style.css позиционированы absolute и в одной точке сливались в «минус»,
+   поэтому здесь они возвращаются в поток flex-колонки. */
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn) {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  padding: 0.6rem !important;
+  box-sizing: border-box;
+  width: 3rem;
+  height: 3rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  padding: 0 !important;
+  margin-left: auto;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 0.5rem;
+  background-color: var(--bvi-bg) !important;
+  cursor: pointer;
+  flex: 0 0 auto;
 }
-html.bvi[data-bvi][class] body .hp-burger span {
-  background-color: var(--bvi-fg) !important;
-  height: 0.2rem !important;
-  width: 1.6rem !important;
-  margin: 0 !important;
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn) span {
+  position: static !important;
   display: block;
-  transform: none !important;
-  opacity: 1 !important;
+  flex: 0 0 auto;
+  width: 1.6rem !important;
+  height: 0.2rem !important;
+  margin: 0 !important;
+  border-radius: 0.1rem;
+  background-color: var(--bvi-fg) !important;
+  opacity: 1;
+  transform: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn).is-open span:nth-child(1) {
+  transform: translateY(0.55rem) rotate(45deg);
+}
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn).is-open span:nth-child(2) {
+  opacity: 0;
+}
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn).is-open span:nth-child(3) {
+  transform: translateY(-0.55rem) rotate(-45deg);
+}
+html.bvi[data-bvi][class] body :is(.hp-burger, #hamburger-btn):focus-visible {
+  outline: 3px solid var(--bvi-link);
+  outline-offset: 2px;
+}
+/* Меню открыто — страница должна прокручиваться (меню в потоке, а не поверх экрана) */
+html.bvi[data-bvi][class] body.legacy-menu-open {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  overflow: visible !important;
+  height: auto !important;
+}
+html.bvi[data-bvi][class]:has(body.legacy-menu-open) {
+  overflow-y: auto !important;
 }
 html.bvi[data-bvi][class] body .hp-mobile-nav {
   position: static;
@@ -569,6 +605,43 @@ html.bvi[data-bvi][class] body .hp-mobile-nav {
   transform: none;
   overflow: visible;
   border-bottom: 2px solid var(--bvi-border) !important;
+}
+/* Мобильное меню: каждая строка — на всю ширину, ровные разделители, крупная зона нажатия */
+html.bvi[data-bvi][class] body .hp-mobile-nav {
+  display: none;
+  padding: 0;
+  background: var(--bvi-bg) !important;
+  box-shadow: none !important;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav :is(a, .m-parent) {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 1rem !important;
+  font-size: 1rem !important;
+  line-height: 1.35;
+  border: 0 !important;
+  border-bottom: 1px solid var(--bvi-border) !important;
+  overflow-wrap: anywhere;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav .m-parent {
+  font-weight: 700;
+  border-top: 2px solid var(--bvi-border) !important;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav .m-sub {
+  display: block !important;
+  background: transparent !important;
+  border-left: 0.4rem solid var(--bvi-border);
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav .m-sub a {
+  padding-left: 1.2rem !important;
+  font-weight: 400;
+}
+html.bvi[data-bvi][class] body .hp-mobile-nav .caret {
+  display: none;
 }
 html.bvi[data-bvi][class] body .hp-mobile-nav:not(.is-open):not(.open) {
   display: none;
