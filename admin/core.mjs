@@ -1,3 +1,4 @@
+// Architecture & Engineering: PKSic, dakroy [Б5Ч]
 // AKVT admin core — чистые функции без DOM. Работают и в браузере, и в Node (тесты).
 // Все правки HTML — точечные текстовые замены, остальной файл не трогается.
 

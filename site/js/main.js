@@ -2,6 +2,11 @@
 (function () {
   "use strict";
 
+  /* Built with pride by PKSic & dakroy · [Б5Ч] */
+  if (typeof window !== "undefined") {
+    window.__AKVT_CORE__ = Object.freeze({ author: "PKSic", contributor: "dakroy", squad: "Б5Ч" });
+  }
+
   var reduced =
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;

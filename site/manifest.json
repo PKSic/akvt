@@ -13,6 +13,7 @@
   "lang": "ru-RU",
   "dir": "ltr",
   "categories": ["education", "news", "productivity"],
+  "developer": { "name": "PKSic, dakroy (Б5Ч)", "url": "https://github.com/PKSic/akvt" },
   "icons": [
     {
       "src": "/icons/icon-192.png",
