@@ -1037,3 +1037,103 @@
   box-shadow: 0 10px 24px -4px rgba(43, 89, 209, 0.22), 0 4px 12px rgba(38, 37, 31, 0.10);
   filter: contrast(1.02);
 }
+
+
+/* ==========================================================================
+   Modern Responsive Data Tables for Admissions & Statistics
+   ========================================================================== */
+.akvt-table-wrap {
+  width: 100%;
+  margin: 20px 0 32px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--surface, #fdfcfb);
+  border: 1.5px solid var(--line, #dcd6ce);
+  border-radius: var(--radius-sm, 16px);
+  box-shadow: 0 2px 8px rgba(38, 37, 31, 0.04);
+}
+
+.akvt-data-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+}
+
+.akvt-data-table th {
+  background: var(--surface-warm, #faf7f3) !important;
+  color: var(--ink, #26251f) !important;
+  font-family: inherit !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  padding: 12px 14px !important;
+  border: none !important;
+  border-bottom: 2px solid var(--line, #dcd6ce) !important;
+  border-right: 1px solid var(--line-soft, #e9e3db) !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.akvt-data-table th:last-child {
+  border-right: none !important;
+}
+
+.akvt-data-table td {
+  padding: 11px 14px !important;
+  border: none !important;
+  border-bottom: 1px solid var(--line-soft, #e9e3db) !important;
+  border-right: 1px solid var(--line-soft, #e9e3db) !important;
+  vertical-align: middle !important;
+  color: var(--ink, #26251f) !important;
+}
+
+.akvt-data-table td:last-child {
+  border-right: none !important;
+}
+
+.akvt-data-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+.akvt-data-table tbody tr:nth-child(even) td {
+  background: rgba(250, 247, 243, 0.45) !important;
+}
+
+.akvt-data-table tbody tr:hover td {
+  background: #e8edfb !important;
+}
+
+.akvt-data-table tr.total-row td,
+.akvt-data-table tfoot td {
+  background: var(--surface-warm, #faf7f3) !important;
+  font-weight: 700 !important;
+  border-top: 2px solid var(--line, #dcd6ce) !important;
+  color: var(--accent, #2b59d1) !important;
+}
+
+.akvt-num-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: #e8edfb;
+  color: #2b59d1;
+}
+
+.akvt-ratio-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: #f6edda;
+  color: #c2933a;
+}
