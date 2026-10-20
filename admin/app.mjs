@@ -1,4 +1,5 @@
 import { h, $, toast, modal, closeModal, confirmDlg, fmtSize, fmtDate, fileToBase64, debounce } from './ui.mjs';
+import { ico } from './icons.mjs';
 import * as C from './core.mjs';
 import * as O from './ops.mjs';
 import { GitHubRepo } from './github.mjs';
