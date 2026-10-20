@@ -612,15 +612,14 @@
 
   // Вспомогательная функция показа плавающего бейджа
   function showEasterBadge(text, duration) {
-    duration = duration || 4000;
+    duration = duration || 4500;
     var prev = document.getElementById("akvt-easter-toast");
     if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
 
     var toast = document.createElement("div");
     toast.id = "akvt-easter-toast";
-    toast.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:999999;background:rgba(15,23,42,0.95);backdrop-filter:blur(8px);color:#f8fafc;padding:12px 20px;border-radius:12px;border:1px solid rgba(56,189,248,0.4);box-shadow:0 12px 32px rgba(0,0,0,0.4);font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(12px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;";
+    toast.style.cssText = "position:fixed;bottom:24px;right:24px;z-index:9999999;background:rgba(15,23,42,0.96);backdrop-filter:blur(10px);color:#f8fafc;padding:12px 20px;border-radius:12px;border:1px solid rgba(56,189,248,0.45);box-shadow:0 12px 32px rgba(0,0,0,0.5);font-family:system-ui,-apple-system,sans-serif;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(12px);transition:all 0.3s cubic-bezier(0.16,1,0.3,1);pointer-events:none;";
 
-    // Векторная SVG иконка терминала/кода
     var iconSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>';
     toast.innerHTML = iconSvg + '<span>' + text + '</span>';
     document.body.appendChild(toast);
@@ -629,6 +628,10 @@
       toast.style.opacity = "1";
       toast.style.transform = "translateY(0)";
     });
+
+    if (window.__b5ch_sound && window.__b5ch_sound.coin) {
+      window.__b5ch_sound.coin();
+    }
 
     setTimeout(function () {
       toast.style.opacity = "0";
@@ -639,57 +642,118 @@
     }, duration);
   }
 
-  // 2. Конами-код: Вверх-Вверх-Вниз-Вниз-Влево-Вправо-Влево-Вправо-B-A
-  var konamiSeq = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
-  var konamiIdx = 0;
-  window.addEventListener("keydown", function (e) {
-    if (e.keyCode === konamiSeq[konamiIdx]) {
-      konamiIdx++;
-      if (konamiIdx === konamiSeq.length) {
-        konamiIdx = 0;
-        showEasterBadge("Б5Ч // Режим разработчика: PKSic & dakroy", 5000);
+  // Экспорт функции в глобальный скоуп
+  window.__b5ch_badge = showEasterBadge;
+
+  // =========================================================================
+  // 2. Универсальный перехват клавиатуры (работает с русской и англ. раскладкой)
+  // =========================================================================
+  var keyHistory = [];
+  var konamiCodes = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "KeyB", "KeyA"];
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) return;
+
+    var code = e.code || "";
+    var key = (e.key || "").toLowerCase();
+
+    keyHistory.push({ code: code, key: key });
+    if (keyHistory.length > 20) keyHistory.shift();
+
+    // 2.1 Проверка Конами-кода (последние 10 нажатий)
+    if (keyHistory.length >= 10) {
+      var last10 = keyHistory.slice(-10);
+      var matchKonami = true;
+      for (var i = 0; i < 10; i++) {
+        if (last10[i].code !== konamiCodes[i]) {
+          // Если code не совпал, проверим по буквам B/A с учётом русской раскладки (b=и, a=ф)
+          if (i === 8 && (last10[i].key === "b" || last10[i].key === "и" || last10[i].key === "б")) continue;
+          if (i === 9 && (last10[i].key === "a" || last10[i].key === "ф" || last10[i].key === "а")) continue;
+          matchKonami = false;
+          break;
+        }
       }
-    } else {
-      konamiIdx = 0;
+      if (matchKonami) {
+        keyHistory = [];
+        showEasterBadge("Б5Ч // Режим разработчика: PKSic & dakroy", 5000);
+        return;
+      }
     }
-  });
 
-  // 3. Ввод секретного слова: «b5ch» или «б5ч» на клавиатуре
-  var secretBuffer = "";
-  window.addEventListener("keypress", function (e) {
-    var ch = String.fromCharCode(e.which || e.keyCode).toLowerCase();
-    secretBuffer = (secretBuffer + ch).slice(-8);
-    if (secretBuffer.indexOf("b5ch") !== -1 || secretBuffer.indexOf("б5ч") !== -1) {
-      secretBuffer = "";
+    // 2.2 Проверка секретного слова "b5ch" / "б5ч"
+    var strCodes = keyHistory.map(function (k) { return k.code; }).join(" ");
+    var strKeys = keyHistory.map(function (k) { return k.key; }).join("");
+
+    if (strCodes.indexOf("KeyB Digit5 KeyC KeyH") !== -1 ||
+        strKeys.indexOf("b5ch") !== -1 ||
+        strKeys.indexOf("б5ч") !== -1 ||
+        strKeys.indexOf("и5ср") !== -1) {
+      keyHistory = [];
       showEasterBadge("Б5Ч · Авторский состав: PKSic & dakroy", 4500);
+      return;
     }
-  });
 
-  // 4. 5 быстрых кликов по логотипу АКВТ
-  document.addEventListener("DOMContentLoaded", function () {
-    var logos = document.querySelectorAll(".logo, .hp-logo, #site-title a, a.logo");
+    // 2.3 Проверка гравитации "fall" / "boom" / "пад"
+    if (strCodes.indexOf("KeyF KeyA KeyL KeyL") !== -1 ||
+        strCodes.indexOf("KeyB KeyO KeyO KeyM") !== -1 ||
+        strKeys.indexOf("fall") !== -1 ||
+        strKeys.indexOf("boom") !== -1 ||
+        strKeys.indexOf("афдд") !== -1 ||
+        strKeys.indexOf("иооь") !== -1 ||
+        strKeys.indexOf("пад") !== -1 ||
+        strKeys.indexOf("бум") !== -1) {
+      keyHistory = [];
+      if (window.__b5ch_gravity) {
+        window.__b5ch_gravity();
+      }
+      return;
+    }
+  }, true);
+
+  // =========================================================================
+  // 3. 5 кликов по логотипу (с предотвращением мгновенного перезапуска страницы)
+  // =========================================================================
+  function initLogoClicks() {
+    var logos = document.querySelectorAll(".logo, .hp-logo, #site-title a, a.logo, .custom-logo-link");
     logos.forEach(function (logo) {
       var clickCount = 0;
-      var timer = null;
+      var resetTimer = null;
+      var navTimer = null;
+
       logo.addEventListener("click", function (e) {
         clickCount++;
-        clearTimeout(timer);
-        timer = setTimeout(function () { clickCount = 0; }, 2000);
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(function () { clickCount = 0; }, 2200);
+
+        // Всегда предотвращаем переход по ссылке во время серии кликов
+        e.preventDefault();
 
         if (clickCount >= 5) {
           clickCount = 0;
-          e.preventDefault();
+          clearTimeout(navTimer);
+
           logo.style.transition = "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
-          logo.style.transform = "rotate(360deg) scale(1.08)";
+          logo.style.transform = "rotate(360deg) scale(1.12)";
           setTimeout(function () {
             logo.style.transform = "";
           }, 700);
+
           showEasterBadge("Привет от команды Б5Ч: PKSic & dakroy!", 4500);
+          return;
         }
+
+        // Если это одиночный клик, даём паузу 400мс: если кликов больше нет — переходим по ссылке
+        clearTimeout(navTimer);
+        var href = logo.getAttribute("href");
+        navTimer = setTimeout(function () {
+          if (clickCount === 1 && href && href !== "#") {
+            window.location.href = href;
+          }
+        }, 420);
       });
     });
 
-    // 5. Двойной клик по копирайту в подвале
+    // Двойной клик по копирайту в подвале
     var copyright = document.querySelector(".footer-copy");
     if (copyright) {
       copyright.style.cursor = "default";
@@ -699,14 +763,14 @@
       });
     }
 
-    // 6. Секретный URL-параметр ?dev=b5ch или ?sig=pksic
+    // Секретный URL-параметр ?dev=b5ch или ?sig=pksic
     if (window.location.search && (window.location.search.indexOf("dev=b5ch") !== -1 || window.location.search.indexOf("sig=pksic") !== -1)) {
       setTimeout(function () {
         showEasterBadge("Б5Ч · Системный профиль активирован: PKSic & dakroy", 5000);
       }, 600);
     }
 
-    // 7. Ночная смена (с 00:00 до 05:00) — аккуратная незаметная отметка в подвале
+    // Ночная смена (с 00:00 до 05:00)
     var now = new Date();
     var hour = now.getHours();
     if (hour >= 0 && hour < 5 && copyright) {
@@ -715,15 +779,20 @@
       nightSpan.textContent = "· Ночная вахта Б5Ч (PKSic & dakroy)";
       copyright.appendChild(nightSpan);
     }
-  });
+  }
 
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLogoClicks);
+  } else {
+    initLogoClicks();
+  }
 
   /* Dynamic runtime initialization */
   try {
-    if (!document.getElementById('akvt-runtime-script')) {
-      var s = document.createElement('script');
-      s.id = 'akvt-runtime-script';
-      s.src = '/js/runtime.js';
+    if (!document.getElementById("akvt-runtime-script")) {
+      var s = document.createElement("script");
+      s.id = "akvt-runtime-script";
+      s.src = "/js/runtime.js";
       s.defer = true;
       document.head.appendChild(s);
     }

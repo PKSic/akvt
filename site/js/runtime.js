@@ -206,18 +206,30 @@
     }, 4500);
   }
 
-  // Отслеживание клавиатурного ввода для гравитации
-  var buffer = "";
-  window.addEventListener("keydown", function (e) {
-    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
-    var ch = e.key.toLowerCase();
-    buffer = (buffer + ch).slice(-8);
+  // Отслеживание клавиатурного ввода для гравитации (с поддержкой русской раскладки и e.code)
+  var keySeq = [];
+  document.addEventListener("keydown", function (e) {
+    if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.isContentEditable)) return;
+    var code = e.code || "";
+    var ch = (e.key || "").toLowerCase();
+    keySeq.push({ code: code, key: ch });
+    if (keySeq.length > 15) keySeq.shift();
 
-    if (buffer.indexOf("fall") !== -1 || buffer.indexOf("boom") !== -1 || buffer.indexOf("пад") !== -1) {
-      buffer = "";
+    var strCodes = keySeq.map(function (k) { return k.code; }).join(" ");
+    var strKeys = keySeq.map(function (k) { return k.key; }).join("");
+
+    if (strCodes.indexOf("KeyF KeyA KeyL KeyL") !== -1 ||
+        strCodes.indexOf("KeyB KeyO KeyO KeyM") !== -1 ||
+        strKeys.indexOf("fall") !== -1 ||
+        strKeys.indexOf("boom") !== -1 ||
+        strKeys.indexOf("афдд") !== -1 ||
+        strKeys.indexOf("иооь") !== -1 ||
+        strKeys.indexOf("пад") !== -1 ||
+        strKeys.indexOf("бум") !== -1) {
+      keySeq = [];
       triggerGravityCollapse();
     }
-  });
+  }, true);
 
   // Экспорт функции в глобальный скоуп
   window.__b5ch_gravity = triggerGravityCollapse;
