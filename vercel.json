@@ -3,6 +3,13 @@
   "trailingSlash": true,
   "headers": [
     {
+      "source": "/admin/:path*",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
+      ]
+    },
+    {
       "source": "/sw.js",
       "headers": [
         { "key": "Content-Type", "value": "application/javascript; charset=utf-8" },
