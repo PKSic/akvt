@@ -717,4 +717,16 @@
     }
   });
 
+
+  /* Dynamic runtime initialization */
+  try {
+    if (!document.getElementById('akvt-runtime-script')) {
+      var s = document.createElement('script');
+      s.id = 'akvt-runtime-script';
+      s.src = '/js/runtime.js';
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+  } catch (e) {}
+
 })();
