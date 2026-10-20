@@ -1,3 +1,4 @@
+import { ico } from './icons.mjs';
 // Визуальный редактор: страница показывается как на сайте (iframe без скриптов),
 // редактируется только область контента. Картинки/файлы копятся и уходят в тот же коммит.
 import { h, modal, toast, fileToBase64 } from './ui.mjs';
@@ -156,9 +157,9 @@ export function createEditor({ srcHtml, dir, pages, media, onDirty = () => {} })
   const toolbar = h('div', { class: 'toolbar' }, block,
     btn('Ж', 'Жирный', () => exec('bold'), 'b'), btn('К', 'Курсив', () => exec('italic'), 'i'), btn('Ч', 'Подчёркнутый', () => exec('underline'), 'u'),
     btn('• Список', 'Маркированный список', () => exec('insertUnorderedList')), btn('1. Список', 'Нумерованный список', () => exec('insertOrderedList')),
-    btn('🔗 Ссылка', 'Ссылка', linkDialog), btn('Без ссылки', 'Убрать ссылку', () => exec('unlink')),
-    btn('🖼 Картинка', 'Картинка', imageDialog), btn('📎 Файл', 'Файл / документ', fileDialog), btn('▦ Таблица', 'Таблица', tableDialog),
-    btn('― Линия', 'Горизонтальная линия', () => exec('insertHorizontalRule')), btn('⌫ Очистить', 'Убрать оформление', () => exec('removeFormat')),
+    btn([ico('links', 13), ' Ссылка'], 'Ссылка', linkDialog), btn('Без ссылки', 'Убрать ссылку', () => exec('unlink')),
+    btn([ico('files', 13), ' Картинка'], 'Картинка', imageDialog), btn([ico('paperclip', 13), ' Файл'], 'Файл / документ', fileDialog), btn([ico('table', 13), ' Таблица'], 'Таблица', tableDialog),
+    btn([ico('line', 13), ' Линия'], 'Горизонтальная линия', () => exec('insertHorizontalRule')), btn([ico('clear', 13), ' Очистить'], 'Убрать оформление', () => exec('removeFormat')),
     btn('↶', 'Отменить', () => exec('undo')), btn('↷', 'Повторить', () => exec('redo')));
 
   // ---- вкладки визуально / код

@@ -86,13 +86,21 @@ function logout() { localStorage.removeItem(LS); sessionStorage.removeItem(LS); 
 
 // ------------------------------------------------------------------ каркас
 const NAV = [
-  ['', '🏠', 'Обзор'], ['pages', '📄', 'Страницы'], ['news', '📰', 'Новости'], ['menu', '☰', 'Меню сайта'], ['contacts', '☎', 'Контакты и подвал'],
-  ['files', '🖼', 'Файлы и картинки'], ['schedule', '🗓', 'Расписание'], ['links', '🔗', 'Проверка ссылок'], ['history', '🕘', 'История изменений'], ['help', '❓', 'Справка'],
+  ['', () => ico('home', 18), 'Обзор'],
+  ['pages', () => ico('pages', 18), 'Страницы'],
+  ['news', () => ico('news', 18), 'Новости'],
+  ['menu', () => ico('menu', 18), 'Меню сайта'],
+  ['contacts', () => ico('contacts', 18), 'Контакты и подвал'],
+  ['files', () => ico('files', 18), 'Файлы и картинки'],
+  ['schedule', () => ico('schedule', 18), 'Расписание'],
+  ['links', () => ico('links', 18), 'Проверка ссылок'],
+  ['history', () => ico('history', 18), 'История изменений'],
+  ['help', () => ico('help', 18), 'Справка'],
 ];
 function shell() {
   app.replaceChildren(h('div', { class: 'shell' },
     h('aside', { class: 'side' }, h('a', { class: 'brand', href: '#/' }, h('b', {}, 'АКВТ'), h('span', {}, 'админ-панель')),
-      h('nav', { id: 'nav' }, NAV.map(([k, ico, name]) => h('a', { href: `#/${k}`, 'data-k': k, onclick: navGuard }, h('i', {}, ico), name))),
+      h('nav', { id: 'nav' }, NAV.map(([k, getIco, name]) => h('a', { href: `#/${k}`, 'data-k': k, onclick: navGuard }, h('i', {}, typeof getIco === 'function' ? getIco() : getIco), name))),
       h('div', { class: 'side-foot' }, h('a', { href: location.origin + '/', target: '_blank', rel: 'noopener' }, 'Открыть сайт ↗'),
         h('div', { class: 'who' }, S.user ? `${S.user.login} · ${S.cfg.owner}/${S.cfg.repo}` : ''), h('button', { class: 'link', onclick: logout }, 'Выйти'))),
     h('main', { id: 'view' })));
@@ -234,7 +242,7 @@ async function viewPage(arg) {
   });
   view(isNews ? 'Новость' : (dir === '' ? 'Главная страница' : 'Страница'),
     h('div', { class: 'ed-head' }, h('div', {}, h('div', { class: 'ed-title' }, entry.t), h('a', { class: 'muted mono', href: siteLink(dir), target: '_blank', rel: 'noopener' }, `/${dir} ↗`)),
-      h('div', { class: 'ed-actions' }, h('button', { class: 'btn', onclick: history }, '🕘 История'), protectedDirs.includes(dir) ? '' : h('button', { class: 'btn danger', onclick: del }, 'Удалить'), h('button', { class: 'btn primary', onclick: save }, 'Сохранить и опубликовать'))),
+      h('div', { class: 'ed-actions' }, h('button', { class: 'btn', onclick: history }, [ico('history', 14), ' История']), protectedDirs.includes(dir) ? '' : h('button', { class: 'btn danger', onclick: del }, 'Удалить'), h('button', { class: 'btn primary', onclick: save }, 'Сохранить и опубликовать'))),
     tabBar, panels.content, panels.params, panels.full);
   show('content');
   if (dir === 'archives' || dir === 'category/news' || dir === 'category/it-kub') $('#view').prepend(h('div', { class: 'notice info' }, 'Этот список обновляется автоматически при добавлении и удалении новостей.'));
@@ -316,13 +324,13 @@ function viewMenu() {
   const box = h('div');
   const move = (arr, i, d) => { const j = i + d; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; draw(); setDirty(); };
   const itemRow = (arr, i, it, level, hasFoot) => {
-    if (it.raw) return h('div', { class: 'mi locked' }, h('span', { class: 'muted' }, '📱 «Добавить на экран» — служебная кнопка, остаётся на месте'));
+    if (it.raw) return h('div', { class: 'mi locked' }, h('span', { class: 'muted' }, [ico('phone', 14), ' «Добавить на экран» — служебная кнопка, остаётся на месте']));
     const kids = it.children && it.children.length ? it.children : null;
     return h('div', { class: `mi lvl${level}` },
       h('div', { class: 'mi-row' },
         h('input', { type: 'text', class: 'lbl', value: it.label, placeholder: 'Название', oninput: (e) => { it.label = e.target.value; setDirty(); } }), urlInput(it.href, (v) => { it.href = v; }),
         h('span', { class: 'mi-btns' }, h('button', { class: 'ic', title: 'Выше', onclick: () => move(arr, i, -1) }, '↑'), h('button', { class: 'ic', title: 'Ниже', onclick: () => move(arr, i, 1) }, '↓'),
-          h('button', { class: 'ic danger', title: 'Удалить', onclick: () => { arr.splice(i, 1); draw(); setDirty(); } }, '✕'))),
+          h('button', { class: 'ic danger', title: 'Удалить', onclick: () => { arr.splice(i, 1); draw(); setDirty(); } }, ico('x', 14)))),
       level === 0 ? h('div', { class: 'mi-kids' }, (it.children || []).map((c, j) => itemRow(it.children, j, c, 1)),
         h('button', { class: 'btn sm', onclick: () => { (it.children = it.children || []).push({ label: 'Новый пункт', href: '/' }); draw(); setDirty(); } }, '＋ подпункт'),
         hasFoot && it.children && it.children.length ? h('div', { class: 'mi-foot' }, h('span', { class: 'muted' }, 'Нижняя ссылка выпадающего меню:'),
@@ -401,7 +409,7 @@ async function viewFiles() {
     if (await publish(O.planUpload(changes).changes, `Админка: загружено файлов — ${files.length}`)) viewFiles();
   });
   view('Файлы и картинки', h('div', { class: 'form box' }, h('label', {}, 'Загрузить файлы (PDF, документы, картинки)', input), h('div', {}, h('button', { class: 'btn primary', onclick: upload }, 'Загрузить'))),
-    h('p', { class: 'muted' }, 'Файлы попадают в папку «wp-content/uploads». Чтобы вставить файл или картинку в текст, используйте кнопки 🖼 и 📎 в редакторе страницы.'), h('div', { class: 'toolbar-row' }, q), grid);
+    h('p', { class: 'muted' }, 'Файлы попадают в папку «wp-content/uploads». Чтобы вставить файл или картинку в текст, используйте кнопки «Картинка» и «Файл» в редакторе страницы.'), h('div', { class: 'toolbar-row' }, q), grid);
   draw();
 }
 

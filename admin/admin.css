@@ -61,3 +61,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid #c5d0ff;border-color:v
 .bar{height:6px;background:#e8ecfb;border-radius:4px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
 .help h2{margin-top:24px}.help p,.help li{max-width:760px}
 @media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto}#nav{flex-direction:row;flex-wrap:wrap}#view{padding:18px 14px 60px}.mi-row{flex-wrap:wrap}.mi-row .lbl{width:100%}}
+
+/* Векторные иконки */
+.ico{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;line-height:1}
+.ico svg{display:block;stroke:currentColor;fill:none}
+#nav a i .ico{width:20px;height:20px}
+#nav a i .ico svg{width:18px;height:18px}
+.tb .ico{margin-right:4px}
+.tb .ico svg{width:13px;height:13px}

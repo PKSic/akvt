@@ -3,7 +3,7 @@ import fs from 'fs'; import path from 'path'; import { execSync } from 'child_pr
 import * as C from '../core.mjs'; import * as O from '../ops.mjs'; import { MemRepo } from './memrepo.mjs';
 const root = process.argv[2]; const repo = new MemRepo(root);
 let ok = 0, fail = 0;
-const t = (name, cond, extra = '') => { if (cond) { ok++; console.log('  ✔', name); } else { fail++; console.log('  ✘', name, extra); } };
+const t = (name, cond, extra = '') => { if (cond) { ok++; console.log('  [OK]', name); } else { fail++; console.log('  [FAIL]', name, extra); } };
 const git = (c) => execSync(`git -C ${root} ${c}`, { encoding: 'utf8' }).trim();
 const sh = (name) => console.log('\n' + name);
 const loadCtx = () => O.loadContext(repo);
