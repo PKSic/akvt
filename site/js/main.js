@@ -555,3 +555,42 @@
   });
 
 })();
+
+/* Easter egg: 3199px on teachers page -> fullscreen 'Б5Ч PKSic dakroy' for 5s */
+(function () {
+  var triggered = false;
+  function checkEasterEgg() {
+    var isTeachers = window.location.pathname.indexOf('/teachers') !== -1 ||
+                     (document.title && document.title.toLowerCase().indexOf('преподавател') !== -1) ||
+                     (document.body && document.body.className.indexOf('teachers') !== -1);
+    if (!isTeachers) return;
+
+    var is3199 = (window.innerWidth === 3199) || 
+                 (window.outerWidth === 3199) || 
+                 (window.screen && window.screen.width === 3199);
+
+    if (is3199 && !triggered && !document.getElementById('easter-egg-3199')) {
+      triggered = true;
+      var el = document.createElement('div');
+      el.id = 'easter-egg-3199';
+      el.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;background:#090d16;color:#ffffff;z-index:99999999;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-weight:900;font-size:clamp(36px,5vw,76px);letter-spacing:0.04em;text-align:center;padding:24px;box-sizing:border-box;transition:opacity 0.5s ease;text-shadow:0 4px 20px rgba(0,0,0,0.6);';
+      el.textContent = 'Б5Ч PKSic dakroy';
+      document.body.appendChild(el);
+
+      setTimeout(function () {
+        el.style.opacity = '0';
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+          triggered = false;
+        }, 500);
+      }, 5000);
+    }
+  }
+
+  window.addEventListener('resize', checkEasterEgg);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkEasterEgg);
+  } else {
+    checkEasterEgg();
+  }
+})();
