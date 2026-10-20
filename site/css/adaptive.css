@@ -1016,3 +1016,24 @@
 }
 
 
+
+
+/* ==========================================================================
+   Banners & Action Cards Interactive Hover Elevation
+   ========================================================================== */
+.entry-content table.rtb td a img,
+.entry-content p a img.wp-image-371,
+.entry-content p a img.wp-image-373 {
+  border-radius: var(--radius-sm, 16px);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.entry-content table.rtb td a:hover img,
+.entry-content p a:hover img.wp-image-371,
+.entry-content p a:hover img.wp-image-373 {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px -4px rgba(43, 89, 209, 0.22), 0 4px 12px rgba(38, 37, 31, 0.10);
+  filter: contrast(1.02);
+}
