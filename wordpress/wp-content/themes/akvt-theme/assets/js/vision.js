@@ -222,14 +222,14 @@
       var t = tables[i];
       if (closest(t, ".bvi-ui")) continue;
       var p = t.parentNode;
-      if (!p || (p.className && String(p.className).indexOf("bvi-table-scroll") >= 0)) continue;
+      if (!p || (p.className && /bvi-table-scroll|akvt-table-wrap/.test(String(p.className)))) continue;
       var w = document.createElement("div");
       w.className = "bvi-table-scroll";
       p.insertBefore(w, t);
       w.appendChild(t);
     }
     // Прокручиваемой области нужен фокус с клавиатуры — только если таблица действительно шире
-    var wr = document.querySelectorAll(".bvi-table-scroll");
+    var wr = document.querySelectorAll(".bvi-table-scroll, .akvt-table-wrap");
     for (var j = 0; j < wr.length; j++) {
       var over = wr[j].scrollWidth > wr[j].clientWidth + 2;
       if (over) {

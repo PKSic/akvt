@@ -1,5 +1,5 @@
 // AKVT Progressive Web App Service Worker (PWA)
-const CACHE_NAME = 'akvt-pwa-v1';
+const CACHE_NAME = 'akvt-pwa-v2';
 
 const PRECACHE_ASSETS = [
   '/',
@@ -49,9 +49,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets (CSS, JS, images, icons, fonts) -> Cache-first with network fallback
+  // CSS и JS -> Network-first: обновления стилей и скриптов доходят до посетителей сразу,
+  // кэш нужен только когда нет сети. (Раньше было cache-first, и старые стили «залипали».)
+  if (url.pathname.match(/\.(css|js|mjs)$/)) {
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res && res.status === 200) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(req, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Картинки, иконки, шрифты -> Cache-first с загрузкой из сети, если в кэше нет
   if (
-    url.pathname.match(/\.(css|js|png|jpg|jpeg|svg|webp|woff2|woff|ttf|ico)$/) ||
+    url.pathname.match(/\.(png|jpg|jpeg|svg|webp|woff2|woff|ttf|ico)$/) ||
     url.pathname.startsWith('/icons/')
   ) {
     event.respondWith(
