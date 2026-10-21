@@ -1137,3 +1137,204 @@
   background: #f6edda;
   color: #c2933a;
 }
+
+
+/* ==========================================================================
+   Таблицы данных (план приёма, количество заявлений) на любой ширине
+   --------------------------------------------------------------------------
+   Раньше на узких экранах общее правило ".entry-content table" превращало
+   таблицу в столбик блоков, а на средних ширинах фиксированные ширины колонок
+   сжимали заголовки до нескольких пикселей, и слова рассыпались по буквам.
+   Теперь таблица всегда остаётся таблицей: у неё есть минимальная ширина,
+   слова не ломаются посреди слова, а если экран уже таблицы — она
+   прокручивается вбок (по краям появляются тени-подсказки).
+   ========================================================================== */
+.akvt-table-wrap {
+  position: relative;
+  max-width: 100%;
+  background:
+    linear-gradient(to right, var(--surface, #fdfcfb) 30%, rgba(253, 252, 251, 0)) left center / 36px 100% no-repeat local,
+    linear-gradient(to left, var(--surface, #fdfcfb) 30%, rgba(253, 252, 251, 0)) right center / 36px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(38, 37, 31, 0.22), rgba(38, 37, 31, 0)) left center / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(38, 37, 31, 0.22), rgba(38, 37, 31, 0)) right center / 12px 100% no-repeat scroll,
+    var(--surface, #fdfcfb);
+}
+
+.entry-content .akvt-table-wrap table.akvt-data-table,
+.akvt-table-wrap table.akvt-data-table {
+  display: table !important;
+  table-layout: auto !important;
+  width: 100% !important;
+  min-width: 700px;
+}
+
+.entry-content .akvt-table-wrap .akvt-data-table thead,
+.akvt-table-wrap .akvt-data-table thead {
+  display: table-header-group !important;
+  width: auto !important;
+}
+
+.entry-content .akvt-table-wrap .akvt-data-table tbody,
+.akvt-table-wrap .akvt-data-table tbody {
+  display: table-row-group !important;
+  width: auto !important;
+}
+
+.entry-content .akvt-table-wrap .akvt-data-table tfoot,
+.akvt-table-wrap .akvt-data-table tfoot {
+  display: table-footer-group !important;
+  width: auto !important;
+}
+
+.entry-content .akvt-table-wrap .akvt-data-table tr,
+.akvt-table-wrap .akvt-data-table tr {
+  display: table-row !important;
+  width: auto !important;
+}
+
+.entry-content .akvt-table-wrap .akvt-data-table th,
+.entry-content .akvt-table-wrap .akvt-data-table td,
+.akvt-table-wrap .akvt-data-table th,
+.akvt-table-wrap .akvt-data-table td {
+  display: table-cell !important;
+  width: auto !important;
+  max-width: none !important;
+  white-space: normal;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  text-align: left;
+}
+
+/* Выравнивание, заданное прямо в разметке (числа по центру), сохраняется */
+.akvt-data-table [style*="text-align: center"],
+.akvt-data-table [style*="text-align:center"] {
+  text-align: center !important;
+}
+
+.akvt-data-table th {
+  min-width: 6.5rem;
+  line-height: 1.3;
+}
+
+.akvt-data-table th:first-child,
+.akvt-data-table td:first-child {
+  min-width: 3rem;
+}
+
+@media (max-width: 767px) {
+  .akvt-table-wrap table.akvt-data-table {
+    min-width: 640px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ==========================================================================
+   Плитки разделов (Студентам, Преподавателям): одинаковый размер и вид
+   ========================================================================== */
+.akvt-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  margin: 22px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.entry-content a.akvt-tile,
+a.akvt-tile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 112px;
+  padding: 18px 20px;
+  border: 1.5px solid var(--line, #dcd6ce);
+  border-radius: var(--radius-sm, 16px);
+  background: var(--surface, #fdfcfb);
+  box-shadow: 0 2px 8px rgba(38, 37, 31, 0.05);
+  color: var(--ink, #26251f);
+  text-decoration: none;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.entry-content a.akvt-tile:hover,
+.entry-content a.akvt-tile:focus-visible,
+a.akvt-tile:hover,
+a.akvt-tile:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--accent, #2b59d1);
+  box-shadow: 0 10px 24px -4px rgba(43, 89, 209, 0.22), 0 4px 12px rgba(38, 37, 31, 0.10);
+}
+
+.akvt-tile__icon {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e8edfb;
+  color: var(--accent, #2b59d1);
+}
+
+.akvt-tile__icon svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.akvt-tile__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  overflow-wrap: normal;
+  word-break: normal;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.akvt-tile__arr {
+  flex: 0 0 auto;
+  color: var(--accent, #2b59d1);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+@media (max-width: 560px) {
+  .akvt-tiles {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .entry-content a.akvt-tile,
+  a.akvt-tile {
+    min-height: 88px;
+    padding: 14px 16px;
+  }
+}
+
+@media print {
+  a.akvt-tile { box-shadow: none; }
+}
+
+/* Остальные плитки-картинки (список специальностей): единая рамка и пропорции */
+.entry-content table.rtb td a img,
+.entry-content table.rtb td > img {
+  width: 100%;
+  max-width: 270px;
+  height: auto;
+  aspect-ratio: 9 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-sm, 16px);
+}

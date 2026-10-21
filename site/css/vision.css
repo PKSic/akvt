@@ -459,7 +459,8 @@ html.bvi[data-bvi][class] body :is(th, td) {
   vertical-align: top;
   text-align: left;
   overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: normal;
+  hyphens: manual;
 }
 html.bvi[data-bvi][class] body th {
   font-weight: 700 !important;
@@ -472,6 +473,84 @@ html.bvi[data-bvi][class] body .bvi-table-scroll {
 html.bvi[data-bvi][class] body .bvi-table-scroll > table {
   margin: 0 !important;
 }
+
+/* Таблицы данных (план приёма): остаются таблицами, слова не ломаются по буквам,
+   узкий экран — прокрутка вбок. Правила раскладки сайта под bvi-mw-* их «разворачивают» в блоки. */
+html.bvi[data-bvi][class] body .akvt-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  background: var(--bvi-bg) !important;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html.bvi[data-bvi][class] body .akvt-table-wrap .akvt-data-table {
+  display: table !important;
+  table-layout: auto !important;
+  width: 100% !important;
+  min-width: 42rem;
+}
+html.bvi[data-bvi][class] body .akvt-table-wrap .akvt-data-table thead { display: table-header-group !important; width: auto !important; }
+html.bvi[data-bvi][class] body .akvt-table-wrap .akvt-data-table tbody { display: table-row-group !important; width: auto !important; }
+html.bvi[data-bvi][class] body .akvt-table-wrap .akvt-data-table tr { display: table-row !important; width: auto !important; }
+html.bvi[data-bvi][class] body .akvt-table-wrap .akvt-data-table :is(th, td) {
+  display: table-cell !important;
+  width: auto !important;
+  min-width: 5rem;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  background: var(--bvi-bg) !important;
+  color: var(--bvi-fg) !important;
+}
+html.bvi[data-bvi][class] body .akvt-data-table [style*="text-align: center"] { text-align: center !important; }
+html.bvi[data-bvi][class] body .akvt-num-badge {
+  background: transparent !important;
+  color: var(--bvi-fg) !important;
+  border: 2px solid var(--bvi-border);
+  border-radius: 0;
+}
+
+/* Плитки разделов */
+html.bvi[data-bvi][class] body .akvt-tiles {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+}
+html.bvi[data-bvi][class] body a.akvt-tile {
+  background: var(--bvi-bg) !important;
+  border: 2px solid var(--bvi-border) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  min-height: 7rem;
+  padding: 0.9rem 1rem !important;
+  gap: 0.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+html.bvi[data-bvi][class] body .akvt-tile__icon {
+  flex: 0 0 3.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: transparent !important;
+  border: 2px solid var(--bvi-border);
+  color: var(--bvi-fg) !important;
+}
+html.bvi[data-bvi][class] body .akvt-tile__icon svg {
+  width: 2rem;
+  height: 2rem;
+  stroke-width: 2;
+}
+html.bvi[data-bvi][class] body .akvt-tile__title {
+  font-size: 1rem !important;
+  flex: 0 1 auto;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-break: normal !important;
+}
+html.bvi[data-bvi][class] body .akvt-tile__arr { display: none; }
 
 /* Подсветка в виджете расписания, активные пункты меню */
 html.bvi[data-bvi][class] body :is(.current-menu-item, .current_page_item, .current-item, [aria-current], .is-active, .active) > a,

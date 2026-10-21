@@ -5,6 +5,7 @@
 /* font-size: px → rem */
 html.bvi body{font-size: 1.0312rem}
 html.bvi .akvt-success-icon{font-size: 1.75rem}
+html.bvi .akvt-pwa-close{font-size: 0.9375rem}
 /* @media (max-width) → эффективная ширина */
 html.bvi.bvi-mw-600 .akvt-feedback-card{padding: 18px;}
 html.bvi.bvi-mw-768 .akvt-form-grid{grid-template-columns: 1fr; gap: 16px;}
@@ -140,6 +141,9 @@ html.bvi.bvi-mw-374 .picker-card{padding: 16px 14px;}
 html.bvi.bvi-mw-374 .akvt-rasp .picker input{padding: 12px 14px; font-size: 0.9375rem;}
 html.bvi.bvi-mw-374 .akvt-doc-link{font-size: 0.8rem; padding: 8px 10px; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box;}
 html.bvi.bvi-mw-520 [class*="doc-grid"],html.bvi.bvi-mw-520 .akvt-doc-grid{grid-template-columns: 1fr !important;}
+html.bvi.bvi-mw-767 .akvt-table-wrap table.akvt-data-table{min-width: 640px; font-size: 0.9rem;}
+html.bvi.bvi-mw-560 .akvt-tiles{grid-template-columns: 1fr; gap: 12px;}
+html.bvi.bvi-mw-560 .entry-content a.akvt-tile,html.bvi.bvi-mw-560 a.akvt-tile{min-height: 88px; padding: 14px 16px;}
 /* ---- akvt-rasp.css ---- */
 /* font-size: px → rem */
 html.bvi .akvt-rasp{font-size: 1.0312rem}
@@ -159,6 +163,9 @@ html.bvi .akvt-rasp .lesson .subline{font-size:0.8125rem}
 html.bvi .akvt-rasp .lesson .note{font-size:0.7812rem}
 html.bvi .akvt-rasp .day-empty{font-size:0.875rem}
 html.bvi .akvt-rasp .updated-note{font-size:0.6875rem}
+html.bvi .akvt-rasp .lesson .time{font-size: 0.8125rem !important}
+html.bvi .akvt-rasp .lesson.lesson-empty-slot .subject.empty-text{font-size: 0.875rem}
+html.bvi .akvt-rasp .lesson.lesson-empty-slot .subline{font-size: 0.75rem}
 /* @media (max-width) → эффективная ширина */
 html.bvi.bvi-mw-480 .akvt-rasp .day-toggle .meta span:first-child{display:none;}
 html.bvi.bvi-mw-480 .akvt-rasp .day-toggle .meta span:first-child{display:none;}
@@ -175,6 +182,14 @@ html.bvi.bvi-mw-767 .akvt-rasp .extra-files ul{list-style: none; padding-left: 0
 html.bvi.bvi-mw-767 .akvt-rasp .extra-files li{margin: 8px 0; padding: 10px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); font-size: 0.88rem; line-height: 1.4;}
 html.bvi.bvi-mw-767 .akvt-rasp .extra-files a{text-decoration: none; color: var(--ink); font-weight: 500;}
 html.bvi.bvi-mw-767 .akvt-rasp .extra-files a:hover{color: var(--accent);}
+html.bvi.bvi-mw-640 .akvt-week-bar{flex-direction: column; align-items: stretch;}
+html.bvi.bvi-mw-640 .akvt-week-toggle{width: 100%; justify-content: space-between;}
+html.bvi.bvi-mw-640 .akvt-week-tab{flex: 1; justify-content: center; padding: 8px 10px; font-size: 0.84rem;}
+html.bvi.bvi-mw-520 .akvt-week-tab .subtag{display: none !important;}
+html.bvi.bvi-mw-520 .akvt-week-tab{flex: 1; justify-content: center; padding: 8px 6px; font-size: 0.86rem;}
+html.bvi.bvi-mw-600 .akvt-week-banner-clean{flex-direction: column; align-items: flex-start; padding: 12px 14px;}
+html.bvi.bvi-mw-600 .akvt-week-switch-pill{width: 100%; justify-content: center;}
+html.bvi.bvi-mw-600 .akvt-rasp .lesson{padding: 12px 14px !important; gap: 12px !important;}
 /* ---- global.css ---- */
 /* font-size: px → rem */
 html.bvi .recent-posts-extended .widget-title{font-size: 0.75rem !important}
