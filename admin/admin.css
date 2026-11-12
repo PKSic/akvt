@@ -69,3 +69,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid #c5d0ff;border-color:v
 #nav a i .ico svg{width:18px;height:18px}
 .tb .ico{margin-right:4px}
 .tb .ico svg{width:13px;height:13px}
+
+/* Теги и рубрики новостей */
+.tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tag-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line); background: #fff; cursor: pointer; font-size: 13px; font-weight: 500; user-select: none; transition: all 0.15s ease; color: var(--ink); }
+.tag-pill:hover { border-color: var(--accent); background: #f5f7ff; }
+.tag-pill input[type=checkbox] { margin: 0; cursor: pointer; accent-color: var(--accent); }
+.tag-pill.active { border-color: var(--accent); background: #eef2ff; color: var(--accent); font-weight: 600; }
+.tag-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; background: #eef2ff; color: #3b5bdb; border: 1px solid #d6defc; margin-right: 4px; }
+.tag-badge.itkub { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+.tag-badge.custom { background: #f8fafc; color: #475569; border-color: #e2e8f0; }

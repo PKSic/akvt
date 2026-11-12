@@ -169,6 +169,7 @@ export function createEditor({ srcHtml, dir, pages, media, onDirty = () => {} })
   const tC = h('button', { type: 'button', onclick: () => setMode('code') }, 'HTML-код');
   tabs.append(tV, tC);
   const visualInner = () => {
+    if (!region) return (edit && edit.inner) || '';
     const clone = region.cloneNode(true);
     clone.querySelectorAll('img[data-akvt-path]').forEach((img) => { img.setAttribute('src', img.dataset.akvtPath); img.removeAttribute('data-akvt-path'); });
     clone.removeAttribute('contenteditable'); clone.removeAttribute('data-akvt-edit');

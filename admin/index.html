@@ -6,6 +6,52 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Админка АКВТ</title>
 <link rel="stylesheet" href="admin.css">
+<script>
+// Обработка прямого запуска через file:// (двойной клик по HTML в проводнике Windows)
+if (location.protocol === 'file:') {
+  window.addEventListener('DOMContentLoaded', function() {
+    var app = document.getElementById('app');
+    if (app) {
+      app.innerHTML = '<div style="max-width: 620px; margin: 40px auto; padding: 28px; background: white; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); font-family: system-ui, -apple-system, sans-serif; color: #1e293b;">' +
+        '<div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">' +
+          '<div style="background:#1e3f9e; color:white; font-weight:bold; font-size:16px; padding:6px 14px; border-radius:8px;">АКВТ</div>' +
+          '<h2 style="margin:0; font-size:20px; font-weight:700;">Локальный запуск админ-панели</h2>' +
+        '</div>' +
+        '<div style="background:#eef2ff; border:1px solid #d6defc; border-radius:12px; padding:16px; margin-bottom:18px;">' +
+          '<p style="margin:0 0 10px; font-size:14px; line-height:1.5; color:#1e3f9e; font-weight:600;">' +
+            'Вы открыли файл напрямую через браузер (протокол file://).' +
+          '</p>' +
+          '<p style="margin:0 0 12px; font-size:13px; line-height:1.5; color:#475569;">' +
+            'Браузеры блокируют сохранение файлов на диск и ES-модули при прямом открытии через <code>file://</code>. Чтобы админка работала полноценно и сохраняла изменения прямо на ваш компьютер:' +
+          '</p>' +
+          '<div style="background:white; border:1px solid #cbd5e1; border-radius:8px; padding:12px; font-size:13px; color:#334155;">' +
+            '<b>В папке проекта запустите файл:</b><br>' +
+            '<code style="background:#f1f5f9; padding:4px 10px; border-radius:6px; font-weight:700; color:#0f172a; display:inline-block; margin-top:6px;">Запустить_админку.bat</code> или <code style="background:#f1f5f9; padding:4px 10px; border-radius:6px; font-weight:700; color:#0f172a; display:inline-block; margin-top:6px;">run-local.cmd</code>' +
+          '</div>' +
+        '</div>' +
+        '<a id="btn-open-http" href="http://localhost:8790/admin/" style="display:block; text-align:center; background:#059669; color:white; text-decoration:none; padding:12px 20px; border-radius:10px; font-weight:600; font-size:15px; transition:background 0.2s;">Перейти в рабочую админку (localhost:8790) →</a>' +
+        '<p id="ping-status" style="text-align:center; font-size:12px; color:#64748b; margin-top:12px;">Поиск запущенного локального сервера...</p>' +
+      '</div>';
+    }
+
+    function checkServer() {
+      fetch('http://localhost:8790/__stats', { mode: 'cors' })
+        .then(function(res) {
+          if (res.ok) {
+            var st = document.getElementById('ping-status');
+            if (st) st.textContent = 'Сервер обнаружен! Перенаправление в рабочую админку…';
+            setTimeout(function() {
+              window.location.href = 'http://localhost:8790/admin/';
+            }, 300);
+          }
+        })
+        .catch(function() {});
+    }
+    checkServer();
+    setInterval(checkServer, 1000);
+  });
+}
+</script>
 </head>
 <body>
 <div id="app"><div class="loading" style="padding:40px">Загрузка админ-панели…</div></div>

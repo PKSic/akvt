@@ -243,3 +243,11 @@ body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: 
   border-bottom-left-radius: 1px;
   border-bottom-right-radius: 1px;
 }
+
+/* Блок тегов и рубрик внутри новости */
+.news-tags-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 16px; }
+.news-tag-item { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; text-decoration: none !important; background: #eef2ff; color: #1e3f9e !important; border: 1px solid #d6defc; transition: all 0.2s; }
+.news-tag-item:hover { background: #1e3f9e; color: #fff !important; }
+.news-tag-item.itkub { background: #ecfdf5; color: #065f46 !important; border-color: #a7f3d0; }
+.news-tag-item.itkub:hover { background: #065f46; color: #fff !important; }
+.news-tag-item.custom { background: #f1f5f9; color: #475569 !important; border-color: #cbd5e1; }

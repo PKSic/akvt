@@ -398,13 +398,62 @@ export function archiveOrder(archivesHtml) {
 }
 
 // ---------------------------------------------------------------- страница новости
-export function buildNewsPage(template, templateDir, { dir, title, dateIso, time = '12:00:00', body, id }) {
+
+// ---------------------------------------------------------------- рубрики и теги
+export const STANDARD_CATEGORIES = [
+  { slug: 'news', title: 'Новости АКВТ', dir: 'category/news', isDefault: true },
+  { slug: 'it-kub', title: 'IT-Куб', dir: 'category/it-kub' },
+  { slug: 'studentam', title: 'Студентам', dir: 'category/studentam' },
+  { slug: 'abiturientam', title: 'Абитуриентам', dir: 'category/abiturientam' },
+  { slug: 'meropriyatiya', title: 'Мероприятия', dir: 'category/meropriyatiya' },
+  { slug: 'obyavleniya', title: 'Объявления', dir: 'category/obyavleniya' },
+  { slug: 'sport', title: 'Спорт', dir: 'category/sport' },
+  { slug: 'dostizheniya', title: 'Достижения', dir: 'category/dostizheniya' },
+];
+
+export function categoryTitle(slug) {
+  const c = STANDARD_CATEGORIES.find((x) => x.slug === slug);
+  if (c) return c.title;
+  return slug.charAt(0).toUpperCase() + slug.slice(1);
+}
+
+export function buildCategoryArchive(templateHtml, catDir, catTitle) {
+  let html = rebase(templateHtml, 'category/news', catDir);
+  html = setTitle(html, `${catTitle} | АКВТ`);
+  html = html.replace(/<h1 class="entry-title">[^<]*<\/h1>/i, `<h1 class="entry-title">${escapeHtml(catTitle)}</h1>`);
+  html = html.replace(/<ol\b[^>]*>[\s\S]*?<\/ol>/i, '<ol></ol>');
+  return html;
+}
+
+export function buildNewsPage(template, templateDir, { dir, title, dateIso, time = '12:00:00', body, id, categories = ['news'], tags = [] }) {
   let html = rebase(template, templateDir, dir);
   html = setTitle(html, title);
-  html = setBreadcrumb(html, dir, [{ d: 'category/news', t: 'Новости', cls: 'taxonomy category' }], title, { kind: 'news' });
+
+  const cats = Array.isArray(categories) && categories.length ? categories : ['news'];
+  const primaryCatSlug = cats.includes('news') ? 'news' : cats[0];
+  const primaryTitle = primaryCatSlug === 'news' ? 'Новости' : categoryTitle(primaryCatSlug);
+  html = setBreadcrumb(html, dir, [{ d: `category/${primaryCatSlug}`, t: primaryTitle, cls: 'taxonomy category' }], title, { kind: 'news' });
+
   html = html.replace(/(<time class="entry-date" datetime=")[^"]*(">)[^<]*(<\/time>)/, `$1${dateIso}T${time}+03:00$2${ruDate(dateIso)}$3`);
   html = html.replace(/(<span class="nav-previous">)[\s\S]*?(<\/span>\s*<span class="nav-next">)[\s\S]*?(<\/span>\s*<\/nav>)/, '$1$2$3');
-  html = setEditable(html, `\n\t\t${body}\n\t\t`);
+
+  const catLinks = cats.map((slug) => {
+    const cDir = `category/${slug}`;
+    const cTitle = categoryTitle(slug);
+    const href = pageHref(dir, cDir);
+    const cls = slug === 'it-kub' ? 'news-tag-item itkub' : 'news-tag-item';
+    return `<a href="${href}" class="${cls}" rel="category tag">${escapeHtml(cTitle)}</a>`;
+  });
+  const tagSpans = (Array.isArray(tags) ? tags : []).filter(Boolean).map((t) => `<span class="news-tag-item custom">#${escapeHtml(t.trim())}</span>`);
+  const allBadges = [...catLinks, ...tagSpans].join(' ');
+  const tagsBar = allBadges ? `<div class="news-tags-bar">${allBadges}</div>` : '';
+
+  const contentWithTags = tagsBar ? `${tagsBar}\n\t\t${body}` : body;
+  html = setEditable(html, `\n\t\t${contentWithTags}\n\t\t`);
+
+  const metaHtml = `<footer class="entry-meta">\n\t\t<span class="cat-links"><span class="entry-utility-prep entry-utility-prep-cat-links">Рубрики:</span> ${catLinks.join(', ')}</span>\n\t\t${tagSpans.length ? `<span class="tag-links"><span class="entry-utility-prep entry-utility-prep-tag-links">Теги:</span> ${tagSpans.join(', ')}</span>` : ''}\n\t</footer>`;
+  html = html.replace(/<footer class=["']entry-meta["']>[\s\S]*?<\/footer>/i, metaHtml);
+
   html = setPostId(html, id);
   return html;
 }

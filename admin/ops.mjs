@@ -148,30 +148,57 @@ export function sideNavReset(html, selfDir, title, id) {
 }
 
 // ------------------------------------------------------------------- новость
-export async function planCreateNews(repo, ctx, { title, slug, dateIso, body, itKub = false, time }) {
+export async function planCreateNews(repo, ctx, { title, slug, dateIso, body, categories = ['news'], tags = [], itKub = false, time }) {
   time = time || (dateIso === C.todayIso() ? new Date().toTimeString().slice(0, 8) : '12:00:00');
   const index = structuredClone(ctx.index);
   const [y, m, d] = dateIso.split('-');
   const dir = `${y}/${m}/${d}/${slug}`;
   const err = validateNewDir(index, dir);
   if (err) throw new Error(err);
+
+  // Нормализуем рубрики
+  let cats = Array.isArray(categories) && categories.length ? [...categories] : ['news'];
+  if (itKub && !cats.includes('it-kub')) cats.push('it-kub');
+  cats = [...new Set(cats)];
+
   const b = new Batch();
   const tplEntry = C.latestNews(index, 50).find((p) => p.d.split('/').length === 4);
   if (!tplEntry) throw new Error('Нет шаблона новости');
   const tplHtml = await repo.read(C.siteFile(tplEntry.d));
-  let html = C.buildNewsPage(tplHtml, tplEntry.d, { dir, title, dateIso, body, id: C.newId() });
+  let html = C.buildNewsPage(tplHtml, tplEntry.d, { dir, title, dateIso, body, id: C.newId(), categories: cats, tags });
   html = C.syncChrome(html, dir, ctx.header, ctx.footer);
   b.set(C.siteFile(dir), html);
-  const lists = [...LIST_PAGES, ...(itKub ? ['category/it-kub'] : [])];
-  for (const l of lists) {
-    const h = await repo.read(C.siteFile(l));
-    if (h == null) continue;
+
+  // Списки рубрик: всегда archives + каждая выбранная рубрика
+  const targetLists = ['archives'];
+  for (const c of cats) {
+    targetLists.push(`category/${c}`);
+  }
+
+  let catTpl = null;
+  for (const l of targetLists) {
+    let h = await readB(repo, b, C.siteFile(l));
+    if (h == null) {
+      // Рубрика еще не создана на сайте — создаем её автоматически!
+      if (!catTpl) {
+        catTpl = (await repo.read(C.siteFile('category/news'))) || (await repo.read(C.siteFile('category/it-kub')));
+      }
+      if (catTpl && l.startsWith('category/')) {
+        const catSlug = l.replace(/^category\//, '');
+        const catTitle = C.categoryTitle(catSlug);
+        h = C.buildCategoryArchive(catTpl, l, catTitle);
+        C.indexUpsert(index, { d: l, t: catTitle });
+      } else {
+        continue;
+      }
+    }
     const n = C.listAdd(h, l, dir, title, dateIso);
     if (n !== h) b.set(C.siteFile(l), n);
   }
+
   const sm = await repo.read('site/sitemap.xml');
   if (sm != null) b.set('site/sitemap.xml', C.sitemapAdd(sm, dir, dateIso));
-  C.indexUpsert(index, { d: dir, t: title, n: 1, date: dateIso });
+  C.indexUpsert(index, { d: dir, t: title, n: 1, date: dateIso, cats, tags });
   await rebuildHome(repo, b, index);
   b.set(C.INDEX_PATH, indexChange(index).content);
   return { changes: b.list(), index, dir };
@@ -187,7 +214,12 @@ export async function planDeletePage(repo, ctx, dir) {
   const b = new Batch();
   b.del(C.siteFile(dir));
   if (entry.n) {
-    for (const l of [...LIST_PAGES, 'category/it-kub']) {
+    const allCatLists = new Set(['archives', 'category/news', 'category/it-kub']);
+    if (Array.isArray(entry.cats)) {
+      entry.cats.forEach((c) => allCatLists.add(`category/${c}`));
+    }
+    index.pages.filter((p) => p.d && p.d.startsWith('category/')).forEach((p) => allCatLists.add(p.d));
+    for (const l of allCatLists) {
       const h = await readB(repo, b, C.siteFile(l));
       if (h == null) continue;
       const n = C.listRemove(h, l, dir);

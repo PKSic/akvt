@@ -1,0 +1,383 @@
+/* Стили интерактивного React-компонента новостей АКВТ (React News Hub) */
+#react-news-hub {
+  margin: 20px 0 35px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1e293b;
+}
+
+.rnh-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Шапка и поиск */
+.rnh-head {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.rnh-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.rnh-search-input {
+  width: 100%;
+  padding: 12px 42px 12px 44px;
+  font-size: 15px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+  color: #0f172a;
+  box-sizing: border-box;
+}
+
+.rnh-search-input:focus {
+  border-color: #1e3f9e;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(30, 63, 158, 0.15);
+}
+
+.rnh-search-icon {
+  position: absolute;
+  left: 14px;
+  color: #94a3b8;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.rnh-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: #e2e8f0;
+  border: none;
+  color: #64748b;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.rnh-clear-btn:hover {
+  background: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Категории (пилюли) */
+.rnh-cats-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.rnh-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.rnh-cat-pill:hover {
+  border-color: #1e3f9e;
+  background: #f1f5f9;
+  color: #1e3f9e;
+}
+
+.rnh-cat-pill.active {
+  background: #1e3f9e;
+  border-color: #1e3f9e;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(30, 63, 158, 0.3);
+}
+
+.rnh-cat-count {
+  font-size: 11px;
+  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.rnh-cat-pill.active .rnh-cat-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Облако тегов */
+.rnh-tags-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.rnh-tags-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-right: 4px;
+}
+
+.rnh-tag-chip {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rnh-tag-chip:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.rnh-tag-chip.active {
+  background: #059669;
+  border-color: #059669;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Мета-строка статуса и сортировка */
+.rnh-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0 16px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rnh-count-badge {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.rnh-sort-select {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-size: 12px;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Сетка карточек новостей */
+.rnh-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 18px;
+}
+
+.rnh-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.rnh-card:hover {
+  transform: translateY(-3px);
+  border-color: #93c5fd;
+  box-shadow: 0 10px 24px rgba(30, 63, 158, 0.08);
+}
+
+.rnh-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rnh-card-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.rnh-card-cat-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #1e3f9e;
+  border: 1px solid #d6defc;
+}
+
+.rnh-card-cat-badge.itkub {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.rnh-card-title {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.rnh-card-title a {
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.rnh-card-title a:hover {
+  color: #1e3f9e;
+}
+
+/* Теги внутри карточки */
+.rnh-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.rnh-card-tag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.rnh-card-tag:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.rnh-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #f8fafc;
+}
+
+.rnh-card-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e3f9e;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rnh-card-link:hover {
+  text-decoration: underline;
+}
+
+/* Пустое состояние */
+.rnh-empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: #64748b;
+}
+
+.rnh-empty-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.rnh-reset-btn {
+  margin-top: 14px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: #1e3f9e;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.rnh-reset-btn:hover {
+  background: #152e75;
+}
+
+/* Футер виджета с отметкой React */
+.rnh-badge-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.rnh-react-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #0284c7;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .rnh-container {
+    padding: 16px;
+  }
+  .rnh-grid {
+    grid-template-columns: 1fr;
+  }
+}

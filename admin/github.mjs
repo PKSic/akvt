@@ -1,5 +1,6 @@
 // Клиент GitHub REST API. Запись — одним коммитом через Git Data API (tree + commit + ref).
-const API = globalThis.AKVT_GITHUB_API || 'https://api.github.com';
+const isLocal = typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+const API = globalThis.AKVT_GITHUB_API || (isLocal ? location.origin : 'https://api.github.com');
 const encPath = (p) => p.split('/').map(encodeURIComponent).join('/');
 
 export class GitHubRepo {

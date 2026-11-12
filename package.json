@@ -1,0 +1,15 @@
+{
+  "name": "akvt",
+  "version": "2.0.0",
+  "description": "Астраханский колледж вычислительной техники — сайт и автономная админ-панель",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node admin/test/selftest.mjs",
+    "build-index": "node admin/build-index.mjs"
+  },
+  "type": "module",
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

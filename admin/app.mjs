@@ -43,6 +43,7 @@ const setDirty = () => { S.dirty = true; };
 
 // ------------------------------------------------------------------ вход
 function loginView(err) {
+  const isLocal = typeof location !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
   const saved = JSON.parse(localStorage.getItem(LS) || '{}');
   const repo = h('input', { type: 'text', value: saved.repo || 'PKSic/akvt' });
   const branch = h('input', { type: 'text', value: saved.branch || 'main' });
@@ -53,18 +54,29 @@ function loginView(err) {
     if (!owner || !name || !token.value.trim()) { toast('Заполните репозиторий и токен', 'err'); return; }
     await connect({ owner, repo: name, branch: branch.value.trim() || 'main', token: token.value.trim(), remember: remember.checked });
   });
+
+  const localBtn = isLocal
+    ? h('div', { class: 'box', style: 'background:#ecfdf5;border-color:#a7f3d0;margin-bottom:16px;text-align:center;' },
+        h('h3', { style: 'color:#065f46;margin-top:0;font-size:16px;' }, 'Локальный режим (GitHub заблокирован)'),
+        h('p', { class: 'muted', style: 'margin-bottom:12px;font-size:13px;' }, 'Сайт и админ-панель запущены локально. Все изменения сохраняются прямо в файлы на вашем компьютере.'),
+        h('button', {
+          class: 'btn primary big',
+          style: 'background:#059669;border-color:#059669;width:100%;',
+          onclick: () => connect({ owner: 'local', repo: 'akvt', branch: 'main', token: 'local_admin', remember: true })
+        }, 'Войти локально (сохранение на диск)')
+      )
+    : '';
+
   app.replaceChildren(h('div', { class: 'login' }, h('div', { class: 'login-card' },
     h('div', { class: 'logo' }, 'АКВТ'), h('h1', {}, 'Админ-панель сайта'),
     err ? h('div', { class: 'notice err' }, err) : '',
-    h('p', { class: 'muted' }, 'Сайт хранится в GitHub. Админка читает и записывает файлы сайта через ваш токен доступа — поэтому войти можно только владельцу репозитория или тому, кому вы дали доступ.'),
-    h('div', { class: 'form' }, h('label', {}, 'Репозиторий', repo), h('label', {}, 'Ветка', branch), h('label', {}, 'Токен доступа GitHub', token),
-      h('label', { class: 'check' }, remember, ' Запомнить на этом устройстве')),
-    h('button', { class: 'btn primary big', onclick: go }, 'Войти'),
-    h('details', {}, h('summary', {}, 'Как получить токен'), h('ol', { class: 'steps' },
-      h('li', {}, 'GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token.'),
-      h('li', {}, 'Repository access: Only select repositories → выберите репозиторий сайта.'),
-      h('li', {}, 'Permissions → Repository permissions → Contents: Read and write (больше ничего не нужно).'),
-      h('li', {}, 'Скопируйте токен (показывается один раз) и вставьте сюда. Срок действия можно поставить год.'))))));
+    localBtn,
+    h('details', { open: !isLocal },
+      h('summary', { style: 'cursor:pointer;color:var(--muted);font-size:13px;margin-bottom:12px;' }, isLocal ? 'Настройки GitHub (если разблокируют)' : 'Вход через GitHub токен'),
+      h('div', { class: 'form' }, h('label', {}, 'Репозиторий', repo), h('label', {}, 'Ветка', branch), h('label', {}, 'Токен доступа GitHub', token),
+        h('label', { class: 'check' }, remember, ' Запомнить на этом устройстве')),
+      h('button', { class: 'btn primary big', style: 'margin-top:12px;', onclick: go }, 'Войти через GitHub')
+    ))));
   token.addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
 }
 async function connect(cfg) {
@@ -169,17 +181,49 @@ function viewPages() {
   draw();
 }
 function viewNews() {
-  const q = h('input', { type: 'search', placeholder: 'Поиск по заголовку…', class: 'search' });
+  const q = h('input', { type: 'search', placeholder: 'Поиск по заголовку или тегу…', class: 'search' });
+  const catFilter = h('select', {},
+    h('option', { value: '' }, 'Все рубрики'),
+    ...C.STANDARD_CATEGORIES.map((c) => h('option', { value: c.slug }, c.title))
+  );
   const tbody = h('tbody'); const count = h('span', { class: 'muted' });
   const draw = () => {
     const t = q.value.trim().toLowerCase();
-    const rows = newsPages().filter((p) => !t || p.t.toLowerCase().includes(t));
-    tbody.replaceChildren(...rows.slice(0, 300).map((p) => h('tr', {}, h('td', { class: 'nw muted' }, p.date.split('-').reverse().join('.')), h('td', {}, h('a', { href: hashFor(p.d) }, p.t)),
-      h('td', { class: 'right nw' }, h('a', { class: 'btn sm', href: hashFor(p.d) }, 'Редактировать'), ' ', h('a', { class: 'btn sm', href: siteLink(p.d), target: '_blank', rel: 'noopener' }, 'Открыть ↗')))));
+    const selCat = catFilter.value;
+    const rows = newsPages().filter((p) => {
+      if (t) {
+        const inTitle = p.t.toLowerCase().includes(t);
+        const inTags = (p.tags || []).some((tg) => tg.toLowerCase().includes(t));
+        if (!inTitle && !inTags) return false;
+      }
+      if (selCat) {
+        const cats = p.cats || (p.d.includes('it-kub') ? ['it-kub', 'news'] : ['news']);
+        if (!cats.includes(selCat)) return false;
+      }
+      return true;
+    });
+
+    tbody.replaceChildren(...rows.slice(0, 300).map((p) => {
+      const cats = p.cats || (p.d.includes('it-kub') ? ['it-kub'] : ['news']);
+      const badges = cats.map((c) => h('span', { class: `tag-badge ${c === 'it-kub' ? 'itkub' : ''}` }, C.categoryTitle(c)));
+      const tagBadges = (p.tags || []).map((tg) => h('span', { class: 'tag-badge custom' }, `#${tg}`));
+      return h('tr', {},
+        h('td', { class: 'nw muted' }, p.date.split('-').reverse().join('.')),
+        h('td', {},
+          h('a', { href: hashFor(p.d) }, p.t),
+          h('div', { class: 'tag-group', style: 'margin-top: 4px;' }, ...badges, ...tagBadges)
+        ),
+        h('td', { class: 'right nw' },
+          h('a', { class: 'btn sm', href: hashFor(p.d) }, 'Редактировать'), ' ',
+          h('a', { class: 'btn sm', href: siteLink(p.d), target: '_blank', rel: 'noopener' }, 'Открыть ↗')
+        )
+      );
+    }));
     count.textContent = `${rows.length} новостей`;
   };
   q.addEventListener('input', debounce(draw, 120));
-  view('Новости', h('div', { class: 'toolbar-row' }, q, count, h('a', { class: 'btn primary', href: '#/new-news' }, '＋ Новая новость')), h('table', { class: 'tbl' }, tbody));
+  catFilter.addEventListener('change', draw);
+  view('Новости', h('div', { class: 'toolbar-row' }, q, catFilter, count, h('a', { class: 'btn primary', href: '#/new-news' }, '＋ Новая новость')), h('table', { class: 'tbl' }, tbody));
   draw();
 }
 
@@ -294,21 +338,64 @@ async function viewNewNews() {
   const title = h('input', { type: 'text', class: 'wide', placeholder: 'Заголовок новости' });
   const slug = slugInput(title);
   const date = h('input', { type: 'date', value: C.todayIso() });
-  const itkub = h('input', { type: 'checkbox' });
+
+  const catCheckboxes = {};
+  const catPills = C.STANDARD_CATEGORIES.map((cat) => {
+    const cb = h('input', { type: 'checkbox', value: cat.slug, checked: cat.slug === 'news' });
+    catCheckboxes[cat.slug] = cb;
+    const pill = h('label', { class: `tag-pill ${cb.checked ? 'active' : ''}` }, cb, cat.title);
+    cb.addEventListener('change', () => pill.classList.toggle('active', cb.checked));
+    return pill;
+  });
+
+  const customTags = h('input', {
+    type: 'text',
+    class: 'wide',
+    placeholder: 'Например: Хакатон, Конкурс, Робототехника (через запятую)'
+  });
+
   const tplEntry = C.latestNews(S.ctx.index, 50).find((p) => p.d.split('/').length === 4);
   const tplHtml = await S.repo.read(C.siteFile(tplEntry.d));
   const editor = createEditor({ srcHtml: C.setEditable(tplHtml, '<p><br></p>'), dir: tplEntry.d, pages, media: mediaList, onDirty: setDirty });
+
   const go = guard(async () => {
+    await editor.ready;
     const t = title.value.trim(); if (!t) throw new Error('Введите заголовок');
     if (!date.value) throw new Error('Укажите дату');
-    const plan = await busy('Создаём новость…', () => O.planCreateNews(S.repo, S.ctx, { title: t, slug: slug.value.trim(), dateIso: date.value, body: editor.getInner(), itKub: itkub.checked }));
+    const selectedCats = Object.keys(catCheckboxes).filter((k) => catCheckboxes[k].checked);
+    if (!selectedCats.length) throw new Error('Выберите хотя бы одну рубрику (например, «Новости АКВТ» или «IT-Куб»)');
+    const tags = customTags.value.split(',').map((s) => s.trim()).filter(Boolean);
+
+    const plan = await busy('Создаём новость…', () => O.planCreateNews(S.repo, S.ctx, {
+      title: t,
+      slug: slug.value.trim(),
+      dateIso: date.value,
+      body: editor.getInner(),
+      categories: selectedCats,
+      tags,
+      itKub: selectedCats.includes('it-kub')
+    }));
     const uploads = editor.pending().map((f) => ({ path: `site/${f.rootPath}`, base64: f.base64 }));
     if (await publish([...plan.changes, ...uploads], `Админка: новость «${t}»`)) { S.ctx.index = plan.index; S.dirty = false; location.hash = hashFor(plan.dir); }
   });
-  view('Новая новость', h('div', { class: 'form box' }, h('label', {}, 'Заголовок', title), h('div', { class: 'row' }, h('label', {}, 'Дата', date), h('label', { class: 'grow' }, 'Адрес (латиницей)', slug)),
-    h('label', { class: 'check' }, itkub, ' Показывать также в рубрике «IT-Куб»')),
-    h('div', { class: 'muted' }, 'Новость сразу появится на главной, в «Все новости» и в рубрике. Текст пишите ниже — как на сайте.'), editor.el,
-    h('div', { class: 'ed-actions bottom' }, h('button', { class: 'btn primary big', onclick: go }, 'Опубликовать новость')));
+
+  view('Новая новость',
+    h('div', { class: 'form box' },
+      h('label', {}, 'Заголовок', title),
+      h('div', { class: 'row' },
+        h('label', {}, 'Дата', date),
+        h('label', { class: 'grow' }, 'Адрес (латиницей)', slug)
+      ),
+      h('div', {},
+        h('label', {}, 'Рубрики новости (можно выбрать несколько одновременно):'),
+        h('div', { class: 'tag-group', style: 'margin-top:6px; margin-bottom:12px;' }, ...catPills)
+      ),
+      h('label', {}, 'Дополнительные теги (через запятую, необязательно)', customTags),
+      h('div', { class: 'muted' }, 'Новость сразу появится на главной странице, в общем архиве и во всех выбранных рубриках (АКВТ, IT-Куб и др.). Текст пишите ниже — как на сайте.')
+    ),
+    editor.el,
+    h('div', { class: 'ed-actions bottom' }, h('button', { class: 'btn primary big', onclick: go }, 'Опубликовать новость'))
+  );
 }
 
 // ------------------------------------------------------------------ меню
