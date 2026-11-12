@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server.mjs",
     "test": "node admin/test/selftest.mjs",
-    "build-index": "node admin/build-index.mjs"
+    "build-index": "node admin/build-index.mjs",
+    "build": "node admin/build-index.mjs"
   },
   "type": "module",
   "dependencies": {
